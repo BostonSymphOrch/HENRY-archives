@@ -1,0 +1,110 @@
+{{#unless hasResults}}
+<center>
+  <div class="NoResultsMessage">No results found</div>
+</center>
+{{else}}
+
+<table data-bb="resultsTable" class="searchResults">
+  <thead>
+	<tr>
+	  <th data-bb="sortableTH" data-sortOptionName="SortPerformanceByDate">
+		Date &nbsp;<span class="triangleSort"></span>
+	  </th>
+	  <th data-bb="sortableTH" data-sortOptionName="SortPerformanceBySeason">
+		Season &nbsp;<span class="triangleSort"></span>
+	  </th>
+	  <th data-bb="sortableTH" data-sortOptionName="WorkListSort">
+		Composer/<br />
+		Work &nbsp;<span class="triangleSort">
+		</span>
+	  </th>
+	  <th data-bb="sortableTH" data-sortOptionName="ArtistListSort">
+		Soloist/<br />
+		Instrument &nbsp;<span class="triangleSort"></span>
+	  </th>
+	  <th data-bb="sortableTH" data-sortOptionName="SortPerformanceByConductor">
+		Conductor &nbsp;<span class="triangleSort"></span>
+	  </th>
+	  <th data-bb="sortableTH" data-sortOptionName="SortPerformanceByOrchestra">
+		Orchestra &nbsp;<span class="triangleSort"></span>
+	  </th>
+	  <th data-bb="sortableTH" data-sortOptionName="SortPerformanceByVenue">
+		Venue &nbsp;<span class="triangleSort"></span>
+	  </th>
+	  <th data-bb="programBook">Program Book</th>
+	</tr>
+  </thead>
+
+  <tbody>
+	{{#each results}}
+	<tr class="tableColumns">
+	  <td class="tableColumn"> {{this.attributes.EventDate}} </td>
+	  <td class="tableColumn"> {{this.season.attributes.SeasonName}} </td>
+	  <td colspan="2" class="tableColumn">
+		{{#each this.visibleWorks}}
+		<div>
+		  <ul class="columnInnerLeft">
+			<li>
+			  {{this.attributes.ComposerFullName}} / <span>{{{this.attributes.WorkTitle}}}</span>
+			</li>
+			{{#if this.attributes.Arranger.length}}
+			<li>
+			  Arr: {{this.attributes.Arranger}}
+			</li>
+			{{/if}}
+		  </ul>
+		  <ul class="columnInnerRight">
+			{{#if ../../exportXLS }}
+				{{#each this.artists.models}}
+				<li>
+					{{this.attributes.ArtistFullName}} / <span>{{this.attributes.ArtistInstrument}}</span>
+				</li>
+				{{/each}}
+			{{else}}
+				{{#eachWithLimit this.artists.models 2}}
+				<li>
+					{{this.attributes.ArtistFullName}} / <span>{{this.attributes.ArtistInstrument}}</span>
+				</li>
+				{{/eachWithLimit}}
+				{{#greaterThan this.artists.models.length 2}}
+				<li>
+					<a class="moreArtistsLink" href="Detail.aspx?UniqueKey={{../../../this.attributes.EventId}}" target="_blank">more...</a>
+				</li>
+				{{/greaterThan}}
+			{{/if}}
+		</ul>
+	</div>
+	{{/each}}
+	  </td>
+
+	  <td>
+		{{this.conductor.attributes.ConductorFullName}}
+	  </td>
+
+	  <td>
+		{{this.orchestra.attributes.OrchestraName}}
+	  </td>
+
+	  <td>
+		{{this.venue.attributes.VenueName}} </br> {{this.venue.attributes.VenueLocation}}
+	  </td>
+	  <td data-bb="programBook">
+		<a class="tableLinks" href="{{this.attributes.DetailLink}}" target="_blank">
+		  <i class="icon-search"></i>
+		</a>
+
+		{{#if this.attributes.EventProgramNo}}
+		<a class="tableLinks" href="{{this.attributes.ProgramBookLink}}" target="_blank">
+		  <img class="searchPDF" src="/images/pdf.png" alt="pdf icon" />
+		</a>
+		{{else}}
+		<a href="#" class="tableLinks">
+		<img class="searchPDF disabledPDF" src="/images/pdf_grey.png" alt="pdf icon" />
+		</a>
+		{{/if}}
+	  </td>
+	</tr>
+	{{/each}}
+  </tbody>
+</table>
+{{/unless}}

@@ -1,0 +1,336 @@
+<#@ template language="C#" debug="true" hostSpecific="true" #>
+<#@ output extension=".cs" #>
+<#@ Assembly Name="System.Core.dll" #>
+<#@ Assembly Name="System.Xml.dll" #>
+<#@ Assembly Name="System.Xml.Linq.dll" #>
+<#@ Assembly Name="System.Windows.Forms.dll" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Xml.Linq" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #> 
+<#@ include file="generationOptions.ttinclude" #>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.ComponentModel;
+
+namespace <#= this.GetNamespace() #>
+{
+<#   
+   
+	string folderName = System.IO.Path.GetDirectoryName(this.Host.TemplateFile);
+	folderName = System.IO.Path.GetDirectoryName(folderName);
+   		
+	XDocument nvl_doc = XDocument.Load( folderName + this.GetNVL_XML());
+    XDocument edmx = XDocument.Load( folderName + this.GetEDMX() );
+		
+	string currentNS = string.Empty;
+    foreach(XElement childNamespaces in edmx.Descendants( csModel() + "Schema"))
+    {
+         currentNS += childNamespaces.Attribute("Namespace").Value;
+    }
+		
+foreach (XElement eachList in populateNVL_doc(nvl_doc, edmx).Root.Elements())
+{
+	List<string> entitySetName = getEdmxNodesAttr(edmx.Root, csModel() + "EntitySet", "EntityType",
+				currentNS + "." + eachList.Name.LocalName, "Name");
+	
+	if ( eachList.Attribute("Autogenerate").Value.ToLower() != "false")
+	{
+#>	public partial class <#= eachList.Name.LocalName #>_NVL : <#= eachList.Attribute("BaseClass").Value #><<#= eachList.Name.LocalName #>_NVL, string, string>
+    { 
+		<# if (this.IsVS2008()) { #>
+		protected override bool IgnoreFirstColumn
+        { get { return true; } set{} }
+        <# } #>
+        
+        protected override void CallFetchMethod()
+        {
+			using(<#= this.GetModelName() #> et = new <#= this.GetModelName() #>())
+			{
+				EnhancedFetch(from it in et.<#= entitySetName[0] #>
+					orderby <# getOrderByClause(eachList); #> 
+					select new { <# selectFields(eachList); #>}
+					<# enhancedFetchExtras(eachList); #>);
+			}
+		}
+
+		private static List<string> values = new List<string>();
+        public static string[] GetAutocompleteList()
+        {
+            if (values.Count == 0)
+            {
+                foreach (NameValuePair pair in GetList())
+                    values.Add(pair.Value);
+            }
+
+            return values.ToArray();
+        }
+	}
+	
+<#
+	}
+}
+foreach (KeyValuePair<string, Dictionary<string, List<string>>> eachList in GetUniqueClasses(nvl_doc, edmx))
+{
+	OutputReferences(eachList);
+}
+	#>
+	
+}
+
+<#+
+
+
+	XDocument populateNVL_doc(XDocument nvl_doc, XDocument edmx)
+	{
+	   string baseClass = "Adage.EF.BusObj.AdageNameValueList";
+		if (nvl_doc.Root.Attribute("BaseClass") != null )
+			baseClass = nvl_doc.Root.Attribute("BaseClass").Value;
+		
+       foreach (XElement eachList in nvl_doc.Root.Elements())
+       {
+           XElement edmxNode = getEdmxNode(edmx.Root, csModel() + "EntityType", "Name", eachList.Name.LocalName, true);
+
+           if (eachList.Attribute("Autogenerate") == null)
+               eachList.Add(new XAttribute("Autogenerate", "true"));
+		
+		   if (eachList.Attribute("BaseClass") == null)
+               eachList.Add(new XAttribute("BaseClass", baseClass));
+
+           XElement firstString = getEdmxNode( edmxNode, csModel() + "Property", "Type", "String", true);
+           XElement primaryKey = getEdmxNode( edmxNode, csModel() + "PropertyRef", string.Empty, string.Empty, true);
+
+			if (eachList.Element("NameFields") == null)
+           {			  
+               eachList.Add(new XElement("NameFields"));
+           }
+		
+			populateSequenceFields(eachList, edmxNode, firstString);
+		
+			
+           XElement nameFields = eachList.Element("NameFields");
+           if (nameFields.HasAttributes == false)
+               nameFields.Add(new XAttribute("NameFormat", "{0}"));
+
+           if (nameFields.HasElements == false )
+               nameFields.Add(new XElement("NameField", firstString.Attribute("Name").Value));
+
+           if (eachList.Element("IncludeInEntities") == null)
+           {
+               AddChildEntities(eachList, edmxNode, edmx);
+           }
+		
+           if (eachList.Element("ActiveField") == null)
+           {
+               XElement hasActiveField = getEdmxNode(edmxNode, csModel() + "Property", "Name", "Active", true);
+
+               if (hasActiveField != null)
+                   eachList.Add(new XElement("ActiveField", "Active"));
+               else
+                   eachList.Add(new XElement("ActiveField", string.Empty));
+           }
+
+           if (eachList.Element("KeyField") == null)
+           {
+               eachList.Add(new XElement("KeyField", primaryKey.Attribute("Name").Value ));
+           }
+       }
+		
+		return nvl_doc;
+	}
+	
+	void populateSequenceFields(XElement eachList, XElement edmxNode, XElement firstString)
+	{
+		if (eachList.Element("SequenceFields") == null)
+		{
+			XElement seqFields = new XElement("SequenceFields");
+			eachList.Add(seqFields);
+				
+			XElement hasSequenceNoField = getEdmxNode( edmxNode, csModel() + "Property", "Name", "SequenceNo", true);
+			
+			if (hasSequenceNoField != null)
+			{    
+				seqFields.Add(new XElement("ASC", "SequenceNo"));
+			}
+			else
+			{
+				bool hadNameFields = false;
+				foreach(XElement childNameFields in eachList.Element("NameFields").Elements())
+				{
+					hadNameFields = true;
+					seqFields.Add(new XElement("ASC", childNameFields.Value));
+				}
+				
+				if ( hadNameFields )
+					return;
+			}
+	
+			seqFields.Add(new XElement("ASC", firstString.Attribute("Name").Value));
+	   }
+	}
+	
+	private void AddChildEntities(XElement currentList, XElement edmxNode, XDocument doc)
+        {
+            XElement IncludeInEntities = new XElement("IncludeInEntities");
+            currentList.Add(IncludeInEntities);
+
+            foreach (XElement eachProperty in edmxNode.Descendants(csModel() + "NavigationProperty"))
+            {
+                string ToRole = eachProperty.Attribute("ToRole").Value;
+                string associationName = eachProperty.Attribute("Relationship").Value;
+                associationName = associationName.Substring(associationName.IndexOf(".") + 1);
+
+                foreach (XElement fromEntity in doc.Descendants(csModel() + "Association"))
+                {
+                    if (associationName == fromEntity.Attribute("Name").Value)
+                    {
+                        foreach (XElement assocRoles in fromEntity.Descendants(csModel() + "End"))
+                        {
+                            if (assocRoles.Attribute("Role").Value == ToRole && assocRoles.Attribute("Multiplicity").Value == "*")
+                            {
+                                IncludeInEntities.Add(new XElement("Entity", ToRole));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private XElement getEdmxNode(XElement doc, XName entityName, string attributeNameToMatch, string valToMatch, bool returnFirst)
+        {
+			if (doc == null)
+                return null;
+			
+            XElement currentResults = null;
+            foreach (XElement childES in doc.Descendants(entityName))
+            {
+                if (attributeNameToMatch == string.Empty || 
+                    (childES.Attribute(attributeNameToMatch) != null &&
+                    childES.Attribute(attributeNameToMatch).Value == valToMatch) )
+                {
+                    if (returnFirst)
+                        return childES;
+                    currentResults = childES;
+                }
+            }
+
+            return currentResults;
+        }
+		
+		private void getOrderByClause(XElement eachList)
+		{
+			bool isFirst = true;
+			foreach(XElement sequenceFields in eachList.Element("SequenceFields").Elements())
+			{
+				if ( isFirst == false )
+					Write(",");
+				
+				isFirst = false;
+				if ( sequenceFields.Name.LocalName == "ASC" )
+					Write("it.{0} ascending ", sequenceFields.Value);
+				else
+					Write("it.{0} descending ", sequenceFields.Value);
+			}
+		}
+		
+		private void enhancedFetchExtras(XElement eachList)
+		{
+			bool isFirst = true;
+			int nameFieldCount = 0;
+			string extraFields = ", new string[] { ";
+			foreach(XElement nameField in eachList.Element("NameFields").Elements())
+			{
+				nameFieldCount++;
+				if ( isFirst == false )
+				{
+					extraFields += ",";
+				}
+				
+				isFirst = false;
+				extraFields += string.Format("\"{0}\"", nameField.Value);
+			}
+			
+			if ( nameFieldCount > 1 )
+			{
+				extraFields += " }";
+				
+				Write(string.Format("{0}, \"{1}\", \"{2}\"", 
+					extraFields, 
+					eachList.Element("NameFields").Attribute("NameFormat").Value,
+					eachList.Element("ActiveField").Value));
+			}
+		}
+		
+		void selectFields(XElement eachList)
+		{
+			Write("it.{0}", eachList.Element("KeyField").Value);					
+			foreach (XElement nameField in eachList.Element("NameFields").Elements())
+			{
+				if(eachList.Element("KeyField").Value == nameField.Value) continue;
+				Write(", it.{0}", nameField.Value);
+			}
+					
+			if  ( eachList.Element("ActiveField") != null )
+				Write(", it.{0}", eachList.Element("ActiveField").Value);
+		}
+		
+		private Dictionary<string, Dictionary<string, List<string>>> GetUniqueClasses(XDocument currentNVL, XDocument currentEDMX)
+        {
+            Dictionary<string, Dictionary<string, List<string>>> results = new Dictionary<string,Dictionary<string,List<string>>>();
+
+            foreach (XElement eachEntity in currentNVL.Descendants("Entity"))
+            {
+                string containingNVL = eachEntity.Parent.Parent.Name.LocalName;
+
+                if (results.ContainsKey(eachEntity.Value) == false)
+                    results.Add(eachEntity.Value, new Dictionary<string, List<string>>());
+
+                XElement edmxNode = getEdmxNode(currentEDMX.Root, 
+                    csModel() + "EntityType", "Name", eachEntity.Value, true);
+
+                List<string> getNavProp = getEdmxNodesAttr(edmxNode, csModel() + "NavigationProperty",
+                    "ToRole", containingNVL, "Name");
+
+                if (getNavProp != null)
+                {
+					if (!results[eachEntity.Value].ContainsKey(containingNVL + "_NVL"))
+						results[eachEntity.Value].Add(containingNVL + "_NVL",
+							getNavProp);
+                }
+            }
+
+            return results;
+        }
+		
+		void OutputReferences(KeyValuePair<string, Dictionary<string, List<string>>> eachObj)
+		{
+			WriteLine("\tpublic partial class {0}", eachObj.Key);
+			WriteLine("\t{");
+			
+			foreach(KeyValuePair<string, List<string>> eachNVL in eachObj.Value)
+			{
+				foreach(string eachProp in eachNVL.Value)
+				{
+					WriteLine("\t\t[DataObjectField(false)]");
+					WriteLine("\t\tpublic string {0}_Text", eachProp);
+					WriteLine("\t\t{");
+					WriteLine("\t\t\tget");
+					WriteLine("\t\t\t{");
+					WriteLine("\t\t\t\tif ({0}Reference.EntityKey == null) return string.Empty;", eachProp);
+					WriteLine("\t\t\t\tobject currentValue = {0}Reference.EntityKey.EntityKeyValues[0].Value;", eachProp);
+					WriteLine("\t\t\t\tif ( currentValue == null ) return string.Empty;");
+					WriteLine("\t\t\t\treturn {0}.GetList().GetAnyValue(currentValue.ToString());", eachNVL.Key);
+					WriteLine("\t\t\t}");
+					WriteLine("\t\t}");
+				}
+			}
+			WriteLine("\t}");
+			WriteLine("");
+		}
+		
+		
+#>

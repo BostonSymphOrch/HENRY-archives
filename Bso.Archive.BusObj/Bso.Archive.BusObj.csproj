@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DB0163CC-195C-4ABA-B9C8-4ADF65465AAB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Bso.Archive.BusObj</RootNamespace>
+    <AssemblyName>Bso.Archive.BusObj</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BsoArchive.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BsoArchive.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="BsoArchiveEntities.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="Editable\Artist.cs" />
+    <Compile Include="Editable\ArtistDetail.cs" />
+    <Compile Include="Editable\Composer.cs" />
+    <Compile Include="Editable\Conductor.cs" />
+    <Compile Include="Editable\Event.cs" />
+    <Compile Include="Editable\EventArtist.cs" />
+    <Compile Include="Editable\EventParticipant.cs" />
+    <Compile Include="Editable\EventParticipantType.cs" />
+    <Compile Include="Editable\EventType.cs" />
+    <Compile Include="Editable\EventTypeGroup.cs" />
+    <Compile Include="Editable\EventWork.cs" />
+    <Compile Include="Editable\Instrument.cs" />
+    <Compile Include="Editable\OPASUpdate.cs" />
+    <Compile Include="Editable\Orchestra.cs" />
+    <Compile Include="Editable\Participant.cs" />
+    <Compile Include="Editable\Project.cs" />
+    <Compile Include="Editable\Search.cs" />
+    <Compile Include="Editable\Season.cs" />
+    <Compile Include="Editable\EventDetail.cs" />
+    <Compile Include="Editable\Venue.cs" />
+    <Compile Include="Editable\Work.cs" />
+    <Compile Include="Editable\WorkArtist.cs" />
+    <Compile Include="Interface\IBusinessObject.cs" />
+    <Compile Include="T4\ModelExtensions1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelExtensions.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Utility\ArchiveAutocomplete.cs" />
+    <Compile Include="Utility\EFUtility.cs" />
+    <Compile Include="Utility\EmailFunction.cs" />
+    <Compile Include="Utility\Extension.cs" />
+    <Compile Include="ImportOPASData.cs" />
+    <Compile Include="Interface\ICachedNameValueList.cs" />
+    <Compile Include="Interface\IOPASData.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="SessionContext.cs" />
+    <Compile Include="T4\FieldNameConstants.cs">
+      <DependentUpon>FieldNameConstants.tt</DependentUpon>
+      <SubType>Code</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="T4\NVL_GenerateClasses.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NVL_GenerateClasses.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Utility\Helper.cs" />
+    <Compile Include="Utility\SettingsHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <EntityDeploy Include="BsoArchive.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>BsoArchive.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="T4\FieldNameConstants.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>FieldNameConstants.cs</LastGenOutput>
+    </None>
+    <None Include="T4\generationOptions.ttinclude" />
+    <None Include="T4\ModelExtensions.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ModelExtensions1.cs</LastGenOutput>
+    </None>
+    <None Include="T4\NVL_GenerateClasses.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>NVL_GenerateClasses.cs</LastGenOutput>
+    </None>
+    <None Include="T4\NVL_Schema.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>NVL_Schema.xsd</LastGenOutput>
+    </None>
+    <None Include="T4\NVL_Schema.xsd">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NVL_Schema.tt</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assemblies\AjaxControlToolkit.dll" />
+    <Content Include="Assemblies\AjaxMin.dll" />
+    <EmbeddedResource Include="EmailTemplates\ShareSearchResult.htm" />
+    <Content Include="Assemblies\Elmah.dll" />
+    <Content Include="Assemblies\HtmlAgilityPack.dll" />
+    <Content Include="NameValueLists.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="EditableViews\" />
+    <Folder Include="NameValueList\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Adage.EF\Adage.EF.csproj">
+      <Project>{fae668f8-5d4a-448a-b717-163da55e76aa}</Project>
+      <Name>Adage.EF</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

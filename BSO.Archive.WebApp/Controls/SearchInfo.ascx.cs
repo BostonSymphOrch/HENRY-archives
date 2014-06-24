@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace BSO.Archive.WebApp.Controls
+{
+    public partial class SearchInfo : System.Web.UI.UserControl
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (Page.IsPostBack)
+            {
+                // This is where we need to open the SearchInfo area. This is "initial" page load.
+                
+            }
+        }
+    }
+}

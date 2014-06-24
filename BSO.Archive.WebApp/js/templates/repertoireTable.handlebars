@@ -1,0 +1,37 @@
+﻿{{#unless hasResults}}
+<center>
+  <span class="NoResultsMessage">No results found</span>
+</center>
+{{else}}
+
+<table data-bb="resultsTable" class="searchResults">
+    <thead>
+        <tr>
+            <th data-bb="sortableTH" data-sortOptionName="SortRepertoireByComposer">Composer &nbsp;<span class="triangleSort"></span></th>
+            <th data-bb="sortableTH" data-sortOptionName="SortRepertoireByWork">Work &nbsp;<span class="triangleSort"></span></th>
+            <th data-bb="sortableTH" data-sortOptionName="SortRepertoireByArranger">Arranger &nbsp;<span class="triangleSort"></span></th>
+            <th data-bb="sortableTH" data-sortOptionName="SortRepertoireByPerformanceCount"># of times performed &nbsp;<span class="triangleSort"></span></th>
+        </tr>
+    </thead>
+    <tbody>
+      {{#each results}}
+      <tr>
+            <td>
+                {{this.attributes.ComposerFullName}}
+            </td>
+            <td>
+                {{{this.attributes.WorkTitle}}}
+            </td>
+            <td>
+                {{this.attributes.Arranger}}
+            </td>
+            <td>
+                <a href="{{this.attributes.WorkLink}}">
+                {{this.attributes.PerformanceCount}}
+                </a>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+{{/unless}}

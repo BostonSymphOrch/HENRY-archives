@@ -1,0 +1,19 @@
+﻿
+/* search */
+ul#performanceBasicSearch { list-style: none; float: left; }
+ul#performanceBasicSearch li { float: left; display: block; width: 20%; margin: 0 2.5%; }
+ul#performanceBasicSearch li input { width: 100%; }
+
+table.searchResults { }
+table.searchResults th[data-sort] { cursor: pointer; }
+
+/* filter */
+#filterResults { }
+#filterResults ul { list-style: none; float: left; }
+#filterResults > ul > li { display: block; float: left; width: 15%; margin: 10px 2.5%; }
+#filterResults ul > li button { width: 100%!important; }
+[data-bb=filterOptionsList] { list-style: none; margin: 0; padding: 0; display: none; position: absolute; background: white; opacity: .95; padding: 15px; }
+[data-bb=filterOptionsList] li label { font-size: 10pt; font-weight: normal; display: inline-block; }
+[data-bb=filterToggle] { cursor: pointer; background: #333; font-weight: bold; color: white; display: block; padding: 5px; }
+[data-bb=filterToggle]:after { content: '+'; float: right; display: block; width: 10px; text-align: center; }
+[data-bb=filterToggle].active:after { content: '-'; }

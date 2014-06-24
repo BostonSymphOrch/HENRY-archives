@@ -1,0 +1,1409 @@
+ 
+
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="Lists">
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded">
+		<xs:element name="Conductor" type="Conductor_Type" />
+	<xs:element name="EventArtist" type="EventArtist_Type" />
+	<xs:element name="EventParticipant" type="EventParticipant_Type" />
+	<xs:element name="Orchestra" type="Orchestra_Type" />
+	<xs:element name="Project" type="Project_Type" />
+	<xs:element name="Season" type="Season_Type" />
+	<xs:element name="Venue" type="Venue_Type" />
+	<xs:element name="Participant" type="Participant_Type" />
+	<xs:element name="OPASUpdate" type="OPASUpdate_Type" />
+	<xs:element name="Composer" type="Composer_Type" />
+	<xs:element name="Instrument" type="Instrument_Type" />
+	<xs:element name="Artist" type="Artist_Type" />
+	<xs:element name="Search" type="Search_Type" />
+	<xs:element name="EventParticipantType" type="EventParticipantType_Type" />
+	<xs:element name="EventWork" type="EventWork_Type" />
+	<xs:element name="WorkArtist" type="WorkArtist_Type" />
+	<xs:element name="EventType" type="EventType_Type" />
+	<xs:element name="EventTypeGroup" type="EventTypeGroup_Type" />
+	<xs:element name="WorkComposer" type="WorkComposer_Type" />
+	<xs:element name="Event" type="Event_Type" />
+	<xs:element name="Work" type="Work_Type" />
+	<xs:element name="CommissionType" type="CommissionType_Type" />
+	<xs:element name="PremiereType" type="PremiereType_Type" />
+	<xs:element name="EventDetail" type="EventDetail_Type" />
+	<xs:element name="ArtistDetail" type="ArtistDetail_Type" />
+					
+			</xs:choice>
+			<xs:attribute name="BaseClass" use="optional" />
+		</xs:complexType>
+	</xs:element>
+		
+		<xs:complexType name="Conductor_Type">
+			<xs:sequence minOccurs="0">
+				<xs:element name="SequenceFields" minOccurs="0">
+					<xs:complexType>
+						<xs:choice maxOccurs="unbounded">
+							<xs:element name="ASC" type="Conductor_Fields" />
+							<xs:element name="DESC" type="Conductor_Fields" />
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ActiveField" type="Conductor_Fields" minOccurs="0" />
+				<xs:element name="KeyField" type="Conductor_Fields" minOccurs="0" />
+				<xs:element name="NameFields" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="NameField" type="Conductor_Fields" />
+						</xs:sequence>
+						<xs:attribute name="NameFormat" type="xs:string" use="optional" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="IncludeInEntities" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="Entity" type="Conductor_ParentTables">
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="Autogenerate" type="xs:boolean" use="optional" />
+			<xs:attribute name="BaseClass" use="optional" />
+		</xs:complexType>
+			
+	<xs:simpleType name="Conductor_Fields">
+		<xs:restriction base="xs:string"><xs:enumeration value="ConductorID" />
+	<xs:enumeration value="ConductorFirstName" />
+	<xs:enumeration value="ConductorLastName" />
+	<xs:enumeration value="ConductorNote" />
+	<xs:enumeration value="CreatedOn" />
+	<xs:enumeration value="ModifiedOn" />
+	<xs:enumeration value="Stamp" />
+	<xs:enumeration value="Active" />
+	<xs:enumeration value="CreatedBy" />
+	<xs:enumeration value="ModifiedBy" />
+	<xs:enumeration value="ConductorName4" />
+	<xs:enumeration value="ConductorName5" />
+			</xs:restriction>
+	</xs:simpleType>
+		
+	<xs:simpleType name="Conductor_ParentTables">
+		<xs:restriction base="xs:string"><xs:enumeration value="Event" />
+			</xs:restriction>
+	</xs:simpleType>
+			<xs:complexType name="EventArtist_Type">
+			<xs:sequence minOccurs="0">
+				<xs:element name="SequenceFields" minOccurs="0">
+					<xs:complexType>
+						<xs:choice maxOccurs="unbounded">
+							<xs:element name="ASC" type="EventArtist_Fields" />
+							<xs:element name="DESC" type="EventArtist_Fields" />
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ActiveField" type="EventArtist_Fields" minOccurs="0" />
+				<xs:element name="KeyField" type="EventArtist_Fields" minOccurs="0" />
+				<xs:element name="NameFields" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="NameField" type="EventArtist_Fields" />
+						</xs:sequence>
+						<xs:attribute name="NameFormat" type="xs:string" use="optional" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="IncludeInEntities" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="Entity" type="EventArtist_ParentTables">
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="Autogenerate" type="xs:boolean" use="optional" />
+			<xs:attribute name="BaseClass" use="optional" />
+		</xs:complexType>
+			
+	<xs:simpleType name="EventArtist_Fields">
+		<xs:restriction base="xs:string"><xs:enumeration value="EventArtistID" />
+	<xs:enumeration value="EventID" />
+	<xs:enumeration value="ArtistID" />
+	<xs:enumeration value="CreatedOn" />
+	<xs:enumeration value="ModifiedOn" />
+	<xs:enumeration value="Stamp" />
+	<xs:enumeration value="Active" />
+	<xs:enumeration value="CreatedBy" />
+	<xs:enumeration value="ModifiedBy" />
+	<xs:enumeration value="InstrumentID" />
+			</xs:restriction>
+	</xs:simpleType>
+		
+	<xs:simpleType name="EventArtist_ParentTables">
+		<xs:restriction base="xs:string">		</xs:restriction>
+	</xs:simpleType>
+			<xs:complexType name="EventParticipant_Type">
+			<xs:sequence minOccurs="0">
+				<xs:element name="SequenceFields" minOccurs="0">
+					<xs:complexType>
+						<xs:choice maxOccurs="unbounded">
+							<xs:element name="ASC" type="EventParticipant_Fields" />
+							<xs:element name="DESC" type="EventParticipant_Fields" />
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ActiveField" type="EventParticipant_Fields" minOccurs="0" />
+				<xs:element name="KeyField" type="EventParticipant_Fields" minOccurs="0" />
+				<xs:element name="NameFields" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="NameField" type="EventParticipant_Fields" />
+						</xs:sequence>
+						<xs:attribute name="NameFormat" type="xs:string" use="optional" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="IncludeInEntities" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="Entity" type="EventParticipant_ParentTables">
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="Autogenerate" type="xs:boolean" use="optional" />
+			<xs:attribute name="BaseClass" use="optional" />
+		</xs:complexType>
+			
+	<xs:simpleType name="EventParticipant_Fields">
+		<xs:restriction base="xs:string"><xs:enumeration value="EventParticipantID" />
+	<xs:enumeration value="EventID" />
+	<xs:enumeration value="ParticipantID" />
+	<xs:enumeration value="CreatedOn" />
+	<xs:enumeration value="ModifiedOn" />
+	<xs:enumeration value="Stamp" />
+	<xs:enumeration value="Active" />
+	<xs:enumeration value="CreatedBy" />
+	<xs:enumeration value="ModifiedBy" />
+			</xs:restriction>
+	</xs:simpleType>
+		
+	<xs:simpleType name="EventParticipant_ParentTables">
+		<xs:restriction base="xs:string">		</xs:restriction>
+	</xs:simpleType>
+			<xs:complexType name="Orchestra_Type">
+			<xs:sequence minOccurs="0">
+				<xs:element name="SequenceFields" minOccurs="0">
+					<xs:complexType>
+						<xs:choice maxOccurs="unbounded">
+							<xs:element name="ASC" type="Orchestra_Fields" />
+							<xs:element name="DESC" type="Orchestra_Fields" />
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ActiveField" type="Orchestra_Fields" minOccurs="0" />
+				<xs:element name="KeyField" type="Orchestra_Fields" minOccurs="0" />
+				<xs:element name="NameFields" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="NameField" type="Orchestra_Fields" />
+						</xs:sequence>
+						<xs:attribute name="NameFormat" type="xs:string" use="optional" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="IncludeInEntities" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="Entity" type="Orchestra_ParentTables">
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="Autogenerate" type="xs:boolean" use="optional" />
+			<xs:attribute name="BaseClass" use="optional" />
+		</xs:complexType>
+			
+	<xs:simpleType name="Orchestra_Fields">
+		<xs:restriction base="xs:string"><xs:enumeration value="OrchestraID" />
+	<xs:enumeration value="OrchestraName" />
+	<xs:enumeration value="OrchestraURL" />
+	<xs:enumeration value="OrchestraNote" />
+	<xs:enumeration value="CreatedOn" />
+	<xs:enumeration value="ModifiedOn" />
+	<xs:enumeration value="Stamp" />
+	<xs:enumeration value="Active" />
+	<xs:enumeration value="CreatedBy" />
+	<xs:enumeration value="ModifiedBy" />
+			</xs:restriction>
+	</xs:simpleType>
+		
+	<xs:simpleType name="Orchestra_ParentTables">
+		<xs:restriction base="xs:string"><xs:enumeration value="Event" />
+			</xs:restriction>
+	</xs:simpleType>
+			<xs:complexType name="Project_Type">
+			<xs:sequence minOccurs="0">
+				<xs:element name="SequenceFields" minOccurs="0">
+					<xs:complexType>
+						<xs:choice maxOccurs="unbounded">
+							<xs:element name="ASC" type="Project_Fields" />
+							<xs:element name="DESC" type="Project_Fields" />
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ActiveField" type="Project_Fields" minOccurs="0" />
+				<xs:element name="KeyField" type="Project_Fields" minOccurs="0" />
+				<xs:element name="NameFields" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="NameField" type="Project_Fields" />
+						</xs:sequence>
+						<xs:attribute name="NameFormat" type="xs:string" use="optional" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="IncludeInEntities" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="Entity" type="Project_ParentTables">
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="Autogenerate" type="xs:boolean" use="optional" />
+			<xs:attribute name="BaseClass" use="optional" />
+		</xs:complexType>
+			
+	<xs:simpleType name="Project_Fields">
+		<xs:restriction base="xs:string"><xs:enumeration value="ProjectID" />
+	<xs:enumeration value="ProjectName" />
+	<xs:enumeration value="ProjectName2" />
+	<xs:enumeration value="ProjectTypeName" />
+	<xs:enumeration value="CreatedOn" />
+	<xs:enumeration value="ModifiedOn" />
+	<xs:enumeration value="Stamp" />
+	<xs:enumeration value="Active" />
+	<xs:enumeration value="CreatedBy" />
+	<xs:enumeration value="ModifiedBy" />
+			</xs:restriction>
+	</xs:simpleType>
+		
+	<xs:simpleType name="Project_ParentTables">
+		<xs:restriction base="xs:string"><xs:enumeration value="Event" />
+			</xs:restriction>
+	</xs:simpleType>
+			<xs:complexType name="Season_Type">
+			<xs:sequence minOccurs="0">
+				<xs:element name="SequenceFields" minOccurs="0">
+					<xs:complexType>
+						<xs:choice maxOccurs="unbounded">
+							<xs:element name="ASC" type="Season_Fields" />
+							<xs:element name="DESC" type="Season_Fields" />
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ActiveField" type="Season_Fields" minOccurs="0" />
+				<xs:element name="KeyField" type="Season_Fields" minOccurs="0" />
+				<xs:element name="NameFields" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="NameField" type="Season_Fields" />
+						</xs:sequence>
+						<xs:attribute name="NameFormat" type="xs:string" use="optional" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="IncludeInEntities" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="Entity" type="Season_ParentTables">
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="Autogenerate" type="xs:boolean" use="optional" />
+			<xs:attribute name="BaseClass" use="optional" />
+		</xs:complexType>
+			
+	<xs:simpleType name="Season_Fields">
+		<xs:restriction base="xs:string"><xs:enumeration value="SeasonID" />
+	<xs:enumeration value="SeasonName" />
+	<xs:enumeration value="SeasonCode" />
+	<xs:enumeration value="CreatedOn" />
+	<xs:enumeration value="ModifiedOn" />
+	<xs:enumeration value="Stamp" />
+	<xs:enumeration value="Active" />
+	<xs:enumeration value="CreatedBy" />
+	<xs:enumeration value="ModifiedBy" />
+			</xs:restriction>
+	</xs:simpleType>
+		
+	<xs:simpleType name="Season_ParentTables">
+		<xs:restriction base="xs:string"><xs:enumeration value="Event" />
+			</xs:restriction>
+	</xs:simpleType>
+			<xs:complexType name="Venue_Type">
+			<xs:sequence minOccurs="0">
+				<xs:element name="SequenceFields" minOccurs="0">
+					<xs:complexType>
+						<xs:choice maxOccurs="unbounded">
+							<xs:element name="ASC" type="Venue_Fields" />
+							<xs:element name="DESC" type="Venue_Fields" />
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ActiveField" type="Venue_Fields" minOccurs="0" />
+				<xs:element name="KeyField" type="Venue_Fields" minOccurs="0" />
+				<xs:element name="NameFields" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="NameField" type="Venue_Fields" />
+						</xs:sequence>
+						<xs:attribute name="NameFormat" type="xs:string" use="optional" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="IncludeInEntities" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="Entity" type="Venue_ParentTables">
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="Autogenerate" type="xs:boolean" use="optional" />
+			<xs:attribute name="BaseClass" use="optional" />
+		</xs:complexType>
+			
+	<xs:simpleType name="Venue_Fields">
+		<xs:restriction base="xs:string"><xs:enumeration value="VenueID" />
+	<xs:enumeration value="VenueName" />
+	<xs:enumeration value="VenueCode" />
+	<xs:enumeration value="VenueCountry" />
+	<xs:enumeration value="VenueCity" />
+	<xs:enumeration value="VenueZipCode" />
+	<xs:enumeration value="VenueState" />
+	<xs:enumeration value="VenueStreet" />
+	<xs:enumeration value="CreatedOn" />
+	<xs:enumeration value="ModifiedOn" />
+	<xs:enumeration value="Stamp" />
+	<xs:enumeration value="Active" />
+	<xs:enumeration value="CreatedBy" />
+	<xs:enumeration value="ModifiedBy" />
+			</xs:restriction>
+	</xs:simpleType>
+		
+	<xs:simpleType name="Venue_ParentTables">
+		<xs:restriction base="xs:string"><xs:enumeration value="Event" />
+			</xs:restriction>
+	</xs:simpleType>
+			<xs:complexType name="Participant_Type">
+			<xs:sequence minOccurs="0">
+				<xs:element name="SequenceFields" minOccurs="0">
+					<xs:complexType>
+						<xs:choice maxOccurs="unbounded">
+							<xs:element name="ASC" type="Participant_Fields" />
+							<xs:element name="DESC" type="Participant_Fields" />
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ActiveField" type="Participant_Fields" minOccurs="0" />
+				<xs:element name="KeyField" type="Participant_Fields" minOccurs="0" />
+				<xs:element name="NameFields" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="NameField" type="Participant_Fields" />
+						</xs:sequence>
+						<xs:attribute name="NameFormat" type="xs:string" use="optional" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="IncludeInEntities" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="Entity" type="Participant_ParentTables">
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="Autogenerate" type="xs:boolean" use="optional" />
+			<xs:attribute name="BaseClass" use="optional" />
+		</xs:complexType>
+			
+	<xs:simpleType name="Participant_Fields">
+		<xs:restriction base="xs:string"><xs:enumeration value="ParticipantID" />
+	<xs:enumeration value="ParticipantLastName" />
+	<xs:enumeration value="ParticipantFirstName" />
+	<xs:enumeration value="ParticipantGroup" />
+	<xs:enumeration value="ParticipantStatus" />
+	<xs:enumeration value="ParticipantStatusID" />
+	<xs:enumeration value="CreatedOn" />
+	<xs:enumeration value="ModifiedOn" />
+	<xs:enumeration value="Stamp" />
+	<xs:enumeration value="Active" />
+	<xs:enumeration value="CreatedBy" />
+	<xs:enumeration value="ModifiedBy" />
+			</xs:restriction>
+	</xs:simpleType>
+		
+	<xs:simpleType name="Participant_ParentTables">
+		<xs:restriction base="xs:string"><xs:enumeration value="EventParticipant" />
+			</xs:restriction>
+	</xs:simpleType>
+			<xs:complexType name="OPASUpdate_Type">
+			<xs:sequence minOccurs="0">
+				<xs:element name="SequenceFields" minOccurs="0">
+					<xs:complexType>
+						<xs:choice maxOccurs="unbounded">
+							<xs:element name="ASC" type="OPASUpdate_Fields" />
+							<xs:element name="DESC" type="OPASUpdate_Fields" />
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ActiveField" type="OPASUpdate_Fields" minOccurs="0" />
+				<xs:element name="KeyField" type="OPASUpdate_Fields" minOccurs="0" />
+				<xs:element name="NameFields" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="NameField" type="OPASUpdate_Fields" />
+						</xs:sequence>
+						<xs:attribute name="NameFormat" type="xs:string" use="optional" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="IncludeInEntities" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="Entity" type="OPASUpdate_ParentTables">
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="Autogenerate" type="xs:boolean" use="optional" />
+			<xs:attribute name="BaseClass" use="optional" />
+		</xs:complexType>
+			
+	<xs:simpleType name="OPASUpdate_Fields">
+		<xs:restriction base="xs:string"><xs:enumeration value="OPASUpdateId" />
+	<xs:enumeration value="TableName" />
+	<xs:enumeration value="ColumnName" />
+	<xs:enumeration value="HasBeenUpdated" />
+	<xs:enumeration value="CreatedBy" />
+	<xs:enumeration value="CreatedOn" />
+	<xs:enumeration value="ModifiedBy" />
+	<xs:enumeration value="ModifiedOn" />
+	<xs:enumeration value="Stamp" />
+	<xs:enumeration value="Active" />
+	<xs:enumeration value="TagName" />
+			</xs:restriction>
+	</xs:simpleType>
+		
+	<xs:simpleType name="OPASUpdate_ParentTables">
+		<xs:restriction base="xs:string">		</xs:restriction>
+	</xs:simpleType>
+			<xs:complexType name="Composer_Type">
+			<xs:sequence minOccurs="0">
+				<xs:element name="SequenceFields" minOccurs="0">
+					<xs:complexType>
+						<xs:choice maxOccurs="unbounded">
+							<xs:element name="ASC" type="Composer_Fields" />
+							<xs:element name="DESC" type="Composer_Fields" />
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ActiveField" type="Composer_Fields" minOccurs="0" />
+				<xs:element name="KeyField" type="Composer_Fields" minOccurs="0" />
+				<xs:element name="NameFields" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="NameField" type="Composer_Fields" />
+						</xs:sequence>
+						<xs:attribute name="NameFormat" type="xs:string" use="optional" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="IncludeInEntities" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="Entity" type="Composer_ParentTables">
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="Autogenerate" type="xs:boolean" use="optional" />
+			<xs:attribute name="BaseClass" use="optional" />
+		</xs:complexType>
+			
+	<xs:simpleType name="Composer_Fields">
+		<xs:restriction base="xs:string"><xs:enumeration value="ComposerID" />
+	<xs:enumeration value="ComposerLastName" />
+	<xs:enumeration value="ComposerFirstName" />
+	<xs:enumeration value="ComposerName2" />
+	<xs:enumeration value="ComposerBirthYear" />
+	<xs:enumeration value="ComposerDeathYear" />
+	<xs:enumeration value="CreatedBy" />
+	<xs:enumeration value="CreatedOn" />
+	<xs:enumeration value="ModifiedBy" />
+	<xs:enumeration value="ModifiedOn" />
+	<xs:enumeration value="Stamp" />
+	<xs:enumeration value="Active" />
+	<xs:enumeration value="ComposerName4" />
+	<xs:enumeration value="ComposerName5" />
+	<xs:enumeration value="ComposerAddNameFirst" />
+	<xs:enumeration value="ComposerAddNameLast" />
+	<xs:enumeration value="ComposerAddText" />
+	<xs:enumeration value="ComposerAddName2" />
+			</xs:restriction>
+	</xs:simpleType>
+		
+	<xs:simpleType name="Composer_ParentTables">
+		<xs:restriction base="xs:string"><xs:enumeration value="WorkComposer" />
+	<xs:enumeration value="Work" />
+			</xs:restriction>
+	</xs:simpleType>
+			<xs:complexType name="Instrument_Type">
+			<xs:sequence minOccurs="0">
+				<xs:element name="SequenceFields" minOccurs="0">
+					<xs:complexType>
+						<xs:choice maxOccurs="unbounded">
+							<xs:element name="ASC" type="Instrument_Fields" />
+							<xs:element name="DESC" type="Instrument_Fields" />
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ActiveField" type="Instrument_Fields" minOccurs="0" />
+				<xs:element name="KeyField" type="Instrument_Fields" minOccurs="0" />
+				<xs:element name="NameFields" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="NameField" type="Instrument_Fields" />
+						</xs:sequence>
+						<xs:attribute name="NameFormat" type="xs:string" use="optional" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="IncludeInEntities" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="Entity" type="Instrument_ParentTables">
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="Autogenerate" type="xs:boolean" use="optional" />
+			<xs:attribute name="BaseClass" use="optional" />
+		</xs:complexType>
+			
+	<xs:simpleType name="Instrument_Fields">
+		<xs:restriction base="xs:string"><xs:enumeration value="InstrumentID" />
+	<xs:enumeration value="Instrument1" />
+	<xs:enumeration value="Instrument2" />
+	<xs:enumeration value="CreatedBy" />
+	<xs:enumeration value="CreatedOn" />
+	<xs:enumeration value="ModifiedBy" />
+	<xs:enumeration value="ModifiedOn" />
+	<xs:enumeration value="Stamp" />
+	<xs:enumeration value="Active" />
+			</xs:restriction>
+	</xs:simpleType>
+		
+	<xs:simpleType name="Instrument_ParentTables">
+		<xs:restriction base="xs:string"><xs:enumeration value="EventArtist" />
+	<xs:enumeration value="WorkArtist" />
+			</xs:restriction>
+	</xs:simpleType>
+			<xs:complexType name="Artist_Type">
+			<xs:sequence minOccurs="0">
+				<xs:element name="SequenceFields" minOccurs="0">
+					<xs:complexType>
+						<xs:choice maxOccurs="unbounded">
+							<xs:element name="ASC" type="Artist_Fields" />
+							<xs:element name="DESC" type="Artist_Fields" />
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ActiveField" type="Artist_Fields" minOccurs="0" />
+				<xs:element name="KeyField" type="Artist_Fields" minOccurs="0" />
+				<xs:element name="NameFields" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="NameField" type="Artist_Fields" />
+						</xs:sequence>
+						<xs:attribute name="NameFormat" type="xs:string" use="optional" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="IncludeInEntities" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="Entity" type="Artist_ParentTables">
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="Autogenerate" type="xs:boolean" use="optional" />
+			<xs:attribute name="BaseClass" use="optional" />
+		</xs:complexType>
+			
+	<xs:simpleType name="Artist_Fields">
+		<xs:restriction base="xs:string"><xs:enumeration value="ArtistID" />
+	<xs:enumeration value="ArtistLastName" />
+	<xs:enumeration value="ArtistFirstName" />
+	<xs:enumeration value="ArtistNote" />
+	<xs:enumeration value="ArtistStatus" />
+	<xs:enumeration value="ArtistStatusID" />
+	<xs:enumeration value="CreatedOn" />
+	<xs:enumeration value="ModifiedOn" />
+	<xs:enumeration value="Stamp" />
+	<xs:enumeration value="Active" />
+	<xs:enumeration value="CreatedBy" />
+	<xs:enumeration value="ModifiedBy" />
+	<xs:enumeration value="ArtistName4" />
+	<xs:enumeration value="ArtistName5" />
+			</xs:restriction>
+	</xs:simpleType>
+		
+	<xs:simpleType name="Artist_ParentTables">
+		<xs:restriction base="xs:string"><xs:enumeration value="EventArtist" />
+	<xs:enumeration value="WorkArtist" />
+			</xs:restriction>
+	</xs:simpleType>
+			<xs:complexType name="Search_Type">
+			<xs:sequence minOccurs="0">
+				<xs:element name="SequenceFields" minOccurs="0">
+					<xs:complexType>
+						<xs:choice maxOccurs="unbounded">
+							<xs:element name="ASC" type="Search_Fields" />
+							<xs:element name="DESC" type="Search_Fields" />
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ActiveField" type="Search_Fields" minOccurs="0" />
+				<xs:element name="KeyField" type="Search_Fields" minOccurs="0" />
+				<xs:element name="NameFields" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="NameField" type="Search_Fields" />
+						</xs:sequence>
+						<xs:attribute name="NameFormat" type="xs:string" use="optional" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="IncludeInEntities" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="Entity" type="Search_ParentTables">
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="Autogenerate" type="xs:boolean" use="optional" />
+			<xs:attribute name="BaseClass" use="optional" />
+		</xs:complexType>
+			
+	<xs:simpleType name="Search_Fields">
+		<xs:restriction base="xs:string"><xs:enumeration value="SearchID" />
+	<xs:enumeration value="SearchType" />
+	<xs:enumeration value="SearchParameters" />
+	<xs:enumeration value="CreatedBy" />
+	<xs:enumeration value="CreatedOn" />
+	<xs:enumeration value="ModifiedBy" />
+	<xs:enumeration value="ModifiedOn" />
+	<xs:enumeration value="Stamp" />
+	<xs:enumeration value="Active" />
+			</xs:restriction>
+	</xs:simpleType>
+		
+	<xs:simpleType name="Search_ParentTables">
+		<xs:restriction base="xs:string">		</xs:restriction>
+	</xs:simpleType>
+			<xs:complexType name="EventParticipantType_Type">
+			<xs:sequence minOccurs="0">
+				<xs:element name="SequenceFields" minOccurs="0">
+					<xs:complexType>
+						<xs:choice maxOccurs="unbounded">
+							<xs:element name="ASC" type="EventParticipantType_Fields" />
+							<xs:element name="DESC" type="EventParticipantType_Fields" />
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ActiveField" type="EventParticipantType_Fields" minOccurs="0" />
+				<xs:element name="KeyField" type="EventParticipantType_Fields" minOccurs="0" />
+				<xs:element name="NameFields" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="NameField" type="EventParticipantType_Fields" />
+						</xs:sequence>
+						<xs:attribute name="NameFormat" type="xs:string" use="optional" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="IncludeInEntities" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="Entity" type="EventParticipantType_ParentTables">
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="Autogenerate" type="xs:boolean" use="optional" />
+			<xs:attribute name="BaseClass" use="optional" />
+		</xs:complexType>
+			
+	<xs:simpleType name="EventParticipantType_Fields">
+		<xs:restriction base="xs:string"><xs:enumeration value="EventParticipantTypeID" />
+	<xs:enumeration value="EventID" />
+	<xs:enumeration value="ParticipantID" />
+	<xs:enumeration value="EventParticipantTypeName" />
+	<xs:enumeration value="CreatedBy" />
+	<xs:enumeration value="CreatedOn" />
+	<xs:enumeration value="ModifiedBy" />
+	<xs:enumeration value="ModifiedOn" />
+	<xs:enumeration value="Stamp" />
+	<xs:enumeration value="Active" />
+			</xs:restriction>
+	</xs:simpleType>
+		
+	<xs:simpleType name="EventParticipantType_ParentTables">
+		<xs:restriction base="xs:string">		</xs:restriction>
+	</xs:simpleType>
+			<xs:complexType name="EventWork_Type">
+			<xs:sequence minOccurs="0">
+				<xs:element name="SequenceFields" minOccurs="0">
+					<xs:complexType>
+						<xs:choice maxOccurs="unbounded">
+							<xs:element name="ASC" type="EventWork_Fields" />
+							<xs:element name="DESC" type="EventWork_Fields" />
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ActiveField" type="EventWork_Fields" minOccurs="0" />
+				<xs:element name="KeyField" type="EventWork_Fields" minOccurs="0" />
+				<xs:element name="NameFields" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="NameField" type="EventWork_Fields" />
+						</xs:sequence>
+						<xs:attribute name="NameFormat" type="xs:string" use="optional" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="IncludeInEntities" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="Entity" type="EventWork_ParentTables">
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="Autogenerate" type="xs:boolean" use="optional" />
+			<xs:attribute name="BaseClass" use="optional" />
+		</xs:complexType>
+			
+	<xs:simpleType name="EventWork_Fields">
+		<xs:restriction base="xs:string"><xs:enumeration value="EventWorkID" />
+	<xs:enumeration value="EventID" />
+	<xs:enumeration value="WorkID" />
+	<xs:enumeration value="WorkPremiere" />
+	<xs:enumeration value="CreatedOn" />
+	<xs:enumeration value="ModifiedOn" />
+	<xs:enumeration value="Stamp" />
+	<xs:enumeration value="Active" />
+	<xs:enumeration value="CreatedBy" />
+	<xs:enumeration value="ModifiedBy" />
+			</xs:restriction>
+	</xs:simpleType>
+		
+	<xs:simpleType name="EventWork_ParentTables">
+		<xs:restriction base="xs:string">		</xs:restriction>
+	</xs:simpleType>
+			<xs:complexType name="WorkArtist_Type">
+			<xs:sequence minOccurs="0">
+				<xs:element name="SequenceFields" minOccurs="0">
+					<xs:complexType>
+						<xs:choice maxOccurs="unbounded">
+							<xs:element name="ASC" type="WorkArtist_Fields" />
+							<xs:element name="DESC" type="WorkArtist_Fields" />
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ActiveField" type="WorkArtist_Fields" minOccurs="0" />
+				<xs:element name="KeyField" type="WorkArtist_Fields" minOccurs="0" />
+				<xs:element name="NameFields" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="NameField" type="WorkArtist_Fields" />
+						</xs:sequence>
+						<xs:attribute name="NameFormat" type="xs:string" use="optional" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="IncludeInEntities" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="Entity" type="WorkArtist_ParentTables">
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="Autogenerate" type="xs:boolean" use="optional" />
+			<xs:attribute name="BaseClass" use="optional" />
+		</xs:complexType>
+			
+	<xs:simpleType name="WorkArtist_Fields">
+		<xs:restriction base="xs:string"><xs:enumeration value="WorkArtistID" />
+	<xs:enumeration value="WorkID" />
+	<xs:enumeration value="ArtistID" />
+	<xs:enumeration value="InstrumentID" />
+	<xs:enumeration value="WorkArtistNote" />
+	<xs:enumeration value="WorkArtistStatus" />
+	<xs:enumeration value="WorkArtistStatusID" />
+	<xs:enumeration value="CreatedOn" />
+	<xs:enumeration value="ModifiedOn" />
+	<xs:enumeration value="Stamp" />
+	<xs:enumeration value="Active" />
+	<xs:enumeration value="CreatedBy" />
+	<xs:enumeration value="ModifiedBy" />
+			</xs:restriction>
+	</xs:simpleType>
+		
+	<xs:simpleType name="WorkArtist_ParentTables">
+		<xs:restriction base="xs:string">		</xs:restriction>
+	</xs:simpleType>
+			<xs:complexType name="EventType_Type">
+			<xs:sequence minOccurs="0">
+				<xs:element name="SequenceFields" minOccurs="0">
+					<xs:complexType>
+						<xs:choice maxOccurs="unbounded">
+							<xs:element name="ASC" type="EventType_Fields" />
+							<xs:element name="DESC" type="EventType_Fields" />
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ActiveField" type="EventType_Fields" minOccurs="0" />
+				<xs:element name="KeyField" type="EventType_Fields" minOccurs="0" />
+				<xs:element name="NameFields" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="NameField" type="EventType_Fields" />
+						</xs:sequence>
+						<xs:attribute name="NameFormat" type="xs:string" use="optional" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="IncludeInEntities" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="Entity" type="EventType_ParentTables">
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="Autogenerate" type="xs:boolean" use="optional" />
+			<xs:attribute name="BaseClass" use="optional" />
+		</xs:complexType>
+			
+	<xs:simpleType name="EventType_Fields">
+		<xs:restriction base="xs:string"><xs:enumeration value="TypeID" />
+	<xs:enumeration value="TypeName" />
+	<xs:enumeration value="TypeName2" />
+	<xs:enumeration value="TypePerformance" />
+	<xs:enumeration value="CreatedOn" />
+	<xs:enumeration value="ModifiedOn" />
+	<xs:enumeration value="Stamp" />
+	<xs:enumeration value="Active" />
+	<xs:enumeration value="CreatedBy" />
+	<xs:enumeration value="ModifiedBy" />
+			</xs:restriction>
+	</xs:simpleType>
+		
+	<xs:simpleType name="EventType_ParentTables">
+		<xs:restriction base="xs:string"><xs:enumeration value="Event" />
+			</xs:restriction>
+	</xs:simpleType>
+			<xs:complexType name="EventTypeGroup_Type">
+			<xs:sequence minOccurs="0">
+				<xs:element name="SequenceFields" minOccurs="0">
+					<xs:complexType>
+						<xs:choice maxOccurs="unbounded">
+							<xs:element name="ASC" type="EventTypeGroup_Fields" />
+							<xs:element name="DESC" type="EventTypeGroup_Fields" />
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ActiveField" type="EventTypeGroup_Fields" minOccurs="0" />
+				<xs:element name="KeyField" type="EventTypeGroup_Fields" minOccurs="0" />
+				<xs:element name="NameFields" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="NameField" type="EventTypeGroup_Fields" />
+						</xs:sequence>
+						<xs:attribute name="NameFormat" type="xs:string" use="optional" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="IncludeInEntities" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="Entity" type="EventTypeGroup_ParentTables">
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="Autogenerate" type="xs:boolean" use="optional" />
+			<xs:attribute name="BaseClass" use="optional" />
+		</xs:complexType>
+			
+	<xs:simpleType name="EventTypeGroup_Fields">
+		<xs:restriction base="xs:string"><xs:enumeration value="TypeGroupID" />
+	<xs:enumeration value="EventTypeGroupName" />
+	<xs:enumeration value="EventTypeGroupName2" />
+	<xs:enumeration value="CreatedOn" />
+	<xs:enumeration value="ModifiedOn" />
+	<xs:enumeration value="Stamp" />
+	<xs:enumeration value="Active" />
+	<xs:enumeration value="CreatedBy" />
+	<xs:enumeration value="ModifiedBy" />
+			</xs:restriction>
+	</xs:simpleType>
+		
+	<xs:simpleType name="EventTypeGroup_ParentTables">
+		<xs:restriction base="xs:string"><xs:enumeration value="Event" />
+			</xs:restriction>
+	</xs:simpleType>
+			<xs:complexType name="WorkComposer_Type">
+			<xs:sequence minOccurs="0">
+				<xs:element name="SequenceFields" minOccurs="0">
+					<xs:complexType>
+						<xs:choice maxOccurs="unbounded">
+							<xs:element name="ASC" type="WorkComposer_Fields" />
+							<xs:element name="DESC" type="WorkComposer_Fields" />
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ActiveField" type="WorkComposer_Fields" minOccurs="0" />
+				<xs:element name="KeyField" type="WorkComposer_Fields" minOccurs="0" />
+				<xs:element name="NameFields" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="NameField" type="WorkComposer_Fields" />
+						</xs:sequence>
+						<xs:attribute name="NameFormat" type="xs:string" use="optional" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="IncludeInEntities" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="Entity" type="WorkComposer_ParentTables">
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="Autogenerate" type="xs:boolean" use="optional" />
+			<xs:attribute name="BaseClass" use="optional" />
+		</xs:complexType>
+			
+	<xs:simpleType name="WorkComposer_Fields">
+		<xs:restriction base="xs:string"><xs:enumeration value="WorkComposer1" />
+	<xs:enumeration value="WorkID" />
+	<xs:enumeration value="ComposerID" />
+	<xs:enumeration value="CreatedBy" />
+	<xs:enumeration value="CreatedOn" />
+	<xs:enumeration value="ModifiedBy" />
+	<xs:enumeration value="ModifiedOn" />
+	<xs:enumeration value="Stamp" />
+	<xs:enumeration value="Active" />
+			</xs:restriction>
+	</xs:simpleType>
+		
+	<xs:simpleType name="WorkComposer_ParentTables">
+		<xs:restriction base="xs:string">		</xs:restriction>
+	</xs:simpleType>
+			<xs:complexType name="Event_Type">
+			<xs:sequence minOccurs="0">
+				<xs:element name="SequenceFields" minOccurs="0">
+					<xs:complexType>
+						<xs:choice maxOccurs="unbounded">
+							<xs:element name="ASC" type="Event_Fields" />
+							<xs:element name="DESC" type="Event_Fields" />
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ActiveField" type="Event_Fields" minOccurs="0" />
+				<xs:element name="KeyField" type="Event_Fields" minOccurs="0" />
+				<xs:element name="NameFields" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="NameField" type="Event_Fields" />
+						</xs:sequence>
+						<xs:attribute name="NameFormat" type="xs:string" use="optional" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="IncludeInEntities" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="Entity" type="Event_ParentTables">
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="Autogenerate" type="xs:boolean" use="optional" />
+			<xs:attribute name="BaseClass" use="optional" />
+		</xs:complexType>
+			
+	<xs:simpleType name="Event_Fields">
+		<xs:restriction base="xs:string"><xs:enumeration value="EventID" />
+	<xs:enumeration value="EventDate" />
+	<xs:enumeration value="EventStart" />
+	<xs:enumeration value="EventEnd" />
+	<xs:enumeration value="EventText" />
+	<xs:enumeration value="EventNote" />
+	<xs:enumeration value="EventLevel" />
+	<xs:enumeration value="EventProgramNumber" />
+	<xs:enumeration value="IsPremiere" />
+	<xs:enumeration value="EventProgramTitle" />
+	<xs:enumeration value="ConductorID" />
+	<xs:enumeration value="EventTypeID" />
+	<xs:enumeration value="EventGroupID" />
+	<xs:enumeration value="SeasonID" />
+	<xs:enumeration value="OrchestraID" />
+	<xs:enumeration value="ProjectID" />
+	<xs:enumeration value="VenueID" />
+	<xs:enumeration value="CreatedOn" />
+	<xs:enumeration value="ModifiedOn" />
+	<xs:enumeration value="Stamp" />
+	<xs:enumeration value="Active" />
+	<xs:enumeration value="CreatedBy" />
+	<xs:enumeration value="ModifiedBy" />
+	<xs:enumeration value="Status" />
+			</xs:restriction>
+	</xs:simpleType>
+		
+	<xs:simpleType name="Event_ParentTables">
+		<xs:restriction base="xs:string"><xs:enumeration value="EventArtist" />
+	<xs:enumeration value="EventParticipant" />
+	<xs:enumeration value="EventParticipantType" />
+	<xs:enumeration value="EventWork" />
+			</xs:restriction>
+	</xs:simpleType>
+			<xs:complexType name="Work_Type">
+			<xs:sequence minOccurs="0">
+				<xs:element name="SequenceFields" minOccurs="0">
+					<xs:complexType>
+						<xs:choice maxOccurs="unbounded">
+							<xs:element name="ASC" type="Work_Fields" />
+							<xs:element name="DESC" type="Work_Fields" />
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ActiveField" type="Work_Fields" minOccurs="0" />
+				<xs:element name="KeyField" type="Work_Fields" minOccurs="0" />
+				<xs:element name="NameFields" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="NameField" type="Work_Fields" />
+						</xs:sequence>
+						<xs:attribute name="NameFormat" type="xs:string" use="optional" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="IncludeInEntities" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="Entity" type="Work_ParentTables">
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="Autogenerate" type="xs:boolean" use="optional" />
+			<xs:attribute name="BaseClass" use="optional" />
+		</xs:complexType>
+			
+	<xs:simpleType name="Work_Fields">
+		<xs:restriction base="xs:string"><xs:enumeration value="WorkID" />
+	<xs:enumeration value="WorkTitle" />
+	<xs:enumeration value="WorkTitle2" />
+	<xs:enumeration value="WorkTitle3" />
+	<xs:enumeration value="WorkArrangement" />
+	<xs:enumeration value="WorkCompYear" />
+	<xs:enumeration value="WorkCompYear2" />
+	<xs:enumeration value="WorkPremiere" />
+	<xs:enumeration value="WorkCommission" />
+	<xs:enumeration value="WorkRegular" />
+	<xs:enumeration value="WorkIntermission" />
+	<xs:enumeration value="WorkFlute" />
+	<xs:enumeration value="WorkOboe" />
+	<xs:enumeration value="WorkClarinet" />
+	<xs:enumeration value="WorkBassoon" />
+	<xs:enumeration value="WorkHorn" />
+	<xs:enumeration value="WorkTrumpet" />
+	<xs:enumeration value="WorkTrombone" />
+	<xs:enumeration value="WorkTuba" />
+	<xs:enumeration value="WorkTimpani" />
+	<xs:enumeration value="WorkPercussion" />
+	<xs:enumeration value="WorkHarp" />
+	<xs:enumeration value="WorkKeyboard" />
+	<xs:enumeration value="WorkExtra" />
+	<xs:enumeration value="WorkViolin1" />
+	<xs:enumeration value="WorkViolin2" />
+	<xs:enumeration value="WorkViola" />
+	<xs:enumeration value="WorkCello" />
+	<xs:enumeration value="WorkBass" />
+	<xs:enumeration value="WorkNote" />
+	<xs:enumeration value="WorkDetail" />
+	<xs:enumeration value="WorkStatus" />
+	<xs:enumeration value="IsCommission" />
+	<xs:enumeration value="WorkStatusID" />
+	<xs:enumeration value="ComposerID" />
+	<xs:enumeration value="CreatedBy" />
+	<xs:enumeration value="CreatedOn" />
+	<xs:enumeration value="ModifiedBy" />
+	<xs:enumeration value="ModifiedOn" />
+	<xs:enumeration value="Stamp" />
+	<xs:enumeration value="Active" />
+	<xs:enumeration value="WorkGroupID" />
+	<xs:enumeration value="WorkAddTitle1" />
+	<xs:enumeration value="WorkAddTitle2" />
+	<xs:enumeration value="WorkAddTitle3" />
+	<xs:enumeration value="WorkAddTitleText" />
+			</xs:restriction>
+	</xs:simpleType>
+		
+	<xs:simpleType name="Work_ParentTables">
+		<xs:restriction base="xs:string"><xs:enumeration value="EventWork" />
+	<xs:enumeration value="WorkArtist" />
+	<xs:enumeration value="WorkComposer" />
+			</xs:restriction>
+	</xs:simpleType>
+			<xs:complexType name="CommissionType_Type">
+			<xs:sequence minOccurs="0">
+				<xs:element name="SequenceFields" minOccurs="0">
+					<xs:complexType>
+						<xs:choice maxOccurs="unbounded">
+							<xs:element name="ASC" type="CommissionType_Fields" />
+							<xs:element name="DESC" type="CommissionType_Fields" />
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ActiveField" type="CommissionType_Fields" minOccurs="0" />
+				<xs:element name="KeyField" type="CommissionType_Fields" minOccurs="0" />
+				<xs:element name="NameFields" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="NameField" type="CommissionType_Fields" />
+						</xs:sequence>
+						<xs:attribute name="NameFormat" type="xs:string" use="optional" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="IncludeInEntities" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="Entity" type="CommissionType_ParentTables">
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="Autogenerate" type="xs:boolean" use="optional" />
+			<xs:attribute name="BaseClass" use="optional" />
+		</xs:complexType>
+			
+	<xs:simpleType name="CommissionType_Fields">
+		<xs:restriction base="xs:string"><xs:enumeration value="CommissionTypeID" />
+	<xs:enumeration value="Name" />
+	<xs:enumeration value="Value" />
+	<xs:enumeration value="CreatedBy" />
+	<xs:enumeration value="CreatedOn" />
+	<xs:enumeration value="ModifiedBy" />
+	<xs:enumeration value="ModifiedOn" />
+	<xs:enumeration value="Stamp" />
+	<xs:enumeration value="Active" />
+			</xs:restriction>
+	</xs:simpleType>
+		
+	<xs:simpleType name="CommissionType_ParentTables">
+		<xs:restriction base="xs:string">		</xs:restriction>
+	</xs:simpleType>
+			<xs:complexType name="PremiereType_Type">
+			<xs:sequence minOccurs="0">
+				<xs:element name="SequenceFields" minOccurs="0">
+					<xs:complexType>
+						<xs:choice maxOccurs="unbounded">
+							<xs:element name="ASC" type="PremiereType_Fields" />
+							<xs:element name="DESC" type="PremiereType_Fields" />
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ActiveField" type="PremiereType_Fields" minOccurs="0" />
+				<xs:element name="KeyField" type="PremiereType_Fields" minOccurs="0" />
+				<xs:element name="NameFields" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="NameField" type="PremiereType_Fields" />
+						</xs:sequence>
+						<xs:attribute name="NameFormat" type="xs:string" use="optional" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="IncludeInEntities" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="Entity" type="PremiereType_ParentTables">
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="Autogenerate" type="xs:boolean" use="optional" />
+			<xs:attribute name="BaseClass" use="optional" />
+		</xs:complexType>
+			
+	<xs:simpleType name="PremiereType_Fields">
+		<xs:restriction base="xs:string"><xs:enumeration value="PremiereTypeID" />
+	<xs:enumeration value="Name" />
+	<xs:enumeration value="Value" />
+	<xs:enumeration value="CreatedBy" />
+	<xs:enumeration value="CreatedOn" />
+	<xs:enumeration value="ModifiedBy" />
+	<xs:enumeration value="ModifiedOn" />
+	<xs:enumeration value="Stamp" />
+	<xs:enumeration value="Active" />
+			</xs:restriction>
+	</xs:simpleType>
+		
+	<xs:simpleType name="PremiereType_ParentTables">
+		<xs:restriction base="xs:string">		</xs:restriction>
+	</xs:simpleType>
+			<xs:complexType name="EventDetail_Type">
+			<xs:sequence minOccurs="0">
+				<xs:element name="SequenceFields" minOccurs="0">
+					<xs:complexType>
+						<xs:choice maxOccurs="unbounded">
+							<xs:element name="ASC" type="EventDetail_Fields" />
+							<xs:element name="DESC" type="EventDetail_Fields" />
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ActiveField" type="EventDetail_Fields" minOccurs="0" />
+				<xs:element name="KeyField" type="EventDetail_Fields" minOccurs="0" />
+				<xs:element name="NameFields" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="NameField" type="EventDetail_Fields" />
+						</xs:sequence>
+						<xs:attribute name="NameFormat" type="xs:string" use="optional" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="IncludeInEntities" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="Entity" type="EventDetail_ParentTables">
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="Autogenerate" type="xs:boolean" use="optional" />
+			<xs:attribute name="BaseClass" use="optional" />
+		</xs:complexType>
+			
+	<xs:simpleType name="EventDetail_Fields">
+		<xs:restriction base="xs:string"><xs:enumeration value="EventID" />
+	<xs:enumeration value="EventDate" />
+	<xs:enumeration value="EventStart" />
+	<xs:enumeration value="EventEnd" />
+	<xs:enumeration value="EventProgramTitle" />
+	<xs:enumeration value="ArtistID" />
+	<xs:enumeration value="ArtistFullName" />
+	<xs:enumeration value="ArtistFullName2" />
+	<xs:enumeration value="WorkID" />
+	<xs:enumeration value="WorkArrangement" />
+	<xs:enumeration value="WorkPremiere" />
+	<xs:enumeration value="WorkCommission" />
+	<xs:enumeration value="WorkTitle" />
+	<xs:enumeration value="WorkTitle2" />
+	<xs:enumeration value="WorkAddTitle1" />
+	<xs:enumeration value="WorkAddTitle2" />
+	<xs:enumeration value="WorkAddTitle3" />
+	<xs:enumeration value="WorkAddTitleText" />
+	<xs:enumeration value="ConductorFullName" />
+	<xs:enumeration value="ConductorID" />
+	<xs:enumeration value="ConductorFullName2" />
+	<xs:enumeration value="SeasonName" />
+	<xs:enumeration value="OrchestraName" />
+	<xs:enumeration value="VenueName" />
+	<xs:enumeration value="VenueCity" />
+	<xs:enumeration value="VenueCountry" />
+	<xs:enumeration value="VenueState" />
+	<xs:enumeration value="ProjectName" />
+	<xs:enumeration value="TypeName" />
+	<xs:enumeration value="ComposerFullName" />
+	<xs:enumeration value="ComposerFullName2" />
+	<xs:enumeration value="Instrument1" />
+	<xs:enumeration value="InstrumentID" />
+	<xs:enumeration value="EventDetailID" />
+	<xs:enumeration value="EventWorkID" />
+			</xs:restriction>
+	</xs:simpleType>
+		
+	<xs:simpleType name="EventDetail_ParentTables">
+		<xs:restriction base="xs:string">		</xs:restriction>
+	</xs:simpleType>
+			<xs:complexType name="ArtistDetail_Type">
+			<xs:sequence minOccurs="0">
+				<xs:element name="SequenceFields" minOccurs="0">
+					<xs:complexType>
+						<xs:choice maxOccurs="unbounded">
+							<xs:element name="ASC" type="ArtistDetail_Fields" />
+							<xs:element name="DESC" type="ArtistDetail_Fields" />
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ActiveField" type="ArtistDetail_Fields" minOccurs="0" />
+				<xs:element name="KeyField" type="ArtistDetail_Fields" minOccurs="0" />
+				<xs:element name="NameFields" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="NameField" type="ArtistDetail_Fields" />
+						</xs:sequence>
+						<xs:attribute name="NameFormat" type="xs:string" use="optional" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="IncludeInEntities" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="Entity" type="ArtistDetail_ParentTables">
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="Autogenerate" type="xs:boolean" use="optional" />
+			<xs:attribute name="BaseClass" use="optional" />
+		</xs:complexType>
+			
+	<xs:simpleType name="ArtistDetail_Fields">
+		<xs:restriction base="xs:string"><xs:enumeration value="EnsembleName" />
+	<xs:enumeration value="EnsembleType" />
+	<xs:enumeration value="EnsembleName2" />
+	<xs:enumeration value="EventId" />
+	<xs:enumeration value="ArtistID" />
+	<xs:enumeration value="InstrumentID" />
+	<xs:enumeration value="Instrument1" />
+	<xs:enumeration value="ComposerFullName" />
+	<xs:enumeration value="ComposerFullName2" />
+	<xs:enumeration value="WorkId" />
+	<xs:enumeration value="WorkTitle" />
+	<xs:enumeration value="WorkAddTitle1" />
+	<xs:enumeration value="WorkAddTitle2" />
+	<xs:enumeration value="WorkAddTitle3" />
+	<xs:enumeration value="EventDate" />
+	<xs:enumeration value="EventStart" />
+	<xs:enumeration value="EventEnd" />
+	<xs:enumeration value="ArtistDetailID" />
+			</xs:restriction>
+	</xs:simpleType>
+		
+	<xs:simpleType name="ArtistDetail_ParentTables">
+		<xs:restriction base="xs:string">		</xs:restriction>
+	</xs:simpleType>
+			
+</xs:schema>

@@ -1,0 +1,1 @@
+handlebars . -f ../app/app.templates.js

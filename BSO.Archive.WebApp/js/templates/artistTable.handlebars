@@ -1,0 +1,61 @@
+﻿{{#unless hasResults}}
+<center>
+  <span class="NoResultsMessage">No results found</span>
+</center>
+{{else}}
+
+<table data-bb="resultsTable" class="searchResults">
+	<thead>
+		<tr>
+			<th data-bb="sortableTH" data-sortOptionName="SortArtistByName">Artist/Ensemble &nbsp;<span class="triangleSort"></span></th>
+			<th>Instrument/Role<span class="triangleSort"></span></th>
+			<th data-bb="sortableTH" data-sortOptionName="SortArtistByComposer">Composer &nbsp;<span class="triangleSort"></span></th>
+			<th data-bb="sortableTH" data-sortOptionName="SortArtistByWork">Work &nbsp;<span class="triangleSort"></span></th>
+
+			<th data-bb="sortableTH" data-sortOptionName="SortArtistByConductorCount"># of times Conductor &nbsp;<span class="triangleSort"></span></th>
+			<th data-bb="sortableTH" data-sortOptionName="SortArtistBySoloistCount"># of times Soloist &nbsp;<span class="triangleSort"></span></th>
+			<th data-bb="sortableTH" data-sortOptionName="SortArtistByEnsembleCount"># of times Ensemble &nbsp;<span class="triangleSort"></span></th>
+		</tr>
+	</thead>
+	<tbody>
+	  {{#each results}}
+	  <tr class="tableColumns">
+			<td class="tableColumn">
+				{{this.attributes.ArtistFullName}}
+			</td>
+			<td class="tableColumn">
+				<ul>
+					{{#each this.instruments.models}}
+					<li>
+						{{this.attributes.Instrument}}
+					</li>
+					{{/each}}
+				</ul>
+			</td>
+			<td class="tableColumn">
+				{{this.attributes.ComposerFullName}}
+			</td>
+			<td class="tableColumn">
+				{{{this.attributes.WorkTitle}}}
+			</td>
+			<td class="tableColumn">
+				<a href="{{this.attributes.ConductorLink}}">
+					{{this.attributes.ConductorCount}}
+				</a>
+					
+			</td>
+			<td class="tableColumn">
+				<a href="{{this.attributes.SoloistLink}}">
+					{{this.attributes.SoloistCount}}
+				</a>
+			</td>
+			<td class="tableColumn">
+				<a href="{{this.attributes.OrchestraLink}}">
+					{{this.attributes.EnsembleCount}}
+				</a>
+			</td>
+		</tr>
+		{{/each}}
+	</tbody>
+</table>
+{{/unless}}

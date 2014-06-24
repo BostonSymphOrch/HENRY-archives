@@ -1,0 +1,86 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bso.Archive.BusObj", "Bso.Archive.BusObj\Bso.Archive.BusObj.csproj", "{DB0163CC-195C-4ABA-B9C8-4ADF65465AAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSO.Archive.BusObj.Test", "BSO.Archive.BusObj.Test\BSO.Archive.BusObj.Test.csproj", "{A0389FAF-E1E9-4D6B-82B0-FFFCD66E20A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bso.Archive.App", "Bso.Archive.App\Bso.Archive.App.csproj", "{AD09C1CD-31F9-4409-B77D-6E5AC60B52AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSO.Archive.WebApp", "BSO.Archive.WebApp\BSO.Archive.WebApp.csproj", "{A480DFBC-6A6B-48E9-8ECB-784AE4E11196}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSO.Archive.DTO", "BSO.Archive.DTO\BSO.Archive.DTO.csproj", "{6DE12C7D-8E84-4FF7-8408-1CB84F8430BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSO.Archive.DTO.Test", "BSO.Archive.DTO.Test\BSO.Archive.DTO.Test.csproj", "{39F2E785-EBCD-4DEE-9AB8-3CFA8C7FE3EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adage.EF", "Adage.EF\Adage.EF.csproj", "{FAE668F8-5D4A-448A-B717-163DA55E76AA}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 8
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://gurnee:8080/tfs/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Bso.Archive.BusObj\\Bso.Archive.BusObj.csproj
+		SccProjectName1 = Bso.Archive.BusObj
+		SccLocalPath1 = Bso.Archive.BusObj
+		SccProjectUniqueName2 = BSO.Archive.BusObj.Test\\BSO.Archive.BusObj.Test.csproj
+		SccProjectName2 = BSO.Archive.BusObj.Test
+		SccLocalPath2 = BSO.Archive.BusObj.Test
+		SccProjectUniqueName3 = Bso.Archive.App\\Bso.Archive.App.csproj
+		SccProjectName3 = Bso.Archive.App
+		SccLocalPath3 = Bso.Archive.App
+		SccProjectUniqueName4 = BSO.Archive.WebApp\\BSO.Archive.WebApp.csproj
+		SccProjectName4 = BSO.Archive.WebApp
+		SccLocalPath4 = BSO.Archive.WebApp
+		SccProjectUniqueName5 = BSO.Archive.DTO\\BSO.Archive.DTO.csproj
+		SccProjectName5 = BSO.Archive.DTO
+		SccLocalPath5 = BSO.Archive.DTO
+		SccProjectUniqueName6 = BSO.Archive.DTO.Test\\BSO.Archive.DTO.Test.csproj
+		SccProjectName6 = BSO.Archive.DTO.Test
+		SccLocalPath6 = BSO.Archive.DTO.Test
+		SccProjectUniqueName7 = Adage.EF\\Adage.EF.csproj
+		SccProjectName7 = Adage.EF
+		SccLocalPath7 = Adage.EF
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DB0163CC-195C-4ABA-B9C8-4ADF65465AAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB0163CC-195C-4ABA-B9C8-4ADF65465AAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB0163CC-195C-4ABA-B9C8-4ADF65465AAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB0163CC-195C-4ABA-B9C8-4ADF65465AAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0389FAF-E1E9-4D6B-82B0-FFFCD66E20A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0389FAF-E1E9-4D6B-82B0-FFFCD66E20A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0389FAF-E1E9-4D6B-82B0-FFFCD66E20A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0389FAF-E1E9-4D6B-82B0-FFFCD66E20A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD09C1CD-31F9-4409-B77D-6E5AC60B52AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD09C1CD-31F9-4409-B77D-6E5AC60B52AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD09C1CD-31F9-4409-B77D-6E5AC60B52AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD09C1CD-31F9-4409-B77D-6E5AC60B52AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A480DFBC-6A6B-48E9-8ECB-784AE4E11196}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A480DFBC-6A6B-48E9-8ECB-784AE4E11196}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A480DFBC-6A6B-48E9-8ECB-784AE4E11196}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A480DFBC-6A6B-48E9-8ECB-784AE4E11196}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DE12C7D-8E84-4FF7-8408-1CB84F8430BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DE12C7D-8E84-4FF7-8408-1CB84F8430BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DE12C7D-8E84-4FF7-8408-1CB84F8430BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DE12C7D-8E84-4FF7-8408-1CB84F8430BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39F2E785-EBCD-4DEE-9AB8-3CFA8C7FE3EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39F2E785-EBCD-4DEE-9AB8-3CFA8C7FE3EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39F2E785-EBCD-4DEE-9AB8-3CFA8C7FE3EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39F2E785-EBCD-4DEE-9AB8-3CFA8C7FE3EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAE668F8-5D4A-448A-B717-163DA55E76AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAE668F8-5D4A-448A-B717-163DA55E76AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAE668F8-5D4A-448A-B717-163DA55E76AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAE668F8-5D4A-448A-B717-163DA55E76AA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35;packages\Unity.Interception.2.1.505.2\lib\NET35;packages\EnterpriseLibrary.Common.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.Caching.5.0.505.0\lib\NET35
+	EndGlobalSection
+EndGlobal

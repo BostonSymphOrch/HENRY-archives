@@ -1,0 +1,84 @@
+<#@ template language="C#"  hostspecific="True" debug="True" #>
+<#@ output extension="cs" #>
+<#+ 
+  bool IsVS2008()
+	{
+		return false;
+	}
+
+  string GetEDMX(){
+	return "..\\BsoArchive.edmx";
+  }
+
+	string GetNVL_XML()
+	{
+		return "..\\NameValueLists.xml";
+	}
+
+	string GetNamespace()
+	{
+		return "Bso.Archive.BusObj";
+	}
+
+	string GetModelName()
+	{
+		return "BsoArchiveEntities";
+	}
+
+	string GenerateModelFor()
+	{
+		return "Bso.Web_User";
+	}
+
+	string GetConnectionString()
+	{
+		return "Data Source=CONCORD;Initial Catalog=BSOArchive;Integrated Security=True";
+	}
+	
+	bool IsGeneratingSample()
+	{
+		return true;
+	}
+
+	XNamespace csModel()
+	{
+		if ( IsVS2008() )
+			return "http://schemas.microsoft.com/ado/2006/04/edm";
+		else
+			return "http://schemas.microsoft.com/ado/2008/09/edm";
+	}
+	
+	XNamespace sModel()
+	{
+		if ( IsVS2008() )
+			return "http://schemas.microsoft.com/ado/2006/04/edm/ssdl";
+		else
+			return "http://schemas.microsoft.com/ado/2006/04/edm/ssdl";
+	}
+	
+	private List<string> getEdmxNodesAttr(XElement doc, XName entityName, 
+		string attributeNameToMatch, string valToMatch, string attrToReturn)
+        {
+            if (doc == null)
+                return null;
+
+            List<string> currentResults = new List<string>();
+            foreach (XElement childES in doc.Descendants(entityName))
+            {
+                if (attributeNameToMatch == string.Empty ||
+                    (childES.Attribute(attributeNameToMatch) != null &&
+                    childES.Attribute(attributeNameToMatch).Value == valToMatch))
+                {
+                    if ( childES.Attribute(attrToReturn) != null )
+                        currentResults.Add(childES.Attribute(attrToReturn).Value);
+                }
+            }
+
+            if (currentResults.Count == 0)
+                return null;
+
+            return currentResults;
+        }
+	
+	
+#>

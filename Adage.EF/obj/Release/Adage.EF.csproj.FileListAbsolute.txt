@@ -1,0 +1,4 @@
+C:\working\BSO\BSO.Archive\Adage.EF\bin\Release\Adage.EF.dll
+C:\working\BSO\BSO.Archive\Adage.EF\bin\Release\Adage.EF.pdb
+C:\working\BSO\BSO.Archive\Adage.EF\obj\Release\Adage.EF.dll
+C:\working\BSO\BSO.Archive\Adage.EF\obj\Release\Adage.EF.pdb

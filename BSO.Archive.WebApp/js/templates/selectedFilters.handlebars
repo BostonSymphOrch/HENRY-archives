@@ -1,0 +1,14 @@
+﻿{{#each filterGroups}}
+	<div data-bb="selectedFilterList" data-bb="{{@key}}">
+	</br>
+		<h4>{{@key}}</h4>
+		<ul>
+		{{#each this}}
+			<li>
+			 	{{attributes.value}} &nbsp;<span data-bb="removeSelectedFilter" class="remove" data-value="{{attributes.value}}" data-filtername="{{attributes.name}}"><i class='icon-minus-sign'></i></span>
+			</li>
+		{{/each}}
+		</ul>
+		</br>
+	</div>
+{{/each}}

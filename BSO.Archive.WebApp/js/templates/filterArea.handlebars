@@ -1,0 +1,93 @@
+﻿{{#if resultCount}}
+  {{#if overMax}}
+    <div class="NoResultsMessage">
+      <p>
+        <span>Too Many Results</span> You are viewing the first {{maxResults}} results out of {{resultCount}}. To view a full result set, please narrow your search by adding criteria or applying filters.
+      </p>
+    </div>
+  {{else}}
+    <div>
+      <p class="resultCount">Search results: {{resultCount}}<p>
+    </div>
+  {{/if}}
+{{/if}}
+
+<a href="#" id="filterAreaShowHideButton" class="filterAreaShowHideButton">Filter Results</a>
+<a href="#" class="exportResults">Export Results (XLS)</a>
+<a href='#' class="shareSingleResult">Share Search</a>
+<!--<a href="#" class="shareSearch">Share Search</a>-->
+
+{{#if availableFilters.length}}
+<div id="filterBackground" {{#unless showFilterArea}}style="display:none"{{/unless}}>
+  <div id="filterResults">
+    <h4>Available Filters</h4>
+    {{#each availableFilters.models}}
+    <div data-bb="filterOptionDropdown">
+      {{#ifShouldCreateFilterGroup this.filters}}
+      <span data-bb="filterToggle" {{#hasActiveFilters this.filters}}class="filterSelected"{{/hasActiveFilters}}>
+        <strong>{{this.Category}}</strong>
+      </span>
+      {{else}}
+      <span data-bb="emptyFilter">
+        <strong>{{this.Category}}</strong>
+      </span>
+      {{/ifShouldCreateFilterGroup}}
+
+      {{#ifShouldCreateFilterGroup this.filters}}
+      <span data-bb="filterOptionsList">
+        <ul>
+          {{#ifNotEqual this.filters.models.length 1}}
+          <li data-bb="filterOption">
+            <label>
+              <input type="checkbox" data-bb="selectAllFilterOptions" />Select All
+            </label>
+          </li>
+          {{/ifNotEqual}}
+
+          {{#each this.filters.models}}
+          <li data-bb="filterOption" data-category="{{this.attributes.category}}" data-key="{{this.attributes.key}}" data-value="{{this.attributes.value}}">
+            <label>
+              <input type="checkbox" data-bb="filterOptionItemCheckbox" data-category="{{this.attributes.category}}" data-key="{{this.attributes.key}}" data-value="{{this.attributes.value}}"
+              {{#if this.attributes.active}}checked{{/if}} />
+              {{{this.attributes.value}}}
+            </label>
+          </li>
+          {{/each}}
+        </ul>
+      </span>
+      {{/ifShouldCreateFilterGroup}}
+    </div>
+    {{/each}}
+    {{#if selectedFilters.length}}
+    <br/><br/>
+    <h4>Selected Filters</h4>
+    <div id="selectedFilters">
+      {{#each selectedFilters}}
+      {{#hasActiveFilters this}}
+      <div data-bb="selectedFilterGroup">
+       <h5>{{this.Category}}</h5>
+       <ul>
+        {{#each this.filters.models}}
+        {{#if this.attributes.active}}
+        <li data-bb="selectedFilterValue" data-category="{{this.attributes.category}}" data-key="{{this.attributes.key}}" data-value="{{attributes.value}}">
+          {{{this.attributes.value}}} &nbsp;
+          <span data-bb="removeFilterButton" class="remove" data-category="{{this.attributes.category}}" data-key="{{this.attributes.key}}" data-value="{{attributes.value}}">
+            <i class='icon-minus-sign'></i>
+          </span>
+        </li>
+        {{/if}}
+        {{/each}}
+      </ul>
+    </div>
+
+    {{/hasActiveFilters}}
+    {{/each}}
+
+
+  </div>
+  {{/if}}
+
+
+</div>
+</div>
+{{/if}}

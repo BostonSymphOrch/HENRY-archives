@@ -1,0 +1,120 @@
+<#@ template language="C#" debug="true" hostSpecific="true" #>
+<#@ output extension=".xsd" #>
+<#@ Assembly Name="System.Core.dll" #>
+<#@ Assembly Name="System.Xml.dll" #>
+<#@ Assembly Name="System.Xml.Linq.dll" #>
+<#@ Assembly Name="System.Windows.Forms.dll" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Xml.Linq" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #> 
+<#@ include file="generationOptions.ttinclude" #>
+<#   
+	string folderName = System.IO.Path.GetDirectoryName(this.Host.TemplateFile);
+	folderName = System.IO.Path.GetDirectoryName(folderName);
+   XDocument doc = XDocument.Load( folderName + this.GetEDMX());
+	    
+    string currentNS = string.Empty;
+    foreach(XElement childNamespaces in doc.Descendants( csModel() + "Schema"))
+    {
+         currentNS += childNamespaces.Attribute("Namespace").Value;
+    }
+#>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="Lists">
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded">
+		<# 
+	foreach (XElement childES in doc.Descendants(csModel() + "EntityType"))
+    {
+		#><xs:element name="<#= childES.Attribute("Name").Value #>" type="<#= childES.Attribute("Name").Value #>_Type" />
+	<#
+	}
+	#>
+				
+			</xs:choice>
+			<xs:attribute name="BaseClass" use="optional" />
+		</xs:complexType>
+	</xs:element>
+		
+	<# 
+	foreach (XElement childES in doc.Descendants(csModel() + "EntityType"))
+    {
+		#>
+	<xs:complexType name="<#= childES.Attribute("Name").Value #>_Type">
+			<xs:sequence minOccurs="0">
+				<xs:element name="SequenceFields" minOccurs="0">
+					<xs:complexType>
+						<xs:choice maxOccurs="unbounded">
+							<xs:element name="ASC" type="<#= childES.Attribute("Name").Value #>_Fields" />
+							<xs:element name="DESC" type="<#= childES.Attribute("Name").Value #>_Fields" />
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ActiveField" type="<#= childES.Attribute("Name").Value #>_Fields" minOccurs="0" />
+				<xs:element name="KeyField" type="<#= childES.Attribute("Name").Value #>_Fields" minOccurs="0" />
+				<xs:element name="NameFields" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="NameField" type="<#= childES.Attribute("Name").Value #>_Fields" />
+						</xs:sequence>
+						<xs:attribute name="NameFormat" type="xs:string" use="optional" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="IncludeInEntities" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="Entity" type="<#= childES.Attribute("Name").Value #>_ParentTables">
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="Autogenerate" type="xs:boolean" use="optional" />
+			<xs:attribute name="BaseClass" use="optional" />
+		</xs:complexType>
+			
+	<xs:simpleType name="<#= childES.Attribute("Name").Value #>_Fields">
+		<xs:restriction base="xs:string"><#
+		foreach(XElement eachProperty in childES.Descendants(csModel() + "Property"))
+		{
+		#><xs:enumeration value="<#= eachProperty.Attribute("Name").Value #>" />
+	<#
+		}
+		#>
+		</xs:restriction>
+	</xs:simpleType>
+		
+	<xs:simpleType name="<#= childES.Attribute("Name").Value #>_ParentTables">
+		<xs:restriction base="xs:string"><#
+		foreach(XElement eachProperty in childES.Descendants(csModel() + "NavigationProperty"))
+		{
+			string ToRole = eachProperty.Attribute("ToRole").Value;
+				string associationName = eachProperty.Attribute("Relationship").Value.Replace(currentNS + ".", "");
+				
+				foreach(XElement fromEntity in doc.Descendants(csModel() + "Association"))
+				{
+					if ( associationName == fromEntity.Attribute("Name").Value )
+					{
+						foreach(XElement assocRoles in fromEntity.Descendants(csModel() + "End"))
+						{
+							if ( assocRoles.Attribute("Role").Value == ToRole && assocRoles.Attribute("Multiplicity").Value == "*" )
+							{
+		#><xs:enumeration value="<#= ToRole #>" />
+	<#
+							}
+						}
+					}
+				}
+		}
+		#>
+		</xs:restriction>
+	</xs:simpleType>
+		<#
+	}
+	#>
+	
+</xs:schema>

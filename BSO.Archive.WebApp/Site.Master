@@ -1,0 +1,148 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="BSO.Archive.WebApp.SiteMaster" %>
+
+<%@ Register Src="~/Controls/Footer.ascx" TagPrefix="uc1" TagName="Footer" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <title><%: Page.Title %>Performance History Search</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link rel="stylesheet" href="/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/Content/themes/base/minified/jquery.ui.min.css" />
+    <link rel="stylesheet" href="/css/Main.css" />
+    <script src="Scripts/jquery-1.7.1.min.js"></script>
+    <script src="Scripts/jquery-ui-1.8.20.min.js"></script>
+    <!--[if IE]>
+        <script src="js/app/views/html5shiv.js"></script>
+        
+        <![endif]-->
+
+    <meta name="viewport" content="width=device-width" />
+    <asp:ContentPlaceHolder runat="server" ID="HeadContent" />
+</head>
+<body>
+    <form runat="server">
+        <div id="preloaderFish" class="preloaderFish" style="display: none;">
+            <div class="preloaderInner">
+                <img src="/Images/preloader.gif">
+                <p>Loading&hellip;</p>
+            </div>
+        </div>
+        <div id="container">
+            <header class="clearfix">
+                <a href="/">
+                    <img class="clearfix" id="logo" src="Images/bso_logo.png" alt="BSO Logo" /></a>
+                <nav>
+                    <ul>
+                        <li><a class="active_link" href="Search.aspx">Performance History Search</a></li>
+                        <li><a id="DigitalCollectionUrl" runat="server" target="contentDM">Digital Collections</a></li>
+                        <li><a href="SearchHistory.aspx">My Search History</a></li>
+                        <li><a href="http://www.bso.org" target="bsoHome">BSO Homepage</a></li>
+                        <li><a href="Help.aspx">Help</a></li>
+                    </ul>
+                </nav>
+                <h1 class="performanceH1">PERFORMANCE HISTORY SEARCH</h1>
+            </header>
+            <div class="messages">
+                <adg:MessageBox ID="SiteMessageBox" runat="server" />
+            </div>
+            <div id="body">
+
+                <ajaxToolkit:ToolkitScriptManager EnablePartialRendering="true" ID="ScriptManager1" runat="server">
+                    <Scripts>
+                        <%--Framework Scripts--%>
+                        <%--<asp:ScriptReference Name="MicrosoftAjaxCore.js" Assembly="AjaxControlToolkit, Version=4.1.7.1005, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e" />
+                        <asp:ScriptReference Name="MicrosoftAjaxComponentModel.js" Assembly="AjaxControlToolkit, Version=4.1.7.1005, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e" />
+                        <asp:ScriptReference Name="MicrosoftAjaxSerialization.js" Assembly="AjaxControlToolkit, Version=4.1.7.1005, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e" />
+                        <asp:ScriptReference Name="MicrosoftAjaxNetwork.js" Assembly="AjaxControlToolkit, Version=4.1.7.1005, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e" />
+                        <asp:ScriptReference Name="MicrosoftAjaxWebServices.js" Assembly="AjaxControlToolkit, Version=4.1.7.1005, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e" />
+                        <asp:ScriptReference Name="MicrosoftAjaxWebForms.js" Assembly="AjaxControlToolkit, Version=4.1.7.1005, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e" />--%>
+
+                        <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                        <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                        <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                        <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                        <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                        <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                        <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                        <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+
+                        <%--Site Scripts--%>
+                    </Scripts>
+                </ajaxToolkit:ToolkitScriptManager>
+                <asp:ContentPlaceHolder runat="server" ID="FeaturedContent" />
+                <section class="content-wrapper main-content clear-fix">
+
+                    <asp:ContentPlaceHolder runat="server" ID="MainContent" />
+                </section>
+            </div>
+
+        </div>
+
+        <footer>
+            <div>
+                <uc1:Footer runat="server" ID="Footer" />
+            </div>
+        </footer>
+
+    </form>
+    <script src="/js/lib/head.min.js"></script>
+    <script src="/js/app/run.js"></script>
+    <script type="text/javascript">
+        (function () {
+            var shouldHide = true;
+            $(".notes span").each(function () {
+
+                if ($.trim($(this).html()) != "") {
+                    shouldHide = false;
+                }
+
+                if (shouldHide) {
+                    $(this).parent().hide();
+                }
+                else {
+                    $(this).parent().show();
+                }
+            });
+
+            $(".input_show").hide();
+
+            $(".show_more").on("click", function () {
+                _gaq.push(['_trackEvent', 'archives form', 'click', 'performance search advanced']);
+
+                $(".input_show").slideToggle("400", function () {
+                    if ($(".input_show").is(":visible")) {
+                        $(".search_text").text("Hide");
+                        $(".search_img").html("<img src=\"/Images/showless.png\" alt=\"triangle button\" />");
+                    } else {
+                        $(".search_text").text("Show");
+                        $(".search_img").html("<img src=\"/Images/showmore.png\" alt=\"triangle button\" />");
+                    }
+                });
+
+            });
+
+            $(".show_search_info").on("click", function () {
+                _gaq.push(['_trackEvent', 'archives form', 'click', 'search info']);
+
+                $(".info_show").slideToggle(function () {
+                    if ($(".info_show").is(":visible")) {
+                        $(".info_img").html("<img src=\"/Images/showless.png\" alt=\"triangle button\" />");
+                    } else {
+                        $(".info_img").html("<img src=\"/Images/showmore.png\" alt=\"triangle button\" />");
+                    }
+                });
+            });
+
+
+
+
+        })();
+    </script>
+    <asp:ContentPlaceHolder runat="server" ID="plBeforeBodyClose" />
+</body>
+
+
+</html>
+

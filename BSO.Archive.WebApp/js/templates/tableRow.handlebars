@@ -1,0 +1,36 @@
+<td>
+    {{EventFullDate}} <br/> 
+</td>
+<td>{{SeasonName}}</td>
+<td>
+  {{#if innerResults}}
+  <ul>
+    {{#each innerResults}}
+    <li>{{ComposerFullName}} / {{WorkTitle}} <br/> {{WorkArrangement}} <br /> {{WorkPremiere}}
+    </li>
+    {{/each}}
+  </ul>
+  {{/if}}
+</td>
+<td>
+    <ul>
+        {{#each innerResults}}
+            <li>
+                {{ArtistFullName}} <br/> {{Instrument1}}
+            </li>
+        {{/each}}
+    </ul>
+</td>
+<td>{{ConductorFullName}}</td>
+<td>{{OrchestraName}}</td>
+<td>{{VenueName}}</td>
+<td>
+  <a href="Detail.aspx?id={{EventID}}" target="_blank"><i class="icon-search"></i>
+  </a>
+</td>
+<td>
+  <a href="#">
+    <img class="searchPDF" src="/images/pdf.png" alt="pdf icon" />
+  </a>
+  <p class="searchP">VIEW <br />PDF</p>
+</td>

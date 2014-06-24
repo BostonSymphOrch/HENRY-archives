@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bundle minify="true" runOnBuild="true" output="jquery.ui.css">
+  <!--The order of the <file> elements determines the order of them when bundled.-->
+  <file>/Content/themes/base/minified/jquery-ui.min.css</file>
+  <file>/Content/themes/base/minified/jquery.ui.accordion.min.css</file>
+  <file>/Content/themes/base/minified/jquery.ui.autocomplete.min.css</file>
+  <file>/Content/themes/base/minified/jquery.ui.button.min.css</file>
+  <file>/Content/themes/base/minified/jquery.ui.core.min.css</file>
+  <file>/Content/themes/base/minified/jquery.ui.datepicker.min.css</file>
+  <file>/Content/themes/base/minified/jquery.ui.dialog.min.css</file>
+  <file>/Content/themes/base/minified/jquery.ui.progressbar.min.css</file>
+  <file>/Content/themes/base/minified/jquery.ui.resizable.min.css</file>
+  <file>/Content/themes/base/minified/jquery.ui.selectable.min.css</file>
+  <file>/Content/themes/base/minified/jquery.ui.slider.min.css</file>
+  <file>/Content/themes/base/minified/jquery.ui.tabs.min.css</file>
+  <file>/Content/themes/base/minified/jquery.ui.theme.min.css</file>
+</bundle>

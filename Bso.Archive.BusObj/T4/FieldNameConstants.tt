@@ -1,0 +1,44 @@
+﻿<#@ template language="C#" debug="false" hostspecific="true" #>
+<#@ output extension=".cs" #>
+<#@ Assembly Name="System.Core.dll" #>
+<#@ Assembly Name="System.Data.dll" #>
+<#@ Assembly Name="System.Xml.dll" #>
+<#@ Assembly Name="System.Xml.Linq.dll" #>
+<#@ Assembly Name="System.Windows.Forms.dll" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Xml" #>
+<#@ import namespace="System.Xml.Linq" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #> 
+<#@ import namespace="System.Data" #>
+<#@ include file="generationOptions.ttinclude" #>
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.ComponentModel;
+
+<#
+    string folderName = System.IO.Path.GetDirectoryName(this.Host.TemplateFile);
+	folderName = System.IO.Path.GetDirectoryName(folderName);
+
+    XDocument doc = XDocument.Load( folderName + this.GetEDMX() );	   
+#>
+namespace <#= this.GetNamespace() #>
+{   
+    public partial class Constants
+	{
+		<# foreach (XElement entityElement in doc.Descendants(csModel() + "EntityType")) { #>    
+			public partial class <#= entityElement.Attribute("Name").Value #> 
+			{
+				public static string EntityName = "<#= entityElement.Attribute("Name").Value #>";				
+				<# foreach (XElement propertyElement in entityElement.Descendants( csModel() + "Property")) { #> 
+				public static string <#= propertyElement.Attribute("Name").Value #> = "<#= propertyElement.Attribute("Name").Value #>";
+				<# } #>			
+			}
+        <# } #>
+    }
+}

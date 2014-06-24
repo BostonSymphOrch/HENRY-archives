@@ -1,0 +1,373 @@
+<#@ template language="C#" debug="false" hostspecific="true"#>
+<#@ output extension = ".cs" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Data" #>
+<#@ assembly name="System.Data.Entity" #>
+<#@ assembly name="System.Data.Entity.Design" #>
+<#@ assembly name="System.Xml" #>
+<#@ assembly name="System.Xml.Linq" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Data.Metadata.Edm" #>
+<#@ import namespace="System.Data.Objects" #>
+<#@ import namespace="System.Data.Objects.DataClasses" #>
+<#@ import namespace="System.Xml" #>
+<#@ import namespace="System.Xml.Linq" #>
+<#@ import namespace="System.Collections.Generic" #> 
+<#@ include file="generationOptions.ttinclude" #>
+
+using System;
+using System.Collections.Generic;
+using System.Data.Objects.DataClasses;
+using System.Linq;
+using System.Text;
+using System.Data.EntityClient;
+using System.Data.Metadata.Edm;
+using System.Data.Objects;
+using System.Data.Common;
+using System.ComponentModel;
+using Adage.EF.Interfaces;
+
+	<#
+	
+	string folderName = System.IO.Path.GetDirectoryName(this.Host.TemplateFile);
+		folderName = System.IO.Path.GetDirectoryName(folderName);
+
+	XDocument doc = XDocument.Load(folderName + this.GetEDMX());
+    
+    string currentNS = string.Empty;
+	string modelName = this.GetModelName();
+    foreach(XElement childNamespaces in doc.Descendants( csModel() + "Schema"))
+    {
+         currentNS += childNamespaces.Attribute("Namespace").Value;
+    }
+    #>
+    
+namespace <#= this.GetNamespace() #>
+{
+   
+	<#
+	foreach (XElement childES in doc.Descendants(csModel() + "EntityType"))
+    {	
+	#>
+	public partial class <#= childES.Attribute("Name").Value #> : IBusinessObject
+	{
+			
+			public <#= childES.Attribute("Name").Value #>()
+			{
+				OnInit();
+			}
+		
+			partial void OnInit();
+			
+			
+			#region IBusinessObject Members
+			/** We are not using Broken Rules at this moment **/
+			public string BrokenRulesString { get { return String.Empty; } }
+            public bool IsValid { get { throw new Exception("Not Implemented"); } }
+            public bool CheckIsValid(List<IBusinessObject> checkEntities ){ throw new Exception("Not Implemented");}
+            public void FindBrokenRules(List<IBusinessObject> checkEntities, List<string> currentMessages, EntityObject parent)
+            {throw new Exception("Not Implemented");}
+            public string GetCurrentBrokenRules(){ throw new Exception("Not Implemented");}
+
+        static List<BusinessObjectStructure> _tblFields = null;
+
+        List<BusinessObjectStructure> IGenericBusinessObj.GetTableFields(ObjectStateEntry entry)
+        {
+            if (_tblFields != null)
+                return _tblFields;
+
+            return _tblFields = Adage.EF.BusObj.BusinessObjectHelper.GetTableFields(this.GetType(), entry);
+        }
+
+        private List<RelatedObject> _relatedObjects;
+        
+        public List<RelatedObject> RelatedObjects
+        {
+			get
+			{
+				if ( _relatedObjects != null )
+					return _relatedObjects;
+				
+				
+				_relatedObjects = new List<RelatedObject>();
+            <#
+            foreach(XElement eachProperty in childES.Descendants(csModel() + "NavigationProperty"))
+			{
+				#>
+				_relatedObjects.Add(<#= eachProperty.Attribute("Name").Value #>RelatedEnd);
+				<#
+			}
+            #>
+            
+            return _relatedObjects;
+			}
+        }
+        
+        <#
+            foreach(XElement eachProperty in childES.Descendants(csModel() + "NavigationProperty"))
+			{
+				string ToRole = eachProperty.Attribute("ToRole").Value;
+				string associationName = eachProperty.Attribute("Relationship").Value.Replace(currentNS + ".", "");
+				string Name = eachProperty.Attribute("Name").Value;
+				
+				foreach(XElement fromEntity in doc.Descendants(csModel() + "Association"))
+				{
+					if ( associationName == fromEntity.Attribute("Name").Value )
+					{
+						foreach(XElement assocRoles in fromEntity.Descendants(csModel() + "End"))
+						{
+							if ( assocRoles.Attribute("Role").Value == ToRole )
+							{
+								string multiplicity = "RelatedEnum.ZeroOne";
+							
+								switch ( assocRoles.Attribute("Multiplicity").Value )
+								{
+									case "*":
+										multiplicity = "RelatedEnum.Many";
+										break;
+										
+									case "1":
+										multiplicity = "RelatedEnum.One";
+										break;
+								}
+								
+								string typeName = assocRoles.Attribute("Type").Value;
+								typeName = typeName.Substring(typeName.IndexOf(".")+1);
+							#> 
+						
+					internal static readonly RelatedObject <#= Name #>RelatedEnd = new RelatedObjectGen<<#= typeName #>>(
+						    "<#= associationName #>",
+							"<#= ToRole #>", 
+							"<#= Name #>", 
+							<#= multiplicity #>,
+							new GetKey(<#= string.Format("{0}.{1}", this.GetNamespace(), typeName)  #>.GetEntityKey));
+							
+							<#
+							} // end if
+						} // end for each assocRoles
+					}// end if
+				}// end for each fromEntity
+			}
+            #>
+        
+        List<RelatedObject> IGenericBusinessObj.GetSingleRelatedObjects(System.Data.Objects.ObjectStateEntry currentContext)
+        {
+            return RelatedObjects.Where(relObj => 
+                relObj.RelatedType != RelatedEnum.Many).ToList();
+        }
+
+		[DataObjectField(false)]
+        public string UniqueKey
+        {
+            get 
+			{ 
+				List<string> keyValues = new List<string>();
+				
+			<#
+			
+			foreach(XElement keyProperty in childES.Descendants(csModel() + "PropertyRef"))
+			{
+				string keyPropertyName = keyProperty.Attribute("Name").Value;
+				foreach(XElement subProperities in childES.Descendants(csModel() + "Property"))
+				{
+					if ( subProperities.Attribute("Name").Value == keyPropertyName)
+					{
+						string propertyType = subProperities.Attribute("Type").Value;
+						#>
+						if ( <#= keyPropertyName #> == null )
+							keyValues.Add(string.Empty);
+						else
+							keyValues.Add(<#= keyPropertyName #>.ToString()); <#
+					}
+				}
+			}
+			#>
+				
+				return string.Join("|", keyValues.ToArray());
+			}
+        }
+
+        public static <#= childES.Attribute("Name").Value #> GetByID(<#
+			bool isFirst = true;
+			foreach(XElement keyProperty in childES.Descendants(csModel() + "PropertyRef"))
+			{
+				string keyPropertyName = keyProperty.Attribute("Name").Value;
+				foreach(XElement subProperities in childES.Descendants(csModel() + "Property"))
+				{
+					if ( subProperities.Attribute("Name").Value == keyPropertyName)
+					{
+						string propertyType = subProperities.Attribute("Type").Value;
+						
+						if ( isFirst )
+							isFirst = false;
+						else
+							Write(",");
+						
+						Write(propertyType);
+						Write(" ");
+						Write(keyPropertyName);
+					}
+        		}
+			}#>, ObjectContext currentContext)
+			{
+				Dictionary<string, object> keyValues = new Dictionary<string, object>();
+			<#
+			
+			foreach(XElement keyProperty in childES.Descendants(csModel() + "PropertyRef"))
+			{
+				string keyPropertyName = keyProperty.Attribute("Name").Value;
+				foreach(XElement subProperities in childES.Descendants(csModel() + "Property"))
+				{
+					if ( subProperities.Attribute("Name").Value == keyPropertyName)
+					{
+						string propertyType = subProperities.Attribute("Type").Value;
+						#>
+							keyValues.Add("<#= keyPropertyName #>", <#= keyPropertyName #>); <#
+					}
+				}
+			}
+			#>
+				return (<#= childES.Attribute("Name").Value #>) currentContext.GetObjectByKey( 
+					new System.Data.EntityKey("<#= string.Format("{0}.{1}", modelName, childES.Attribute("Name").Value) #>", keyValues));
+			}
+			
+        object IGenericBusinessObj.ReadProperty(string name, ObjectStateEntry currentEntry)
+        {
+            return Adage.EF.BusObj.BusinessObjectHelper.ReadObjectValue(this, name, currentEntry);
+        }
+
+        object IGenericBusinessObj.ReadProperty(int index, ObjectStateEntry currentEntry)
+        {
+            return Adage.EF.BusObj.BusinessObjectHelper.ReadObjectValue(this, index, currentEntry);
+        }
+
+        void IBusinessObject.UpdateProperty(string name, object value, ObjectStateEntry currentEntry)
+        {
+			List<BusinessObjectStructure> tableFields = ((IBusinessObject)this).GetTableFields(currentEntry);
+            Adage.EF.Interfaces.BusinessObjectStructure fieldToGet = tableFields.Where(c => c.Name == name).FirstOrDefault();
+            
+            if (fieldToGet == null)
+                throw new ApplicationException("Could not find the property:" + name);
+
+			if (fieldToGet.PropertyInfo.CanWrite)
+            	fieldToGet.PropertyInfo.SetValue(this, value, null);
+        }
+
+        bool IGenericBusinessObj.CanReadProperty(string name)
+        {
+            return Adage.EF.BusObj.FieldSecurity.CurrentSecurity.FieldReadAccess(this, name);
+        }
+
+        bool IGenericBusinessObj.CanWriteProperty(string name)
+        {
+            return Adage.EF.BusObj.FieldSecurity.CurrentSecurity.FieldWriteAccess(this, name);
+        }
+		
+		
+		public static <#= childES.Attribute("Name").Value #> New<#= childES.Attribute("Name").Value #>()
+        {
+            <#= childES.Attribute("Name").Value #> newObject = new <#= childES.Attribute("Name").Value #>();			
+			<#
+			List<string> entitySetNameNew = getEdmxNodesAttr(doc.Root, csModel() + "EntitySet", "EntityType",
+				currentNS + "." + childES.Attribute("Name").Value, "Name");
+			#>
+
+            <#=modelName #>.Current.AddTo<#=entitySetNameNew[0]#>(newObject);
+            <#=modelName #>.SetDefaultValue(newObject);
+            return newObject;
+        }
+		/**
+		public static <#= childES.Attribute("Name").Value #> CreateNew<#= childES.Attribute("Name").Value #>(int id)
+		{
+			<#= childES.Attribute("Name").Value #> newObject = new <#= childES.Attribute("Name").Value #>();
+						
+			newObject.EntityKey = GetEntityKey(id.ToString());
+
+            <#=modelName #>.Current.AddTo<#=entitySetNameNew[0]#>(newObject);
+            <#=modelName #>.SetDefaultValue(newObject);
+            return newObject;
+		}
+		**/
+		public bool IsNew
+			{
+				get { return UniqueKey == "0"; }
+			}
+
+        void IBusinessObject.Save(ObjectContext context)
+        {
+            OnSave(context);
+        }
+        
+        System.Data.EntityKey IBusinessObject.GetEntityKey(string currentValues)
+        {
+			return GetEntityKey(currentValues);
+        }
+        
+        public static System.Data.EntityKey GetEntityKey(string currentValues)
+        {
+			Dictionary<string, object> keyValues = new Dictionary<string, object>();
+			string[] sepCurrValues = currentValues.Split("|".ToCharArray());
+			<#
+			
+			int keyPropertyCount = 0;
+			foreach(XElement keyProperty in childES.Descendants(csModel() + "PropertyRef"))
+			{
+				string keyPropertyName = keyProperty.Attribute("Name").Value;
+				foreach(XElement subProperities in childES.Descendants(csModel() + "Property"))
+				{
+					if ( subProperities.Attribute("Name").Value == keyPropertyName)
+					{
+						string propertyType = subProperities.Attribute("Type").Value;
+						switch (propertyType)
+						{
+							case "Int32":
+								#>keyValues.Add("<#= keyPropertyName #>", int.Parse(sepCurrValues[<#= keyPropertyCount #>])); <#
+								break;
+								
+							case "Int16":
+								#>keyValues.Add("<#= keyPropertyName #>", Int16.Parse(sepCurrValues[<#= keyPropertyCount #>])); <#
+								break;
+								
+							case "Int64":
+								#>keyValues.Add("<#= keyPropertyName #>", long.Parse(sepCurrValues[<#= keyPropertyCount #>])); <#
+								break;
+								
+							case "String":
+								#>keyValues.Add("<#= keyPropertyName #>", sepCurrValues[<#= keyPropertyCount #>]); <#
+								break;
+								
+							case "Guid":
+								#>keyValues.Add("<#= keyPropertyName #>", new Guid(sepCurrValues[<#= keyPropertyCount #>])); <#
+								break;
+								
+							default:
+								#>keyValues.Add("<#= keyPropertyName #>", Convert.ChangeType(sepCurrValues[<#= keyPropertyCount #>], typeof(<#= propertyType #>)) ); <#
+								break;
+						}
+						
+						break;
+					}
+				}
+				
+				keyPropertyCount++;
+			}
+			
+			List<string> entitySetName = getEdmxNodesAttr(doc.Root, csModel() + "EntitySet", "EntityType",
+				currentNS + "." + childES.Attribute("Name").Value, "Name");
+			#>
+			
+			return new System.Data.EntityKey("<#= string.Format("{0}.{1}", modelName, entitySetName[0]) #>", keyValues);
+        }
+
+        #endregion
+        
+        partial void OnSave(ObjectContext context);
+
+	}
+		
+	<# 
+	} 
+	#>
+	
+    
+}
