@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bso.Archive.BusObj", "Bso.Archive.BusObj\Bso.Archive.BusObj.csproj", "{DB0163CC-195C-4ABA-B9C8-4ADF65465AAB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSO.Archive.BusObj.Test", "BSO.Archive.BusObj.Test\BSO.Archive.BusObj.Test.csproj", "{A0389FAF-E1E9-4D6B-82B0-FFFCD66E20A4}"
@@ -16,33 +16,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adage.EF", "Adage.EF\Adage.EF.csproj", "{FAE668F8-5D4A-448A-B717-163DA55E76AA}"
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 8
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://gurnee:8080/tfs/defaultcollection
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = Bso.Archive.BusObj\\Bso.Archive.BusObj.csproj
-		SccProjectName1 = Bso.Archive.BusObj
-		SccLocalPath1 = Bso.Archive.BusObj
-		SccProjectUniqueName2 = BSO.Archive.BusObj.Test\\BSO.Archive.BusObj.Test.csproj
-		SccProjectName2 = BSO.Archive.BusObj.Test
-		SccLocalPath2 = BSO.Archive.BusObj.Test
-		SccProjectUniqueName3 = Bso.Archive.App\\Bso.Archive.App.csproj
-		SccProjectName3 = Bso.Archive.App
-		SccLocalPath3 = Bso.Archive.App
-		SccProjectUniqueName4 = BSO.Archive.WebApp\\BSO.Archive.WebApp.csproj
-		SccProjectName4 = BSO.Archive.WebApp
-		SccLocalPath4 = BSO.Archive.WebApp
-		SccProjectUniqueName5 = BSO.Archive.DTO\\BSO.Archive.DTO.csproj
-		SccProjectName5 = BSO.Archive.DTO
-		SccLocalPath5 = BSO.Archive.DTO
-		SccProjectUniqueName6 = BSO.Archive.DTO.Test\\BSO.Archive.DTO.Test.csproj
-		SccProjectName6 = BSO.Archive.DTO.Test
-		SccLocalPath6 = BSO.Archive.DTO.Test
-		SccProjectUniqueName7 = Adage.EF\\Adage.EF.csproj
-		SccProjectName7 = Adage.EF
-		SccLocalPath7 = Adage.EF
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
