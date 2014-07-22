@@ -41,6 +41,9 @@ Icon
 /BSO.Archive.DTO.Test/obj/*
 /Bso.Archive.BusObj.Test/bin/*
 /Bso.Archive.BusObj.Test/obj/*
+/Adage.EF/bin/*
+/Adage.EF/obj/*
+/packages/*
 
 # Thumbnails
 ._*
