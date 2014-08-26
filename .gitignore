@@ -13,6 +13,9 @@ $RECYCLE.BIN/
 *.msi
 *.msm
 *.msp
+*.dll
+*.dll.config
+*.pdb
 
 # =========================
 # Operating System Files
@@ -29,19 +32,29 @@ $RECYCLE.BIN/
 Icon
 
 # Bin and Obj folders
+Debug/
+Release/
+packages/
 /BSO.Archive.WebApp/bin/*
+/BSO.Archive.WebApp/bin/Debug/*
 /BSO.Archive.WebApp/obj/*
 /Bso.Archive.BusObj/bin/*
+/Bso.Archive.BusObj/bin/Debug/*
 /Bso.Archive.BusObj/obj/*
 /BSO.Archive.App/bin/*
+/BSO.Archive.App/bin/Debug/*
 /BSO.Archive.App/obj/*
 /BSO.Archive.DTO/bin/*
+/BSO.Archive.DTO/bin/Debug/*
 /BSO.Archive.DTO/obj/*
 /BSO.Archive.DTO.Test/bin/*
+/BSO.Archive.DTO.Test/bin/Debug/*
 /BSO.Archive.DTO.Test/obj/*
 /Bso.Archive.BusObj.Test/bin/*
+/Bso.Archive.BusObj.Test/bin/Debug/*
 /Bso.Archive.BusObj.Test/obj/*
 /Adage.EF/bin/*
+/Adage.EF/bin/Debug/*
 /Adage.EF/obj/*
 /packages/*
 

@@ -65,6 +65,7 @@ namespace Bso.Archive.BusObj
             int.TryParse((string)node.GetXElement(Constants.Artist.artistStatusElement), out artistStatus);
             int.TryParse((string)node.GetXElement(Constants.Artist.artistStatusIDElement), out artistStatusId);
 
+
             artist = SetArtistData(artist, artistId, artistFirstName, artistLastName, artistName4, artistName5, artistNote, artistStatus, artistStatusId);
 
             return artist;

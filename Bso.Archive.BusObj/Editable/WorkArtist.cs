@@ -98,8 +98,8 @@ namespace Bso.Archive.BusObj
             int.TryParse((string)node.GetXElement(Constants.WorkArtist.workArtistInstrumentIDElement), out instrumentID);
             int.TryParse((string)node.GetXElement(Constants.WorkArtist.workArtistStatusElement), out workArtistStatus);
             int.TryParse((string)node.GetXElement(Constants.WorkArtist.workArtistStatusIDElement), out workArtistStatusID);
-            int.TryParse((string)node.GetXElement(Constants.WorkArtist.workArtistStatusIDElement), out workArtistStatusID);
             string workArtistNote = (string)node.GetXElement(Constants.WorkArtist.workArtistNoteElement);
+
 
             workArtist = SetWorkArtistData(workArtist, workArtistNote, workArtistStatus, workArtistStatusID);
 

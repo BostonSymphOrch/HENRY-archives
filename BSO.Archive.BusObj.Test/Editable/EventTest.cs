@@ -15,11 +15,17 @@ namespace BSO.Archive.BusObj.Test
         [TestMethod]
         public void UpdateEventTest()
         {
-            Event testEvent = Event.GetEventByID(4);
-            Assert.IsTrue(testEvent.EventText == "");
+            Event testEvent = Event.GetEventByID(-1);
+            if (testEvent.IsNew)
+            {
+                testEvent.EventID = -1;
+            }
+            testEvent.EventDate = DateTime.Now;
+            testEvent.EventText = "Adage";
+            BsoArchiveEntities.Current.Save();
 
-            var eventID = Helper.CreateXElement(Constants.Event.eventIDElement, "4");
-            var eventText = Helper.CreateXElement(Constants.Event.eventTextElement, "Test Text ADAGE");
+            var eventID = Helper.CreateXElement(Constants.Event.eventIDElement, "-1");
+            var eventText = Helper.CreateXElement(Constants.Event.eventTextElement, "Test");
             var eventElement = new System.Xml.Linq.XElement(Constants.Event.eventElement, eventID, eventText);
             var rootElement = new System.Xml.Linq.XElement("Root", eventElement);
             var doc = new System.Xml.Linq.XDocument(rootElement);
@@ -27,46 +33,46 @@ namespace BSO.Archive.BusObj.Test
             Event eventItem = Event.NewEvent();
             eventItem.UpdateData(doc, "EventText", "eventText");
 
-            Assert.IsTrue(testEvent.EventText == "Test Text ADAGE");
+            Assert.IsTrue(testEvent.EventText == "Test");
+            BsoArchiveEntities.Current.DeleteObject(testEvent);
+            BsoArchiveEntities.Current.DeleteObject(eventItem);
+            BsoArchiveEntities.Current.Save();
+        }
+
+        /// <summary>
+        /// Tests the GetSeriesFromNode method in the Event Class
+        /// </summary>
+        [TestMethod()]
+        public void GetSeriesFromNodeTest()
+        {
+            string testString = "Open Rehearsal - AM";
+            var eventSeriesNameNode = Helper.CreateXElement(Constants.Series.seriesName, testString);
+            var eventSeriesNode = new System.Xml.Linq.XElement(Constants.Series.seriesElement, eventSeriesNameNode);
+
+            var eventSeriesNameNode2 = Helper.CreateXElement(Constants.Series.seriesName, testString);
+            var eventSeriesNode2 = new System.Xml.Linq.XElement(Constants.Series.seriesElement, eventSeriesNameNode);
+
+            var eventNode = new System.Xml.Linq.XElement(Constants.Event.eventElement, eventSeriesNode, eventSeriesNode2);
+
+            Assert.IsTrue(String.Compare(String.Format("{0}; {1}", testString, testString), Event.GetSeriesFromNode(eventNode)) == 0);
         }
 
         /// <summary>
         /// Tests the GetEventByID method in the Event class
         /// </summary>
-        [TestMethod()]
-        public void TestGetEventByID()
-        {
-            Event evt1 = Event.GetEventByID(1);
-            if (evt1.IsNew)
-            {
-                evt1.EventID = 1;
-                evt1.EventDate = DateTime.Today;
-            }
-
-            BsoArchiveEntities.Current.Save();
-
-            Event evt2 = Event.GetEventByID(1);
-            Assert.IsNotNull(evt2);
-            Assert.IsTrue(evt1.Equals(evt2));
-            BsoArchiveEntities.Current.DeleteObject(evt1);
-        }
 
         [TestMethod]
         public void GetEventFromNodeItemTest()
         {
-            var xmlTestPath = "C:\\working\\BSO\\BSO.Archive\\OPASData\\EventItemTest.xml";
-
-            System.Xml.Linq.XDocument doc = System.Xml.Linq.XDocument.Load(xmlTestPath);
-            System.Xml.Linq.XElement nodeRoot = doc.Root.Element("eventItem");
-
-
+            var eventID = Helper.CreateXElement(Constants.Event.eventIDElement, "-1");
+            var eventDate = Helper.CreateXElement(Constants.Event.eventDateElement, "10/25/2001");
+            var nodeRoot = new System.Xml.Linq.XElement(Constants.Event.eventElement, eventID, eventDate);
+            
             Event evt = Event.GetEventFromNodeItem(nodeRoot);
-            DateTime actualDate = new DateTime(1882, 1, 27);
+            DateTime actualDate = new DateTime(2001, 10, 25);
 
             Assert.IsNotNull(evt);
             Assert.IsTrue(evt.EventID == -1);
-            Assert.IsTrue(evt.EventDate.CompareTo(actualDate) == 0);
-            Assert.IsTrue(evt.EventProgramTitle == string.Empty);
         }
        
 
@@ -78,11 +84,11 @@ namespace BSO.Archive.BusObj.Test
         public void AddEventWorkTest_NewWorkTest()
         {
             Event myEvent = Event.NewEvent();
-            myEvent.EventID = 1;
+            myEvent.EventID = -1;
             Assert.IsTrue(myEvent.EventWorks.Count == 0);
 
             Work work = Work.NewWork();
-            work.WorkID = 1;
+            work.WorkID = -1;
 
             myEvent.AddEventWork(work);
             Assert.IsTrue(myEvent.EventWorks.Count == 1);
@@ -96,14 +102,14 @@ namespace BSO.Archive.BusObj.Test
         public void AddEventWorkTest_ExistingTest()
         {
             Event myEvent = Event.NewEvent();
-            myEvent.EventID = 1;
+            myEvent.EventID = -1;
             Assert.IsTrue(myEvent.EventWorks.Count == 0);
 
             EventWork eventWork = EventWork.NewEventWork();
             eventWork.EventWorkID = 1;
 
             Work work = Work.NewWork();
-            work.WorkID = 1;
+            work.WorkID = -1;
 
             eventWork.Event = myEvent;
             eventWork.Work = work;
@@ -124,15 +130,15 @@ namespace BSO.Archive.BusObj.Test
         public void AddEventArtist_NewArtist()
         {
             Event myEvent = Event.NewEvent();
-            myEvent.EventID = 1;
+            myEvent.EventID = -1;
 
             Assert.IsTrue(myEvent.EventArtists.Count == 0);
 
             Artist artist = Artist.NewArtist();
-            artist.ArtistID = 9999;
+            artist.ArtistID = -1;
 
             Instrument instrument = Instrument.NewInstrument();
-            instrument.InstrumentID = 9999;
+            instrument.InstrumentID = -1;
 
             myEvent.AddEventArtist(artist, instrument);
 
@@ -147,16 +153,16 @@ namespace BSO.Archive.BusObj.Test
         public void AddEventArtist_ExistingTest()
         {
             Event myEvent = Event.NewEvent();
-            myEvent.EventID = 1;
+            myEvent.EventID = -1;
 
             Artist artist = Artist.NewArtist();
-            artist.ArtistID = 9999;
+            artist.ArtistID = -1;
 
             Instrument instrument = Instrument.NewInstrument();
-            instrument.InstrumentID = 9999;
+            instrument.InstrumentID = -1;
 
             EventArtist eventArtist = EventArtist.NewEventArtist();
-            eventArtist.EventArtistID = 1;
+            eventArtist.EventArtistID = -1;
 
             eventArtist.Artist = artist;
             eventArtist.Event = myEvent;

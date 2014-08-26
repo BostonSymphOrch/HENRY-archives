@@ -43,27 +43,54 @@ namespace Bso.Archive.BusObj
         private void PopulateDatabase()
         {
             var xmlPath = Settings.Default.XMLPath;
+            XDocument doc = null;
+            
 
-            XDocument doc = XDocument.Load(xmlPath);
+            doc = XDocument.Load(xmlPath);
 
             IEnumerable<XElement> events = doc.Root.Descendants(Constants.Event.eventElement);
 
             foreach (XElement node in events)
             {
                 Event eventItem = Event.GetEventFromNodeItem(node);
+                try
+                {
+                    AddEventVenue(eventItem, node);
+                    AddEventConductor(eventItem, node);
+                    AddEventArtist(eventItem, node);
+                    AddEventOrchestra(eventItem, node);
+                    AddEventTypeGroup(eventItem, node);
+                    AddEventType(eventItem, node);
+                    AddEventSeason(eventItem, node);
+                    AddEventProject(eventItem, node);
+                    AddEventWorkItems(eventItem, node);
+                    AddEventParticipant(eventItem, node);
+                    AddEventSeries(eventItem, node);
+                }
+                catch (System.Exception e)
+                {
 
-                AddEventVenue(eventItem, node);
-                AddEventConductor(eventItem, node);
-                AddEventArtist(eventItem, node);
-                AddEventOrchestra(eventItem, node);
-                AddEventTypeGroup(eventItem, node);
-                AddEventType(eventItem, node);
-                AddEventSeason(eventItem, node);
-                AddEventProject(eventItem, node);
-                AddEventWorkItems(eventItem, node);
-                AddEventParticipant(eventItem, node);
+                }
                 BsoArchiveEntities.Current.Save();
             }
+        }
+
+        /// <summary>
+        /// Create Event Series object
+        /// </summary>
+        /// <remarks>
+        /// Takes an Even object along with an XElement node and assigns the Event Series information to
+        ///  the series field of the Event object, then returns the event series information as a string.
+        /// </remarks>
+        /// <param name="eventItem"></param>
+        /// <param name="node"></param>
+        public string AddEventSeries(Event eventItem, XElement node)
+        {
+            string eventSeries = Event.GetSeriesFromNode(node);
+            if (!string.IsNullOrEmpty(eventSeries))
+                eventItem.EventSeries = eventSeries;
+            
+            return eventSeries;
         }
 
         /// <summary>
@@ -95,7 +122,7 @@ namespace Bso.Archive.BusObj
         {
             Venue venueItem = Venue.GetVenueFromNode(node);
 
-            if (venueItem != null)
+            if (venueItem != null && venueItem.VenueID != 0)
                 eventItem.Venue = venueItem;
 
             return venueItem;
@@ -115,7 +142,7 @@ namespace Bso.Archive.BusObj
         {
             Conductor conductorItem = Conductor.GetConductorFromNode(node);
 
-            if (conductorItem != null)
+            if (conductorItem != null && conductorItem.ConductorID != 0)
                 eventItem.Conductor = conductorItem;
 
             return conductorItem;
@@ -133,7 +160,7 @@ namespace Bso.Archive.BusObj
             {
                 Artist artistItem = Artist.GetArtistFromNode(artistElement);
                 Instrument instrumentItem = Instrument.GetInstrumentFromNode(artistElement);
-                if (artistItem != null && instrumentItem != null)
+                if (artistItem != null && instrumentItem != null && artistItem.ArtistID != 0 && instrumentItem.InstrumentID != 0)
                 {
                     eventItem.AddEventArtist(artistItem, instrumentItem);
                     BsoArchiveEntities.Current.Save();
@@ -152,7 +179,7 @@ namespace Bso.Archive.BusObj
             foreach (XElement participantElement in participantElements)
             {
                 Participant participant = Participant.GetParticipantFromNode(participantElement);
-                if (participant != null)
+                if (participant != null && participant.ParticipantID != 0)
                 {
                     eventItem.AddEventParticipant(participant);
                     eventItem.AddEventParticipantType(participant);
@@ -175,7 +202,7 @@ namespace Bso.Archive.BusObj
         {
             Orchestra orchestraItem = Orchestra.GetOrchestraFromNode(node);
 
-            if (orchestraItem != null)
+            if (orchestraItem != null && orchestraItem.OrchestraID != 0)
                 eventItem.Orchestra = orchestraItem;
 
             return orchestraItem;
@@ -195,7 +222,7 @@ namespace Bso.Archive.BusObj
         {
             EventTypeGroup typeGroupItem = EventTypeGroup.GetEventTypeGroupFromNode(node);
 
-            if (typeGroupItem != null)
+            if (typeGroupItem != null && typeGroupItem.TypeGroupID != 0)
                 eventItem.EventTypeGroup = typeGroupItem;
 
             return typeGroupItem;
@@ -214,7 +241,7 @@ namespace Bso.Archive.BusObj
         {
             EventType typeItem = EventType.GetEventTypeFromNode(node);
 
-            if (typeItem != null)
+            if (typeItem != null && typeItem.TypeID != 0)
                 eventItem.EventType = typeItem;
 
             return typeItem;
@@ -235,7 +262,7 @@ namespace Bso.Archive.BusObj
         {
             Season seasonItem = Season.GetSeasonFromNode(node);
 
-            if (seasonItem != null)
+            if (seasonItem != null && seasonItem.SeasonID != 0)
                 eventItem.Season = seasonItem;
 
             return seasonItem;
@@ -257,7 +284,7 @@ namespace Bso.Archive.BusObj
         {
             Project projectItem = Project.GetProjectFromNode(node);
 
-            if (projectItem != null)
+            if (projectItem != null && projectItem.ProjectID != 0)
                 eventItem.Project = projectItem;
 
             return projectItem;
@@ -279,7 +306,7 @@ namespace Bso.Archive.BusObj
             foreach (XElement workElement in workElements)
             {
                 Work workItem = Work.GetWorkFromNode(workElement);
-                if (workItem != null)
+                if (workItem != null && workItem.WorkID != 0)
                     eventItem.AddEventWork(workItem);
             }
         }

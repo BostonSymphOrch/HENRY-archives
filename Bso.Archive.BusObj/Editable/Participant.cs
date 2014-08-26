@@ -24,7 +24,8 @@ namespace Bso.Archive.BusObj
             IEnumerable<System.Xml.Linq.XElement> eventElements = doc.Descendants(Constants.Event.eventElement);
             foreach (System.Xml.Linq.XElement element in eventElements)
             {
-                Participant updateParticipant = Participant.GetParticipantFromNode(element);
+                System.Xml.Linq.XElement participantElement = element.Element(Constants.Participant.participantElement);
+                Participant updateParticipant = Participant.GetParticipantFromNode(participantElement);
 
                 if (updateParticipant == null) continue;
 
@@ -54,6 +55,7 @@ namespace Bso.Archive.BusObj
 
             int participantID;
             int.TryParse(node.GetXElement(Constants.Participant.participantIDElement), out participantID);
+
             Participant participant = Participant.GetParticipantByID(participantID);
             if (!participant.IsNew)
                 return participant;

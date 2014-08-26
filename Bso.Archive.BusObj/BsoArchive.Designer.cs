@@ -39,7 +39,6 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("BsoArchive", "FK_Work_Composer", "Composer", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Bso.Archive.BusObj.Composer), "Work", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Bso.Archive.BusObj.Work), true)]
 [assembly: EdmRelationshipAttribute("BsoArchive", "FK_EventWork_Work", "Work", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Bso.Archive.BusObj.Work), "EventWork", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Bso.Archive.BusObj.EventWork), true)]
 [assembly: EdmRelationshipAttribute("BsoArchive", "FK_WorkArtist_Work", "Work", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Bso.Archive.BusObj.Work), "WorkArtist", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Bso.Archive.BusObj.WorkArtist), true)]
-[assembly: EdmRelationshipAttribute("BsoArchive", "FK_Work_Work", "Work", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Bso.Archive.BusObj.Work), "Work1", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Bso.Archive.BusObj.Work), true)]
 [assembly: EdmRelationshipAttribute("BsoArchive", "FK_WorkComposer_Work", "Work", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Bso.Archive.BusObj.Work), "WorkComposer", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Bso.Archive.BusObj.WorkComposer), true)]
 
 #endregion
@@ -463,22 +462,6 @@ namespace Bso.Archive.BusObj
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<EventDetail> EventDetails
-        {
-            get
-            {
-                if ((_EventDetails == null))
-                {
-                    _EventDetails = base.CreateObjectSet<EventDetail>("EventDetails");
-                }
-                return _EventDetails;
-            }
-        }
-        private ObjectSet<EventDetail> _EventDetails;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<ArtistDetail> ArtistDetails
         {
             get
@@ -491,6 +474,22 @@ namespace Bso.Archive.BusObj
             }
         }
         private ObjectSet<ArtistDetail> _ArtistDetails;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<EventDetail> EventDetails
+        {
+            get
+            {
+                if ((_EventDetails == null))
+                {
+                    _EventDetails = base.CreateObjectSet<EventDetail>("EventDetails");
+                }
+                return _EventDetails;
+            }
+        }
+        private ObjectSet<EventDetail> _EventDetails;
 
         #endregion
 
@@ -681,19 +680,19 @@ namespace Bso.Archive.BusObj
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the EventDetails EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToEventDetails(EventDetail eventDetail)
-        {
-            base.AddObject("EventDetails", eventDetail);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the ArtistDetails EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToArtistDetails(ArtistDetail artistDetail)
         {
             base.AddObject("ArtistDetails", artistDetail);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the EventDetails EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToEventDetails(EventDetail eventDetail)
+        {
+            base.AddObject("EventDetails", eventDetail);
         }
 
         #endregion
@@ -2876,7 +2875,8 @@ namespace Bso.Archive.BusObj
         /// <param name="createdBy">Initial value of the CreatedBy property.</param>
         /// <param name="modifiedBy">Initial value of the ModifiedBy property.</param>
         /// <param name="status">Initial value of the Status property.</param>
-        public static Event CreateEvent(global::System.Int32 eventID, global::System.DateTime eventDate, global::System.String eventStart, global::System.String eventEnd, global::System.String eventText, global::System.String eventNote, global::System.Int32 eventLevel, global::System.Int32 eventProgramNumber, global::System.Boolean isPremiere, global::System.String eventProgramTitle, global::System.Int32 conductorID, global::System.Int32 eventTypeID, global::System.Int32 eventGroupID, global::System.Int32 seasonID, global::System.Int32 orchestraID, global::System.Int32 projectID, global::System.Int32 venueID, global::System.DateTime createdOn, global::System.DateTime modifiedOn, global::System.Byte[] stamp, global::System.Boolean active, global::System.Int32 createdBy, global::System.Int32 modifiedBy, global::System.String status)
+        /// <param name="eventSeries">Initial value of the EventSeries property.</param>
+        public static Event CreateEvent(global::System.Int32 eventID, global::System.DateTime eventDate, global::System.String eventStart, global::System.String eventEnd, global::System.String eventText, global::System.String eventNote, global::System.Int32 eventLevel, global::System.Int32 eventProgramNumber, global::System.Boolean isPremiere, global::System.String eventProgramTitle, global::System.Int32 conductorID, global::System.Int32 eventTypeID, global::System.Int32 eventGroupID, global::System.Int32 seasonID, global::System.Int32 orchestraID, global::System.Int32 projectID, global::System.Int32 venueID, global::System.DateTime createdOn, global::System.DateTime modifiedOn, global::System.Byte[] stamp, global::System.Boolean active, global::System.Int32 createdBy, global::System.Int32 modifiedBy, global::System.String status, global::System.String eventSeries)
         {
             Event @event = new Event();
             @event.EventID = eventID;
@@ -2903,6 +2903,7 @@ namespace Bso.Archive.BusObj
             @event.CreatedBy = createdBy;
             @event.ModifiedBy = modifiedBy;
             @event.Status = status;
+            @event.EventSeries = eventSeries;
             return @event;
         }
 
@@ -3488,6 +3489,30 @@ namespace Bso.Archive.BusObj
         private global::System.String _Status;
         partial void OnStatusChanging(global::System.String value);
         partial void OnStatusChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String EventSeries
+        {
+            get
+            {
+                return _EventSeries;
+            }
+            set
+            {
+                OnEventSeriesChanging(value);
+                ReportPropertyChanging("EventSeries");
+                _EventSeries = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("EventSeries");
+                OnEventSeriesChanged();
+            }
+        }
+        private global::System.String _EventSeries;
+        partial void OnEventSeriesChanging(global::System.String value);
+        partial void OnEventSeriesChanged();
 
         #endregion
 
@@ -4279,8 +4304,9 @@ namespace Bso.Archive.BusObj
         /// <param name="eventStart">Initial value of the EventStart property.</param>
         /// <param name="eventEnd">Initial value of the EventEnd property.</param>
         /// <param name="eventProgramTitle">Initial value of the EventProgramTitle property.</param>
+        /// <param name="eventSeries">Initial value of the EventSeries property.</param>
         /// <param name="eventDetailID">Initial value of the EventDetailID property.</param>
-        public static EventDetail CreateEventDetail(global::System.Int32 eventID, global::System.DateTime eventDate, global::System.String eventStart, global::System.String eventEnd, global::System.String eventProgramTitle, global::System.Int32 eventDetailID)
+        public static EventDetail CreateEventDetail(global::System.Int32 eventID, global::System.DateTime eventDate, global::System.String eventStart, global::System.String eventEnd, global::System.String eventProgramTitle, global::System.String eventSeries, global::System.Int32 eventDetailID)
         {
             EventDetail eventDetail = new EventDetail();
             eventDetail.EventID = eventID;
@@ -4288,6 +4314,7 @@ namespace Bso.Archive.BusObj
             eventDetail.EventStart = eventStart;
             eventDetail.EventEnd = eventEnd;
             eventDetail.EventProgramTitle = eventProgramTitle;
+            eventDetail.EventSeries = eventSeries;
             eventDetail.EventDetailID = eventDetailID;
             return eventDetail;
         }
@@ -4419,6 +4446,30 @@ namespace Bso.Archive.BusObj
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String EventSeries
+        {
+            get
+            {
+                return _EventSeries;
+            }
+            set
+            {
+                OnEventSeriesChanging(value);
+                ReportPropertyChanging("EventSeries");
+                _EventSeries = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("EventSeries");
+                OnEventSeriesChanged();
+            }
+        }
+        private global::System.String _EventSeries;
+        partial void OnEventSeriesChanging(global::System.String value);
+        partial void OnEventSeriesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public Nullable<global::System.Int32> ArtistID
@@ -4511,6 +4562,30 @@ namespace Bso.Archive.BusObj
         private Nullable<global::System.Int32> _WorkID;
         partial void OnWorkIDChanging(Nullable<global::System.Int32> value);
         partial void OnWorkIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> WorkGroupId
+        {
+            get
+            {
+                return _WorkGroupId;
+            }
+            set
+            {
+                OnWorkGroupIdChanging(value);
+                ReportPropertyChanging("WorkGroupId");
+                _WorkGroupId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("WorkGroupId");
+                OnWorkGroupIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _WorkGroupId;
+        partial void OnWorkGroupIdChanging(Nullable<global::System.Int32> value);
+        partial void OnWorkGroupIdChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -5091,33 +5166,6 @@ namespace Bso.Archive.BusObj
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 EventDetailID
-        {
-            get
-            {
-                return _EventDetailID;
-            }
-            set
-            {
-                if (_EventDetailID != value)
-                {
-                    OnEventDetailIDChanging(value);
-                    ReportPropertyChanging("EventDetailID");
-                    _EventDetailID = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("EventDetailID");
-                    OnEventDetailIDChanged();
-                }
-            }
-        }
-        private global::System.Int32 _EventDetailID;
-        partial void OnEventDetailIDChanging(global::System.Int32 value);
-        partial void OnEventDetailIDChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public Nullable<global::System.Int32> EventWorkID
@@ -5142,26 +5190,29 @@ namespace Bso.Archive.BusObj
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> WorkGroupId
+        public global::System.Int32 EventDetailID
         {
             get
             {
-                return _WorkGroupId;
+                return _EventDetailID;
             }
             set
             {
-                OnWorkGroupIdChanging(value);
-                ReportPropertyChanging("WorkGroupId");
-                _WorkGroupId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("WorkGroupId");
-                OnWorkGroupIdChanged();
+                if (_EventDetailID != value)
+                {
+                    OnEventDetailIDChanging(value);
+                    ReportPropertyChanging("EventDetailID");
+                    _EventDetailID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("EventDetailID");
+                    OnEventDetailIDChanged();
+                }
             }
         }
-        private Nullable<global::System.Int32> _WorkGroupId;
-        partial void OnWorkGroupIdChanging(Nullable<global::System.Int32> value);
-        partial void OnWorkGroupIdChanged();
+        private global::System.Int32 _EventDetailID;
+        partial void OnEventDetailIDChanging(global::System.Int32 value);
+        partial void OnEventDetailIDChanged();
 
         #endregion
 
@@ -11005,82 +11056,6 @@ namespace Bso.Archive.BusObj
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<WorkArtist>("BsoArchive.FK_WorkArtist_Work", "WorkArtist", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("BsoArchive", "FK_Work_Work", "Work1")]
-        public Work Work1
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Work>("BsoArchive.FK_Work_Work", "Work1").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Work>("BsoArchive.FK_Work_Work", "Work1").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Work> Work1Reference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Work>("BsoArchive.FK_Work_Work", "Work1");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Work>("BsoArchive.FK_Work_Work", "Work1", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("BsoArchive", "FK_Work_Work", "Work")]
-        public Work Work2
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Work>("BsoArchive.FK_Work_Work", "Work").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Work>("BsoArchive.FK_Work_Work", "Work").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Work> Work2Reference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Work>("BsoArchive.FK_Work_Work", "Work");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Work>("BsoArchive.FK_Work_Work", "Work", value);
                 }
             }
         }

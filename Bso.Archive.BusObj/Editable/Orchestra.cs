@@ -51,6 +51,7 @@ namespace Bso.Archive.BusObj
 
             int orchestraID;
             int.TryParse(orchestraElement.GetXElement(Constants.EventRoot + Constants.Orchestra.OrchestraID), out orchestraID);
+
             Orchestra orchestra = Orchestra.GetOrchestraByID(orchestraID);
             if (!orchestra.IsNew)
                 return orchestra;
@@ -83,7 +84,8 @@ namespace Bso.Archive.BusObj
         /// <returns></returns>
         internal static Orchestra GetOrchestraByID(int orchestraID)
         {
-            Orchestra orchestra = BsoArchiveEntities.Current.Orchestras.FirstOrDefault(o => o.OrchestraID == orchestraID) ?? Orchestra.NewOrchestra();
+            Orchestra orchestra = BsoArchiveEntities.Current.Orchestras.FirstOrDefault(o => o.OrchestraID == orchestraID)
+                ?? Orchestra.NewOrchestra();
 
             return orchestra;
         }

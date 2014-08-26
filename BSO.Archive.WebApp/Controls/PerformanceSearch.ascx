@@ -78,7 +78,7 @@
                     <span>Instrument</span>
                     <asp:TextBox ID="ArtistInstrument" runat="server" />
                     <%--<juice:Autocomplete runat="server" ID="InstrumentAutoComplete" TargetControlID="ArtistInstrument" />--%>
-                    <ajaxToolkit:AutoCompleteExtender ID="acArtistInstrument" runat="server" CompletionListHighlightedItemCssClass="itemHighlighted" CompletionListCssClass="autoComplete" TargetControlID="ArtistInstrument" ServicePath="~/ArchiveWebService.asmx" ServiceMethod="GetArtists" 
+                    <ajaxToolkit:AutoCompleteExtender ID="acArtistInstrument" runat="server" CompletionListHighlightedItemCssClass="itemHighlighted" CompletionListCssClass="autoComplete" TargetControlID="ArtistInstrument" ServicePath="~/ArchiveWebService.asmx" ServiceMethod="GetInstruments" 
                       MinimumPrefixLength="2" UseContextKey="false" EnableCaching="true" CompletionInterval="200" />
                 </label>
 
@@ -201,7 +201,7 @@
             <asp:ControlParameter ControlID="OrchestraName" />
         </asp:SearchExpression>
 
-        <asp:SearchExpression DataFields="EventProgramTitle" SearchType="Contains">
+        <asp:SearchExpression DataFields="EventSeries" SearchType="Contains">
             <asp:ControlParameter ControlID="EventTitle" />
         </asp:SearchExpression>
 

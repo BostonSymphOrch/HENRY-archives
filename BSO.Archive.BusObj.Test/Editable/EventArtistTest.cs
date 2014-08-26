@@ -14,12 +14,15 @@ namespace BSO.Archive.BusObj.Test.Editable
         public void AddEventArtistTest()
         {
             Event evt = Event.NewEvent();
-            evt.EventID = 1;
+            evt.EventID = -1;
 
             Artist artist = Artist.NewArtist();
-            artist.ArtistID = 1;
+            artist.ArtistID = -1;
 
-            EventArtist eventArtist = null;//EventArtist.AddEventArtist(evt, artist);
+            Instrument instrument = Instrument.NewInstrument();
+            instrument.InstrumentID = -1;
+
+            EventArtist eventArtist = EventArtist.AddEventArtist(evt, artist, instrument);
             Assert.IsNotNull(eventArtist);
             Assert.IsTrue(eventArtist.EventID == evt.EventID && eventArtist.ArtistID == artist.ArtistID);
         }

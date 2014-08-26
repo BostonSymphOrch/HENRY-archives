@@ -212,6 +212,26 @@ namespace Bso.Archive.BusObj.Utility
         }
 
         /// <summary>
+        /// Get Distince event Series from EventDetails
+        /// </summary>
+        /// <returns></returns>
+        public static List<string> GetDistinctSeries()
+        {
+            using (var txn = new System.Transactions.TransactionScope(
+                System.Transactions.TransactionScopeOption.Required,
+                new System.Transactions.TransactionOptions
+                {
+                    IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted
+                }
+            ))
+            {
+                return BsoArchiveEntities.Current.EventDetails.
+                    Where(ed => ed.EventSeries != "null" && !String.IsNullOrEmpty(ed.EventSeries)).
+                    Select(ed => ed.EventSeries.Trim()).Distinct().ToList().Select(x => x.Split(';')).SelectMany(x => x).Select(x => x.Trim()).Distinct().ToList();
+            }
+        }
+
+        /// <summary>
         /// Get Distinct event program titles from Event Details
         /// </summary>
         /// <returns></returns>

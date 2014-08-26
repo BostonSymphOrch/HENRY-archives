@@ -1,7 +1,7 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Bso.Archive.BusObj;
 using Bso.Archive.BusObj.Utility;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BSO.Archive.BusObj.Test
 {
@@ -15,24 +15,33 @@ namespace BSO.Archive.BusObj.Test
         /// <param name="newValue"></param>
         /// <param name="workArtist"></param>
         /// <remarks>
-        /// Takes the name of the column and the new value to update to 
+        /// Takes the name of the column and the new value to update to
         /// and updates the databse.
         /// </remarks>
+        [Ignore]
         [TestMethod]
         public void UpdateWorkTest()
         {
-            Work work = Work.GetWorkByID(-5);
-            work.WorkFlute = 0;
+            Work testWork = Work.GetWorkByID(-1);
+            if (testWork.IsNew)
+            {
+                testWork.WorkID = -1;
+            }
+            testWork.WorkTitle = "Adage";
+            BsoArchiveEntities.Current.Save();
 
-            var xmlTestPath = "C:\\working\\BSO\\BSO.Archive\\OPASData\\WorkItemTest.xml";
+            var workId = Helper.CreateXElement(Constants.Work.workIDElement, "-1");
+            var workGroupID = new System.Xml.Linq.XElement(Constants.Work.workTitleElement, "Test");
+            var workItem = new System.Xml.Linq.XElement(Constants.Work.workElement, workId, workGroupID);
+            var eventElement = new System.Xml.Linq.XElement(Constants.Event.eventElement, workItem);
 
-            System.Xml.Linq.XDocument doc = System.Xml.Linq.XDocument.Load(xmlTestPath);
+            System.Xml.Linq.XDocument doc = new System.Xml.Linq.XDocument(eventElement);
+            Work work = Work.NewWork();
+            work.UpdateData(doc, "WorkTitle", Constants.Work.workTitleElement);
 
-
-            work.UpdateData(doc, "WorkFlute", "workFlute");
-            
-            Assert.IsTrue(work.WorkFlute == 5);
-
+            Assert.IsTrue(testWork.WorkTitle == "Test");
+            BsoArchiveEntities.Current.DeleteObject(testWork);
+            BsoArchiveEntities.Current.DeleteObject(work);
             BsoArchiveEntities.Current.Save();
         }
 
@@ -43,7 +52,7 @@ namespace BSO.Archive.BusObj.Test
         [TestMethod]
         public void GetWorkArtistTest()
         {
-            var workArtistID = Helper.CreateXElement(Constants.WorkArtist.workArtistIDElement, "838");
+            var workArtistID = Helper.CreateXElement(Constants.WorkArtist.workArtistIDElement, "-1");
             var workArtistLastName = Helper.CreateXElement(Constants.WorkArtist.workArtistLastNameElement, "TestL");
             var workArtistFirstName = Helper.CreateXElement(Constants.WorkArtist.workArtistFirstNameElement, "TestF");
             var workArtistInstrument = Helper.CreateXElement(Constants.WorkArtist.workArtistInstrumentElement, "TestI");
@@ -55,7 +64,7 @@ namespace BSO.Archive.BusObj.Test
                 workArtistLastName, workArtistInstrument, workArtistInstrument2, workArtistNotes);
             System.Xml.Linq.XElement node = new System.Xml.Linq.XElement(Constants.Work.workElement, artistNode);
 
-            Work work = Work.GetWorkByID(0);
+            Work work = Work.GetWorkByID(-1);
             work.WorkArtists.Clear();
             Assert.IsTrue(work.WorkArtists.Count == 0);
             work = Work.GetWorkArtists(node, work);
@@ -70,27 +79,27 @@ namespace BSO.Archive.BusObj.Test
         public void AddWorkArtistTest_New()
         {
             Work work = Work.NewWork();
-            work.WorkID = 1;
+            work.WorkID = -1;
             Assert.IsTrue(work.WorkArtists.Count == 0);
 
             WorkArtist workArtist = WorkArtist.NewWorkArtist();
-            workArtist.WorkArtistID = 1;
+            workArtist.WorkArtistID = -1;
             Work.AddWorkArtist(work, workArtist);
             Assert.IsTrue(work.WorkArtists.Count == 1);
         }
 
         /// <summary>
-        /// Test to Verify that the AddWorkArtist method will not add a 
+        /// Test to Verify that the AddWorkArtist method will not add a
         /// WorkArtist if one with that ID already exists.
         /// </summary>
         [TestMethod]
         public void AddWorkArtistTest_Existing()
         {
             Work work = Work.NewWork();
-            work.WorkID = 1;
+            work.WorkID = -1;
 
             WorkArtist workArtist = WorkArtist.NewWorkArtist();
-            workArtist.WorkArtistID = 1;
+            workArtist.WorkArtistID = -1;
 
             work.WorkArtists.Add(workArtist);
             Assert.IsTrue(work.WorkArtists.Count == 1);
@@ -100,38 +109,21 @@ namespace BSO.Archive.BusObj.Test
         }
 
         /// <summary>
-        /// Tests to verify that when extracting the information from the XElement node 
+        /// Tests to verify that when extracting the information from the XElement node
         /// that the Work object is created correctly with the correct data.
         /// </summary>
-        [TestMethod]
-        public void GetWorkItemFromNodeTest()
-        {
-            var xmlTestPath = "C:\\working\\BSO\\BSO.Archive\\OPASData\\WorkItemTest.xml";
-            
-            System.Xml.Linq.XDocument doc = System.Xml.Linq.XDocument.Load(xmlTestPath);
-            System.Xml.Linq.XElement nodeRoot = doc.Root.Element("eventItem");
-            System.Xml.Linq.XElement node = nodeRoot.Element("workItem");
-            Work work = Work.GetWorkFromNode(node);
-            Assert.IsNotNull(work);
-            Assert.IsTrue(work.WorkID == -7);
-            Assert.IsTrue(work.WorkTimpani == 0);
-            Assert.IsTrue(work.Composer.ComposerID == 150);
-            Assert.IsTrue(work.WorkArtists.Count == 1);
-            Assert.IsTrue(work.WorkAddTitle2 == "Testing");
-        }
+        //[TestMethod]
+        //public void GetWorkItemFromNodeTest()
+        //{
+        //    var workId = Helper.CreateXElement(Constants.Work.workIDElement, "-100");
+        //    var workGroupID = new System.Xml.Linq.XElement(Constants.Work.workGroupIDElement, "-100");
+        //    var workItem = new System.Xml.Linq.XElement(Constants.Work.workElement, workId, workGroupID);
 
-        /// <summary>
-        /// Tests GetWorkID method from the Work class
-        /// </summary>
-        [TestMethod]
-        public void GetWorkByIDTest()
-        {
-            Work work = Work.GetWorkByID(2);
-            if(work.IsNew)
-                work.WorkID = 2;
-            BsoArchiveEntities.Current.Save();
-            Work work2 = Work.GetWorkByID(2);
-            Assert.IsTrue(work2.Equals(work));
-        }
+        //    Work work = Work.GetWorkFromNode(workItem);
+        //    Assert.IsNotNull(work);
+        //    Assert.IsTrue(work.WorkID == -100);
+        //    BsoArchiveEntities.Current.DeleteObject(work);
+        //    BsoArchiveEntities.Current.Save();
+        //}
     }
 }

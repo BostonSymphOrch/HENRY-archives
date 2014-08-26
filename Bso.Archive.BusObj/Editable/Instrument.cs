@@ -47,6 +47,7 @@ namespace Bso.Archive.BusObj
             int instrumentID;
             int.TryParse(node.GetXElement(Constants.Artist.artistInstrumentIDElement), out instrumentID);
 
+
             Instrument instrument = Instrument.GetInstrumentByID(instrumentID);
             if (!instrument.IsNew)
                 return instrument;

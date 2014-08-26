@@ -3,6 +3,7 @@ using Bso.Archive.BusObj.Utility;
 using System;
 using System.Linq;
 using System.Web.UI.WebControls;
+using System.Collections.Generic;
 
 namespace BSO.Archive.WebApp
 {
@@ -56,7 +57,7 @@ namespace BSO.Archive.WebApp
                 var eventProgramNumber = CurrentEvent.EventProgramNumber;
                 var eventNote = CurrentEvent.EventNote;
                 var venue = CurrentEvent.Venue;
-
+                var eventSeries = CurrentEvent.EventSeries;
 
                 if (eventProgramNumber != 0)
                 {
@@ -84,9 +85,21 @@ namespace BSO.Archive.WebApp
                 EventTime.Text = eventTime;
                 EventNote.Text = eventNote;
 
-                EventTitle.Text = currentEvent.EventProgramTitle;
-                EventDate.NavigateUrl = string.Format(EventDate.NavigateUrl, eventDate.ToShortDateString(), eventDate.ToShortDateString());
-                EventTitle.NavigateUrl = string.Format(EventTitle.NavigateUrl, EventTitle.Text);
+                //EventTitle.Text = currentEvent.EventProgramTitle;
+                //EventDate.NavigateUrl = string.Format(EventDate.NavigateUrl, eventDate.ToShortDateString(), eventDate.ToShortDateString());
+                //EventTitle.NavigateUrl = string.Format(EventTitle.NavigateUrl, EventTitle.Text);
+
+                var series = eventSeries.Split(";".ToArray(), StringSplitOptions.RemoveEmptyEntries);
+                List<string> listOfLinks = new List<string>();
+                //System.Text.StringBuilder listOfLinks = new System.Text.StringBuilder();
+                foreach (var singleSeries in series)
+                {
+                    String link = String.Format("<a href={0}/Search.aspx?searchType=Performance&EventTitle={1} >{2}</a>", SettingsHelper.SiteURL, singleSeries.Replace(" ", "%20"), singleSeries);
+                    listOfLinks.Add(link);
+                }
+
+                var resultString = String.Join("; ", listOfLinks.ToArray());
+                EventTitles.Text = resultString;
 
                 VenueName.Text = venue.VenueName;
                 VenueName.NavigateUrl = string.Format(VenueName.NavigateUrl, venue.VenueName);

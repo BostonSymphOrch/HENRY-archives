@@ -136,10 +136,12 @@
                     </tr>
                     <tr>
                         <td>
-                            <label class="label">Event</label></td>
+                            <label class="label">Event(s)</label></td>
                         <td><span>
                             <%--<asp:Label ID="EventTitle" runat="server" />--%>
-                            <asp:HyperLink ID="EventTitle" runat="server" CssClass="detailPageEventLink" NavigateUrl="~/Search.aspx?searchType=Performance&EventTitle={0}" /></span></td>
+                            <asp:Literal ID="EventTitles" runat="server" />
+                            </span></td>
+                                               
 
                     </tr>
                     <tr>

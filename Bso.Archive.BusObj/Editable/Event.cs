@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Bso.Archive.BusObj.Utility;
+using System.Text;
 
 namespace Bso.Archive.BusObj
 {
@@ -166,6 +167,7 @@ namespace Bso.Archive.BusObj
             int eventID;
             int.TryParse((string)eventItemNode.GetXElement(Constants.Event.eventIDElement), out eventID);
 
+
             Event eventItem = Event.GetEventByID(eventID);
             if (!eventItem.IsNew)
                 return eventItem;
@@ -187,7 +189,7 @@ namespace Bso.Archive.BusObj
             int eventLevel, eventProgramNo;
             int.TryParse((string)eventItemNode.GetXElement(Constants.Event.eventLevelElement), out eventLevel);
             int.TryParse((string)eventItemNode.GetXElement(Constants.Event.eventProgramNoElement), out eventProgramNo);
-
+            
             string eventText = (string)eventItemNode.GetXElement(Constants.Event.eventTextElement);
             string eventNote = (string)eventItemNode.GetXElement(Constants.Event.eventNoteElement);
             string programTitle = (string)eventItemNode.GetXElement(Constants.Event.eventProgramTitleElement);
@@ -238,6 +240,24 @@ namespace Bso.Archive.BusObj
             var eventDetailByID = BsoArchiveEntities.Current.EventDetails.FirstOrDefault(ed => ed.EventDetailID == eventDetailID) ?? EventDetail.NewEventDetail();
 
             return eventDetailByID;
+        }
+
+        public static string GetSeriesFromNode(System.Xml.Linq.XElement node)
+        {
+            var seriesNodes = node.Descendants(Constants.Series.seriesElement);
+
+            StringBuilder seriesNames = new StringBuilder();
+            foreach (var seriesNode in seriesNodes)
+            {
+                string seriesName = (string)seriesNode.Element(Constants.Series.seriesName);
+                if (!string.IsNullOrEmpty(seriesName))
+                    seriesNames.Append(string.Format("{0}; ", seriesName));
+            }
+
+            if(seriesNames.Length > 2)
+                seriesNames = seriesNames.Remove(seriesNames.Length-2, 2);
+
+            return seriesNames.ToString();
         }
     }
 }

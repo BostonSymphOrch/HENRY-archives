@@ -55,8 +55,17 @@ namespace Bso.Archive.BusObj
             internal const string eventTextElement = "eventText";
             internal const string eventNoteElement = "eventNotes";
             internal const string eventLevelElement = "eventLevel";
-            internal const string eventProgramNoElement = "eventProgramNo";
+            internal const string eventProgramNoElement = "eventNumber_1";
             internal const string eventProgramTitleElement = "eventProjectName2";
+        }
+
+        public partial class Series
+        {
+            internal const string seriesElement = "eventSeries";
+            internal const string seriesName = "eventSeriesName";
+            internal const string seriesName2 = "eventSeriesName2";
+            internal const string seriesCode = "eventSeriesCode";
+            internal const string seriesOrder = "eventSeriesOrder";
         }
 
         public partial class Participant

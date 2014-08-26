@@ -15,9 +15,9 @@ namespace BSO.Archive.BusObj.Test.Editable
         public void AddEventParticipantTest()
         {
             Event evt = Event.NewEvent();
-            evt.EventID = 1;
+            evt.EventID = -1;
             Participant participant = Participant.NewParticipant();
-            participant.ParticipantID = 1;
+            participant.ParticipantID = -1;
             participant.ParticipantGroup = "Soloist";
 
             EventParticipantType eventParticipantType = EventParticipantType.AddParticipantType(evt, participant);

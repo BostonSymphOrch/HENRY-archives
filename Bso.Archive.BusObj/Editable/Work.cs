@@ -121,6 +121,7 @@ namespace Bso.Archive.BusObj
 
             work = GetWorkArtists(node, work);
 
+            
             BsoArchiveEntities.Current.Save();
             
             return work;
@@ -154,13 +155,13 @@ namespace Bso.Archive.BusObj
             int.TryParse((string)node.GetXElement(Constants.Work.workPercussionElement), out percussion);
             int.TryParse((string)node.GetXElement(Constants.Work.workHarpElement), out harp);
             int.TryParse((string)node.GetXElement(Constants.Work.workKeyboardElement), out keyboard);
-            int.TryParse((string)node.GetXElement(Constants.Work.workTubaElement), out tuba);
             int.TryParse((string)node.GetXElement(Constants.Work.workExtraElement), out extra);
             int.TryParse((string)node.GetXElement(Constants.Work.workViolin1Element), out violin1);
             int.TryParse((string)node.GetXElement(Constants.Work.workViolin2Element), out violin2);
             int.TryParse((string)node.GetXElement(Constants.Work.workViolaElement), out viola);
             int.TryParse((string)node.GetXElement(Constants.Work.workCelloElement), out cello);
             int.TryParse((string)node.GetXElement(Constants.Work.workBassElement), out bass);
+                    
             work = SetWorkInstruments(work, flute, oboe, clarinet, bassoon, horn, trumpet, trombone, tuba, timpani, percussion, harp, keyboard, extra, violin1, violin2, viola, bass);
 
             return work;

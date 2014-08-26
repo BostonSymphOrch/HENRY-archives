@@ -52,6 +52,7 @@ namespace Bso.Archive.BusObj
 
             int typeID;
             int.TryParse(typeElement.GetXElement(Constants.EventType.typeIDElement), out typeID);
+
             EventType type = GetEventTypeByID(typeID);
             if (!type.IsNew)
                 return type;

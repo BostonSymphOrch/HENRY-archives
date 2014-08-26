@@ -43,6 +43,7 @@ namespace Bso.Archive.BusObj
             int conductorID;
 
             int.TryParse((string)conductorElement.GetXElement(Constants.Conductor.conductorIDElement), out conductorID);
+            
 
             var conductor = Conductor.GetConductorByID(conductorID);
             if (!conductor.IsNew)

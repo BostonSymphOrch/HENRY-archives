@@ -16,12 +16,12 @@ namespace BSO.Archive.BusObj.Test
         /// <summary>
         ///A test for OPASUpdate Constructor
         ///</summary>
-        [TestMethod()]
-        public void OPASUpdateConstructorTest()
-        {
-            OPASUpdate target = new OPASUpdate();
+        //[TestMethod()]
+        //public void OPASUpdateConstructorTest()
+        //{
+        //    OPASUpdate target = new OPASUpdate();
 
-            target.UpdateOPASData();
-        }
+        //    target.UpdateOPASData();
+        //}
     }
 }

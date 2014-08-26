@@ -262,16 +262,16 @@ namespace BSO.Archive.WebApp
         {
             ICacheManager CacheManager = CacheFactory.GetCacheManager();
             String key = Constants.Event.EntityName;
-            var eventTitles = CacheManager.GetData(key) as IQueryable<String>;
+            var eventTitles = CacheManager.GetData(key) as List<String>;
 
             if (eventTitles == null)
             {
-                eventTitles = ArchiveAutocomplete.GetDistinctEventTitles();
+                eventTitles = ArchiveAutocomplete.GetDistinctSeries();
 
                 CacheManager.Add(key, eventTitles);
             }
 
-            return eventTitles.Where(w => w.Contains(prefixText)).ToArray();
+            return eventTitles.Where(w => w.IndexOf(prefixText, StringComparison.CurrentCultureIgnoreCase) > -1).ToArray();
         }
 
         [WebMethod(EnableSession = true)]

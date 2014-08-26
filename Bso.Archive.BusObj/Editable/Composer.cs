@@ -48,6 +48,8 @@ namespace Bso.Archive.BusObj
 
             int composerID;
             int.TryParse(node.GetXElement(Constants.Composer.composerIDElement), out composerID);
+
+
             Composer composer = Composer.GetComposerByID(composerID);
             if (!composer.IsNew)
                 return composer;

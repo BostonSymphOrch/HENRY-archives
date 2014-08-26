@@ -38,25 +38,5 @@ namespace BSO.Archive.BusObj.Test
 
             Assert.AreEqual("#tabs-repertoire", Helper.GetTabType("repertoire"));
         }
-
-        [TestMethod]
-        public void TestDiacritics()
-        {
-            //string test = "àé";
-            //var upper = test.ToUpper();
-            //var lower = String.Format(System.Globalization.CultureInfo.CurrentCulture, test);
-
-            //var encodedString = System.Text.Encoding.GetEncoding(437).GetBytes("ê");
-
-            //var eChar = System.Text.Encoding.UTF32.GetString(encodedString).ToCharArray();
-
-            //System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
-
-            //var testEN = test.ToString(System.Globalization.CultureInfo.CurrentCulture);
-
-            //testEN = test.ToString();
-            
-            
-        }
     }
 }

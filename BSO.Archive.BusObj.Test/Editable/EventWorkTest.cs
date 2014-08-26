@@ -14,9 +14,9 @@ namespace BSO.Archive.BusObj.Test.Editable
         public void AddEventWorkTest()
         {
             Event evt = Event.NewEvent();
-            evt.EventID = 1;
+            evt.EventID = -1;
             Work work = Work.NewWork();
-            work.WorkID = 1;
+            work.WorkID = -1;
             
             EventWork eventWork = EventWork.AddEventWork(evt, work);
             Assert.IsNotNull(eventWork);

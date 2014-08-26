@@ -52,6 +52,7 @@ namespace Bso.Archive.BusObj
             int seasonID;
             int.TryParse(seasonElement.GetXElement(Constants.Season.seasonIDElement), out seasonID);
 
+
             Season season = GetSeasonByID(seasonID);
             if (!season.IsNew)
                 return season;

@@ -221,6 +221,7 @@
           <Property Name="EventLevel" Type="int" Nullable="false" />
           <Property Name="EventProgramNumber" Type="int" Nullable="false" />
           <Property Name="IsPremiere" Type="bit" Nullable="false" />
+          <Property Name="EventSeries" Type="nvarchar(max)" Nullable="false" />
           <Property Name="EventProgramTitle" Type="nvarchar(max)" Nullable="false" />
           <Property Name="ConductorID" Type="int" Nullable="false" />
           <Property Name="EventTypeID" Type="int" Nullable="false" />
@@ -261,6 +262,7 @@
           <Property Name="EventStart" Type="nvarchar(max)" Nullable="false" />
           <Property Name="EventEnd" Type="nvarchar(max)" Nullable="false" />
           <Property Name="EventProgramTitle" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="EventSeries" Type="nvarchar(max)" Nullable="false" />
           <Property Name="ArtistID" Type="int" />
           <Property Name="ArtistFullName" Type="nvarchar(max)" />
           <Property Name="ArtistFullName2" Type="nvarchar(max)" />
@@ -937,10 +939,6 @@
           </AssociationSet>
           <EntitySet Name="CommissionTypes" EntityType="BsoArchive.CommissionType" />
           <EntitySet Name="PremiereTypes" EntityType="BsoArchive.PremiereType" />
-          <AssociationSet Name="FK_Work_Work" Association="BsoArchive.FK_Work_Work">
-            <End Role="Work" EntitySet="Works" />
-            <End Role="Work1" EntitySet="Works" />
-          </AssociationSet>
           <AssociationSet Name="FK_WorkComposer_Work" Association="BsoArchive.FK_WorkComposer_Work">
             <End Role="Work" EntitySet="Works" />
             <End Role="WorkComposer" EntitySet="WorkComposers" />
@@ -949,8 +947,8 @@
           <FunctionImport Name="ImportProcessInitialize" />
           <FunctionImport Name="InitializeImport" />
           <FunctionImport Name="FinalizeImport" />
-          <EntitySet Name="EventDetails" EntityType="BsoArchive.EventDetail" />
           <EntitySet Name="ArtistDetails" EntityType="BsoArchive.ArtistDetail" />
+          <EntitySet Name="EventDetails" EntityType="BsoArchive.EventDetail" />
           </EntityContainer>
         <EntityType Name="Conductor">
           <Key>
@@ -1393,6 +1391,7 @@
           <NavigationProperty Name="EventParticipants" Relationship="BsoArchive.FK_EventParticipant_Event" FromRole="Event" ToRole="EventParticipant" />
           <NavigationProperty Name="EventParticipantTypes" Relationship="BsoArchive.FK_EventParticipantType_Event" FromRole="Event" ToRole="EventParticipantType" />
           <NavigationProperty Name="EventWorks" Relationship="BsoArchive.FK_EventWork_Event" FromRole="Event" ToRole="EventWork" />
+          <Property Type="String" Name="EventSeries" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Event_Conductor">
           <End Type="BsoArchive.Conductor" Role="Conductor" Multiplicity="1" />
@@ -1575,8 +1574,6 @@
           <NavigationProperty Name="EventWorks" Relationship="BsoArchive.FK_EventWork_Work" FromRole="Work" ToRole="EventWork" />
           <NavigationProperty Name="WorkArtists" Relationship="BsoArchive.FK_WorkArtist_Work" FromRole="Work" ToRole="WorkArtist" />
           <Property Type="Int32" Name="WorkGroupID" Nullable="false" />
-          <NavigationProperty Name="Work1" Relationship="BsoArchive.FK_Work_Work" FromRole="Work" ToRole="Work1" />
-          <NavigationProperty Name="Work2" Relationship="BsoArchive.FK_Work_Work" FromRole="Work1" ToRole="Work" />
           <NavigationProperty Name="WorkComposers" Relationship="BsoArchive.FK_WorkComposer_Work" FromRole="Work" ToRole="WorkComposer" />
           <Property Type="String" Name="WorkAddTitle1" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="WorkAddTitle2" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -1647,18 +1644,6 @@
           <Property Type="Binary" Name="Stamp" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
           <Property Type="Boolean" Name="Active" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Work_Work">
-          <End Type="BsoArchive.Work" Role="Work" Multiplicity="1" />
-          <End Type="BsoArchive.Work" Role="Work1" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Work">
-              <PropertyRef Name="WorkID" />
-            </Principal>
-            <Dependent Role="Work1">
-              <PropertyRef Name="WorkID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_WorkComposer_Work">
           <End Type="BsoArchive.Work" Role="Work" Multiplicity="1" />
           <End Type="BsoArchive.WorkComposer" Role="WorkComposer" Multiplicity="*" />
@@ -1671,6 +1656,29 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ArtistDetail">
+          <Key>
+            <PropertyRef Name="ArtistDetailID" />
+          </Key>
+          <Property Type="String" Name="EnsembleName" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EnsembleType" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="EnsembleName2" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="EventId" Nullable="false" />
+          <Property Type="Int32" Name="ArtistID" />
+          <Property Type="Int32" Name="InstrumentID" />
+          <Property Type="String" Name="Instrument1" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ComposerFullName" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ComposerFullName2" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="WorkId" />
+          <Property Type="String" Name="WorkTitle" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="WorkAddTitle1" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="WorkAddTitle2" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="WorkAddTitle3" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="EventDate" Nullable="false" Precision="3" />
+          <Property Type="String" Name="EventStart" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EventEnd" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="ArtistDetailID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
         <EntityType Name="EventDetail">
           <Key>
             <PropertyRef Name="EventDetailID" />
@@ -1680,10 +1688,12 @@
           <Property Type="String" Name="EventStart" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="EventEnd" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="EventProgramTitle" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EventSeries" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="ArtistID" />
           <Property Type="String" Name="ArtistFullName" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="ArtistFullName2" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="WorkID" />
+          <Property Type="Int32" Name="WorkGroupId" />
           <Property Type="String" Name="WorkArrangement" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="WorkPremiere" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="WorkCommission" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -1708,32 +1718,8 @@
           <Property Type="String" Name="ComposerFullName2" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Instrument1" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="InstrumentID" />
-          <Property Type="Int32" Name="EventDetailID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="Int32" Name="EventWorkID" />
-          <Property Type="Int32" Name="WorkGroupId" />
-        </EntityType>
-        <EntityType Name="ArtistDetail">
-          <Key>
-            <PropertyRef Name="ArtistDetailID" />
-          </Key>
-          <Property Type="String" Name="EnsembleName" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="EnsembleType" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="EnsembleName2" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="EventId" Nullable="false" />
-          <Property Type="Int32" Name="ArtistID" />
-          <Property Type="Int32" Name="InstrumentID" />
-          <Property Type="String" Name="Instrument1" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="ComposerFullName" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="ComposerFullName2" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="WorkId" />
-          <Property Type="String" Name="WorkTitle" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="WorkAddTitle1" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="WorkAddTitle2" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="WorkAddTitle3" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="EventDate" Nullable="false" Precision="3" />
-          <Property Type="String" Name="EventStart" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="EventEnd" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="ArtistDetailID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="EventDetailID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -2066,6 +2052,7 @@
           <EntitySetMapping Name="Events">
             <EntityTypeMapping TypeName="BsoArchive.Event">
               <MappingFragment StoreEntitySet="Event">
+                <ScalarProperty Name="EventSeries" ColumnName="EventSeries" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
@@ -2179,48 +2166,6 @@
           <FunctionImportMapping FunctionImportName="ImportProcessInitialize" FunctionName="BsoArchive.Store.ImportProcessInitialize" />
           <FunctionImportMapping FunctionImportName="InitializeImport" FunctionName="BsoArchive.Store.ImportProcessInitialize" />
           <FunctionImportMapping FunctionImportName="FinalizeImport" FunctionName="BsoArchive.Store.ImportProcessFinalize" />
-          <EntitySetMapping Name="EventDetails">
-            <EntityTypeMapping TypeName="BsoArchive.EventDetail">
-              <MappingFragment StoreEntitySet="EventDetail">
-                <ScalarProperty Name="WorkGroupId" ColumnName="WorkGroupId" />
-                <ScalarProperty Name="EventWorkID" ColumnName="EventWorkID" />
-                <ScalarProperty Name="EventDetailID" ColumnName="EventDetailID" />
-                <ScalarProperty Name="InstrumentID" ColumnName="InstrumentID" />
-                <ScalarProperty Name="Instrument1" ColumnName="Instrument1" />
-                <ScalarProperty Name="ComposerFullName2" ColumnName="ComposerFullName2" />
-                <ScalarProperty Name="ComposerFullName" ColumnName="ComposerFullName" />
-                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
-                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
-                <ScalarProperty Name="VenueState" ColumnName="VenueState" />
-                <ScalarProperty Name="VenueCountry" ColumnName="VenueCountry" />
-                <ScalarProperty Name="VenueCity" ColumnName="VenueCity" />
-                <ScalarProperty Name="VenueName" ColumnName="VenueName" />
-                <ScalarProperty Name="OrchestraName" ColumnName="OrchestraName" />
-                <ScalarProperty Name="SeasonName" ColumnName="SeasonName" />
-                <ScalarProperty Name="ConductorFullName2" ColumnName="ConductorFullName2" />
-                <ScalarProperty Name="ConductorID" ColumnName="ConductorID" />
-                <ScalarProperty Name="ConductorFullName" ColumnName="ConductorFullName" />
-                <ScalarProperty Name="WorkAddTitleText" ColumnName="WorkAddTitleText" />
-                <ScalarProperty Name="WorkAddTitle3" ColumnName="WorkAddTitle3" />
-                <ScalarProperty Name="WorkAddTitle2" ColumnName="WorkAddTitle2" />
-                <ScalarProperty Name="WorkAddTitle1" ColumnName="WorkAddTitle1" />
-                <ScalarProperty Name="WorkTitle2" ColumnName="WorkTitle2" />
-                <ScalarProperty Name="WorkTitle" ColumnName="WorkTitle" />
-                <ScalarProperty Name="WorkCommission" ColumnName="WorkCommission" />
-                <ScalarProperty Name="WorkPremiere" ColumnName="WorkPremiere" />
-                <ScalarProperty Name="WorkArrangement" ColumnName="WorkArrangement" />
-                <ScalarProperty Name="WorkID" ColumnName="WorkID" />
-                <ScalarProperty Name="ArtistFullName2" ColumnName="ArtistFullName2" />
-                <ScalarProperty Name="ArtistFullName" ColumnName="ArtistFullName" />
-                <ScalarProperty Name="ArtistID" ColumnName="ArtistID" />
-                <ScalarProperty Name="EventProgramTitle" ColumnName="EventProgramTitle" />
-                <ScalarProperty Name="EventEnd" ColumnName="EventEnd" />
-                <ScalarProperty Name="EventStart" ColumnName="EventStart" />
-                <ScalarProperty Name="EventDate" ColumnName="EventDate" />
-                <ScalarProperty Name="EventID" ColumnName="EventID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ArtistDetails">
             <EntityTypeMapping TypeName="BsoArchive.ArtistDetail">
               <MappingFragment StoreEntitySet="ArtistDetail">
@@ -2245,6 +2190,49 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="EventDetails">
+            <EntityTypeMapping TypeName="BsoArchive.EventDetail">
+              <MappingFragment StoreEntitySet="EventDetail">
+                <ScalarProperty Name="EventDetailID" ColumnName="EventDetailID" />
+                <ScalarProperty Name="EventWorkID" ColumnName="EventWorkID" />
+                <ScalarProperty Name="InstrumentID" ColumnName="InstrumentID" />
+                <ScalarProperty Name="Instrument1" ColumnName="Instrument1" />
+                <ScalarProperty Name="ComposerFullName2" ColumnName="ComposerFullName2" />
+                <ScalarProperty Name="ComposerFullName" ColumnName="ComposerFullName" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="VenueState" ColumnName="VenueState" />
+                <ScalarProperty Name="VenueCountry" ColumnName="VenueCountry" />
+                <ScalarProperty Name="VenueCity" ColumnName="VenueCity" />
+                <ScalarProperty Name="VenueName" ColumnName="VenueName" />
+                <ScalarProperty Name="OrchestraName" ColumnName="OrchestraName" />
+                <ScalarProperty Name="SeasonName" ColumnName="SeasonName" />
+                <ScalarProperty Name="ConductorFullName2" ColumnName="ConductorFullName2" />
+                <ScalarProperty Name="ConductorID" ColumnName="ConductorID" />
+                <ScalarProperty Name="ConductorFullName" ColumnName="ConductorFullName" />
+                <ScalarProperty Name="WorkAddTitleText" ColumnName="WorkAddTitleText" />
+                <ScalarProperty Name="WorkAddTitle3" ColumnName="WorkAddTitle3" />
+                <ScalarProperty Name="WorkAddTitle2" ColumnName="WorkAddTitle2" />
+                <ScalarProperty Name="WorkAddTitle1" ColumnName="WorkAddTitle1" />
+                <ScalarProperty Name="WorkTitle2" ColumnName="WorkTitle2" />
+                <ScalarProperty Name="WorkTitle" ColumnName="WorkTitle" />
+                <ScalarProperty Name="WorkCommission" ColumnName="WorkCommission" />
+                <ScalarProperty Name="WorkPremiere" ColumnName="WorkPremiere" />
+                <ScalarProperty Name="WorkArrangement" ColumnName="WorkArrangement" />
+                <ScalarProperty Name="WorkGroupId" ColumnName="WorkGroupId" />
+                <ScalarProperty Name="WorkID" ColumnName="WorkID" />
+                <ScalarProperty Name="ArtistFullName2" ColumnName="ArtistFullName2" />
+                <ScalarProperty Name="ArtistFullName" ColumnName="ArtistFullName" />
+                <ScalarProperty Name="ArtistID" ColumnName="ArtistID" />
+                <ScalarProperty Name="EventSeries" ColumnName="EventSeries" />
+                <ScalarProperty Name="EventProgramTitle" ColumnName="EventProgramTitle" />
+                <ScalarProperty Name="EventEnd" ColumnName="EventEnd" />
+                <ScalarProperty Name="EventStart" ColumnName="EventStart" />
+                <ScalarProperty Name="EventDate" ColumnName="EventDate" />
+                <ScalarProperty Name="EventID" ColumnName="EventID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -2265,7 +2253,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="BsoArchive" ZoomLevel="62">
+      <Diagram Name="BsoArchive" ZoomLevel="77">
         <EntityTypeShape EntityType="BsoArchive.Conductor" Width="1.5" PointX="13.5" PointY="12.25" />
         <EntityTypeShape EntityType="BsoArchive.EventArtist" Width="1.5" PointX="17.375" PointY="31.875" />
         <EntityTypeShape EntityType="BsoArchive.EventParticipant" Width="1.5" PointX="28.375" PointY="33.125" />
@@ -2309,10 +2297,9 @@
         <AssociationConnector Association="BsoArchive.FK_WorkArtist_Work" />
         <EntityTypeShape EntityType="BsoArchive.CommissionType" Width="1.5" PointX="53.625" PointY="12.375" />
         <EntityTypeShape EntityType="BsoArchive.PremiereType" Width="1.5" PointX="56.25" PointY="12.25" />
-        <AssociationConnector Association="BsoArchive.FK_Work_Work" />
         <AssociationConnector Association="BsoArchive.FK_WorkComposer_Work" />
-        <EntityTypeShape EntityType="BsoArchive.EventDetail" Width="1.5" PointX="7.3306311328572367" PointY="22.238245512469785" />
         <EntityTypeShape EntityType="BsoArchive.ArtistDetail" Width="1.5" PointX="0.13181892229794473" PointY="31.379837274262606" />
+        <EntityTypeShape EntityType="BsoArchive.EventDetail" Width="1.5" PointX="8.5037445148936222" PointY="21.301125163818302" />
         </Diagram>
     </Diagrams>
   </Designer>

@@ -1,25 +1,33 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Bso.Archive.BusObj;
 using Bso.Archive.BusObj.Utility;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BSO.Archive.BusObj.Test
 {
     [TestClass]
     public class WorkArtistTest
     {
+        [Ignore]
         [TestMethod]
         public void UpdateWorkArtistTest()
         {
-            Artist testArtist = Artist.GetArtistByID(836);
-            Assert.IsTrue(testArtist.ArtistFirstName == "John");
+            WorkArtist testArtist = WorkArtist.GetWorkArtistByID(-1, -1);
+            if (testArtist.IsNew)
+            {
+                testArtist.ArtistID = -1;
+                testArtist.WorkID = -1;
+            }
+
+            testArtist.Artist.ArtistFirstName = "Adage";
+            BsoArchiveEntities.Current.Save();
 
             WorkArtist testWorkArtist = new WorkArtist();
-            var workArtistId = Helper.CreateXElement(Constants.WorkArtist.workArtistIDElement, "836");
-            var workArtistFirstName = Helper.CreateXElement(Constants.WorkArtist.workArtistFirstNameElement, "Adage Text Name");
+            var workArtistId = Helper.CreateXElement(Constants.WorkArtist.workArtistIDElement, "-1");
+            var workArtistFirstName = Helper.CreateXElement(Constants.WorkArtist.workArtistFirstNameElement, "Test");
             var workArtistItem = new System.Xml.Linq.XElement(Constants.WorkArtist.workArtistElement, workArtistId, workArtistFirstName);
-            var workID = new System.Xml.Linq.XElement(Constants.Work.workIDElement, "13435");
-            var workGroupID = new System.Xml.Linq.XElement(Constants.Work.workGroupIDElement, "6360");
+            var workID = new System.Xml.Linq.XElement(Constants.Work.workIDElement, "-1");
+            var workGroupID = new System.Xml.Linq.XElement(Constants.Work.workGroupIDElement, "-1");
             var workItem = new System.Xml.Linq.XElement(Constants.Work.workElement, workID, workGroupID, workArtistItem);
             var eventItem = new System.Xml.Linq.XElement(Constants.Event.eventElement, workItem);
 
@@ -27,20 +35,22 @@ namespace BSO.Archive.BusObj.Test
 
             testWorkArtist.UpdateData(doc, "WorkArtistFirstName", "workArtistFirstname");
 
-            Assert.IsTrue(testArtist.ArtistFirstName == "Adage Text Name");
-            testArtist.ArtistFirstName = "Max";
+            Assert.IsTrue(testArtist.Artist.ArtistFirstName == "Test");
+            BsoArchiveEntities.Current.DeleteObject(testWorkArtist);
+            BsoArchiveEntities.Current.DeleteObject(testArtist);
+            BsoArchiveEntities.Current.DeleteObject(Work.GetWorkByID(-1));
             BsoArchiveEntities.Current.Save();
         }
 
         /// <summary>
         /// Tests to Verify that GetWorkArtistFromNode correctly extracts the data
-        /// from a XElement node of type workArtist and creates a WorkArtist object 
+        /// from a XElement node of type workArtist and creates a WorkArtist object
         /// and returns it.
         /// </summary>
         [TestMethod]
         public void GetWorkArtistFromNodeTest()
         {
-            var workArtistId = Helper.CreateXElement(Constants.WorkArtist.workArtistIDElement, "1");
+            var workArtistId = Helper.CreateXElement(Constants.WorkArtist.workArtistIDElement, "-1");
             var workArtistFirstName = Helper.CreateXElement(Constants.WorkArtist.workArtistFirstNameElement, "TestFName");
             var workArtistLastName = Helper.CreateXElement(Constants.WorkArtist.workArtistLastNameElement, "TestLCode");
             var workArtistInstrument = Helper.CreateXElement(Constants.WorkArtist.workArtistInstrumentElement, "TestI");
@@ -57,30 +67,8 @@ namespace BSO.Archive.BusObj.Test
             Assert.IsNotNull(workArtist);
 
             Assert.IsTrue(workArtist.Artist.ArtistFirstName == "TestFName");
-            Assert.IsTrue(workArtist.Artist.ArtistID == 1);
+            Assert.IsTrue(workArtist.Artist.ArtistID == -1);
             Assert.IsTrue(workArtist.Instrument.Instrument1 == "TestI");
-            Assert.IsTrue(workArtist.Artist.ArtistName4 == "Test4Name");
-            Assert.IsTrue(workArtist.Artist.ArtistName5 == "Test5Name");
         }
-
-        /// <summary>
-        /// Method to test GetWorkArtistByID method. Calls the method with an id to get 
-        /// a WorkArtist object then calls the same method again and compares the two 
-        /// return arguements to verify they are the same.
-        /// </summary>
-        [TestMethod]
-        public void GetWorkArtistByIDTest()
-        {
-            WorkArtist workArtist = null; // WorkArtist.GetWorkArtistByID(838);
-            if (workArtist.IsNew)
-            {
-                workArtist.WorkArtistID = 1;
-                workArtist.WorkID = 2;
-            }
-            BsoArchiveEntities.Current.Save();
-            WorkArtist workArtist2 = null; // WorkArtist.GetWorkArtistByID(838);
-            Assert.IsTrue(workArtist2.Equals(workArtist));
-        }
-
     }
 }

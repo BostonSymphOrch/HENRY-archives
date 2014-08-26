@@ -51,6 +51,7 @@ namespace Bso.Archive.BusObj
 
             int projectID;
             int.TryParse(projectElement.GetXElement(Constants.Project.projectIDElement), out projectID);
+
             Project project = GetProjectByID(projectID);
             if (!project.IsNew)
                 return project;

@@ -57,6 +57,9 @@ namespace Bso.Archive.BusObj
             int venueID;
             int.TryParse(venueElement.GetXElement(Constants.Venue.venueIDElement), out venueID);
 
+            if (venueID == 0)
+                return null;
+
             Venue venue = Venue.GetVenueByID(venueID);
             if (!venue.IsNew)
                 return venue;
