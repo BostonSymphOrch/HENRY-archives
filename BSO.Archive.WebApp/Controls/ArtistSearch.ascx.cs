@@ -73,20 +73,18 @@ namespace BSO.Archive.WebApp.Controls
         {
             var results = e.Results.Cast<ArtistDetail>();
 
-            var groupedResults = results.GroupBy(r => r.ArtistID);
+            var groupedResults = results.GroupBy(r => r.WorkId);
 
-            var resultsTop = groupedResults.Take(SettingsHelper.NumberOfResults);
-
-            List<int> listResults = new List<int>();
-            foreach (var result in resultsTop)
+            List<List<int>> listResults = new List<List<int>>();
+            foreach (var result in groupedResults)
             {
+                List<int> artistDetailIDs = new List<int>();
                 foreach (var element in result)
                 {
-                    if (!listResults.Contains((int)element.ArtistDetailID))
-                        listResults.Add((int)element.ArtistDetailID);
+                    artistDetailIDs.Add(element.ArtistDetailID);
                 }
+                listResults.Add(artistDetailIDs);
             }
-
 
             var serializer = new JavaScriptSerializer();
             hfArtistSearchResultIds.Value = serializer.Serialize(listResults);

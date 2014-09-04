@@ -96,7 +96,7 @@ namespace BSO.Archive.WebApp.Controls
             var resultCount = groupedResults.Count();
 
             List<List<int>> lstEventDetails = new List<List<int>>();
-            List<int> duplicateCheck = new List<int>();
+            
 
             foreach (var result in groupedResults)
             {
@@ -105,7 +105,7 @@ namespace BSO.Archive.WebApp.Controls
                 {
                     eventDetailIDs.Add(element.EventDetailID);
                 }
-                duplicateCheck.Add(result.Key);
+                
                 lstEventDetails.Add(eventDetailIDs);
             }
 

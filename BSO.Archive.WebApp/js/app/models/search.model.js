@@ -29,12 +29,52 @@ _(BSO).extend(function ($) {
                 return;
             }
 
-            var goodString = badString.replace('[', '');
-            goodString = goodString.replace(']', '');
+            var eventArray = JSON.parse(badString);
 
+            var sizeOfRequest = 500; // Maximum amount of eventDetailIds we want to ask for at once.
 
-            this.modelsPendingLoad = 1;
-            this.app.services.loadArtists(goodString, this.parseArtists, this);
+            // Counts
+            var lastEventIndexLoaded = 0;
+            var totalNumberOfEventDetails = _(eventArray).flatten().length;
+            var totalNumberOfEventDetailsLoaded = 0;
+
+            this.modelsPendingLoad = 0;
+
+            // While not all the eventDetails are loaded
+            while (totalNumberOfEventDetailsLoaded < totalNumberOfEventDetails) {
+                // Initialize Counts
+                var numberOfEventDetailsThisRequest = 0; // How many details am I requesting?
+                var lastEventIdIncludedInThisRequest = 0; // What is the last index in the eventArray that I am requesting? So I know where to start next time.
+
+                for (var i = lastEventIndexLoaded ; i < eventArray.length && (lastEventIdIncludedInThisRequest <= eventArray.length - 1) ; i++) {
+                    // For each list of eventDetailIds in eventArray,
+                    var eventDetailArr = eventArray[i];
+
+                    // Does the list of eventDetailIds fit in the request?
+                    if (numberOfEventDetailsThisRequest + eventDetailArr.length <= sizeOfRequest) {
+                        numberOfEventDetailsThisRequest += eventDetailArr.length; // Update the amount of event details in this request
+                        lastEventIdIncludedInThisRequest = i + 1; // Mark the last index in the eventArray we want in this request
+                    } else {
+                        // It ate too many eventDetails. This request is ready.
+                        break;
+                    }
+                }
+
+                // Get the substring events
+                var splicedArr = eventArray.slice(lastEventIndexLoaded, lastEventIdIncludedInThisRequest);
+
+                // Keep track of the last index we loaded for next request.
+                lastEventIndexLoaded = lastEventIdIncludedInThisRequest;
+
+                // Get the eventDetailIds in a string
+                var subArrStr = splicedArr.join(',');
+
+                // Update total number of event details loaded so we don't continue past the amount we need.
+                totalNumberOfEventDetailsLoaded += numberOfEventDetailsThisRequest;
+
+                this.modelsPendingLoad += 1;
+                this.app.services.loadArtists(subArrStr, this.parseArtists, this);
+            }
         },
 
         parseArtists: function (response) {
