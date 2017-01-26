@@ -154,7 +154,7 @@ simple deployment.
 ## Contact
 * Homepage: http://archives.bso.org/
 * e-mail: archives@bso.org
-* Twitter: [@twitterhandle](https://twitter.com/bostonsymphony "bostonsymphony on twitter")
+* Twitter: [@bostonsymphony](https://twitter.com/bostonsymphony "bostonsymphony on twitter")
 
 # Licensing and Disclaimer
 HENRY is released under GNU General Public License, version 2.
