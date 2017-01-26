@@ -11,14 +11,10 @@
     <AssemblyName>BSO.Archive.DTO</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SccProjectName>
-    </SccProjectName>
-    <SccLocalPath>
-    </SccLocalPath>
-    <SccAuxPath>
-    </SccAuxPath>
-    <SccProvider>
-    </SccProvider>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -63,6 +59,7 @@
     <Compile Include="RepertoireDTO.cs" />
     <Compile Include="SeasonDTO.cs" />
     <Compile Include="VenueDTO.cs" />
+    <Compile Include="WorkDocumentDTO.cs" />
     <Compile Include="WorkDTO.cs" />
   </ItemGroup>
   <ItemGroup>

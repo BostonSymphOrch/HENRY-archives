@@ -51,13 +51,15 @@ namespace Bso.Archive.BusObj
 
             int typeGroupID;
             int.TryParse(typeGroupElement.GetXElement(Constants.EventTypeGroup.typeGroupIDElement), out typeGroupID);
+            if (typeGroupID == 0)
+                typeGroupID = 1000;
 
             EventTypeGroup typeGroup = GetTypeGroupByID(typeGroupID);
             if (!typeGroup.IsNew)
                 return typeGroup;
 
             string typeGroupName = typeGroupElement.GetXElement(Constants.EventTypeGroup.typeGroupNameElement);
-            string typeGroupName2 = typeGroupElement.GetXElement(Constants.EventTypeGroup.typeGroupNameElement);
+            string typeGroupName2 = typeGroupElement.GetXElement(Constants.EventTypeGroup.typeGroupName2Element);
 
             typeGroup = SetTypeGroupData(typeGroupID, typeGroup, typeGroupName, typeGroupName2);
 

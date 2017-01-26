@@ -179,37 +179,54 @@ namespace BSO.Archive.DTO
                     ComposerFullName = eventDetail.ComposerFullName,
                     workID = (int)eventDetail.WorkID,
                     Arranger = eventDetail.WorkArrangement,
-                    WorkArtists = new List<ArtistDTO>()
+                    WorkArtists = new List<ArtistDTO>(),
+                    WorkDocuments = new List<WorkDocumentDTO>()
                 };
 
                 eventDTO.works.Add(work);
             }
 
             var artistID = eventDetail.ArtistID;
-            if (artistID == null)
-                return;
-
-            var workArtist = work.WorkArtists.FirstOrDefault(wa => wa.ArtistID == (int)eventDetail.ArtistID);
-
-            var instrumentID = eventDetail.InstrumentID ?? 0;
-            string instrument;
-            if (instrumentID == 0)
-                instrument = "";
-            else
-                instrument = Instrument.GetInstrumentByID((int)eventDetail.InstrumentID).Instrument1;
-
-            if (workArtist == null)
+            if (artistID != null)
             {
-                var artist = Artist.GetArtistByID((int)artistID);
+                var workArtist = work.WorkArtists.FirstOrDefault(wa => wa.ArtistID == (int)eventDetail.ArtistID);
 
-                workArtist = new ArtistDTO
+                var instrumentID = eventDetail.InstrumentID ?? 0;
+                string instrument;
+                if (instrumentID == 0)
+                    instrument = "";
+                else
+                    instrument = Instrument.GetInstrumentByID((int)eventDetail.InstrumentID).Instrument1;
+
+                if (workArtist == null)
                 {
-                    ArtistFullName = artist.ArtistFullName,
-                    ArtistInstrument = instrument,
-                    ArtistID = (int)eventDetail.ArtistID
-                };
+                    var artist = Artist.GetArtistByID((int)artistID);
 
-                work.WorkArtists.Add(workArtist);
+                    workArtist = new ArtistDTO
+                    {
+                        ArtistFullName = artist.ArtistFullName,
+                        ArtistInstrument = instrument,
+                        ArtistID = (int)eventDetail.ArtistID
+                    };
+
+                    work.WorkArtists.Add(workArtist);
+                }
+            }
+            var documentID = eventDetail.WorkDocumentID;
+            if (documentID != null)
+            {
+                var workDocument = work.WorkDocuments.FirstOrDefault(wd => wd.WorkDocumentID == (int)eventDetail.WorkDocumentID);
+                if (workDocument == null)
+                {
+                    var document = WorkDocument.GetDocumentByID((int)documentID);
+                    workDocument = new WorkDocumentDTO
+                    {
+                        WorkDocumentID = (int)eventDetail.WorkDocumentID,
+                        WorkDocumentName = document.WorkDocumentName,
+                        WorkDocumentFileLocation = document.WorkDocumentFileLocation,
+                    };
+                    work.WorkDocuments.Add(workDocument);
+                }
             }
         }
     }

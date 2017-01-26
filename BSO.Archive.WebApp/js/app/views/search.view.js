@@ -155,10 +155,10 @@ _(BSO).extend(function ($) {
         viewModel: function () {
             var rawResults = this.app.filterContext.getResultsThatApplyToSelectedFilters(this.app.searchResults);
             
-            if (rawResults.length >= this.app.maxResultShown){
+            if (rawResults.length >= this.app.maxResultShown) {
                 rawResults = rawResults.slice(0, this.app.maxResultShown);
-			}
-			
+            }
+
             var searchType = this.app.getCurrentSearchType();
 
             if (searchType === "Performance") { // Special Performance Visible Works

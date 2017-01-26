@@ -51,6 +51,15 @@ _(BSO).extend(function ($) {
         }
     });
 
+    var Document = DTO.extend({
+        buildFromJSON: function (jsonData) {
+            this.set('WorkDocumentName', jsonData.WorkDocumentName);
+            this.set('WorkDocumentSummary', jsonData.WorkDocumentSummary);
+            this.set('WorkDocumentNotes', jsonData.WorkDocumentNotes);
+            this.set('WorkDocumentFileLocation', jsonData.WorkDocumentFileLocation);
+        }
+    });
+
     var Instrument = DTO.extend({
         buildFromJSON: function (jsonData) {
             // TODO: FILL OUT INITIALIZATION
@@ -88,6 +97,18 @@ _(BSO).extend(function ($) {
         }
     });
 
+    var DocumentList = DTOList.extend({
+        model: Document,
+
+        buildFromJSON: function (jsonData) {
+            _.each(jsonData, _.bind(function (documentData) {
+                var newDocument = new Document();
+                newDocument.buildFromJSON(documentData);
+                this.add(newDocument);
+            }, this));
+        }
+    })
+
     var Conductor = DTO.extend({
         buildFromJSON: function (jsonData) {
             this.set('ConductorFullName', jsonData.ConductorFullName);
@@ -114,6 +135,9 @@ _(BSO).extend(function ($) {
 
             this.artists = new ArtistList();
             this.artists.buildFromJSON(jsonData.WorkArtists);
+
+            this.documents = new DocumentList();
+            this.documents.buildFromJSON(jsonData.WorkDocuments);
         }
     });
 
@@ -219,7 +243,7 @@ _(BSO).extend(function ($) {
         initialize: function () {
             this.artists = new ArtistList();
             this.works = new WorkList();
-
+            this.workDocuments = new DocumentList();
             this.orchestra = new Orchestra();
             this.season = new Season();
             this.venue = new Venue();
@@ -271,7 +295,7 @@ _(BSO).extend(function ($) {
 
             this.artists.buildFromJSON(jsonData.artists);
             this.works.buildFromJSON(jsonData.works);
-
+            this.workDocuments.buildFromJSON(jsonData.workDocuments);
             this.conductor.buildFromJSON(jsonData.conductor);
             this.venue.buildFromJSON(jsonData.venue);
             this.orchestra.buildFromJSON(jsonData.orchestra);
@@ -295,6 +319,8 @@ _(BSO).extend(function ($) {
         SeasonList: SeasonList,
         Repertoire: Repertoire,
         Instrument: Instrument,
-        InstrumentList: InstrumentList
+        InstrumentList: InstrumentList,
+        Document: Document,
+        DocumentList: DocumentList
     };
 }(jQuery));

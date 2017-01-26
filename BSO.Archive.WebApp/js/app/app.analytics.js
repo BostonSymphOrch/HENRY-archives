@@ -25,7 +25,7 @@ _(BSO).extend(function ($) {
         },
 
         trackSearch: function (tabName, $tabArea) {
-            _gaq.push(['_trackEvent', 'archives form', 'click', 'search']);
+            dataLayer.push({ 'event': 'GAevent', 'eventCategory': 'archives form', 'eventAction': 'click', 'eventLabel': 'search' });
 
             this.trackSearchTerms(tabName, $tabArea);
         },
@@ -40,7 +40,8 @@ _(BSO).extend(function ($) {
                 //searchTerms.push(searchCriteria + "=" + searchTerm);
 
                 if (searchTerm !== "") {
-                    _gaq.push(['_trackEvent', 'archives form', 'perform ' + tabName.toLowerCase() + ' search ' + searchCriteria, searchTerm]);
+                    dataLayer.push({ 'event': 'GAevent', 'eventCategory': 'archives form', 'eventAction': 'perform ' + tabName.toLowerCase() + ' search ' + searchCriteria, 'eventLabel': searchTerm });
+
                 }
             });
 
@@ -50,60 +51,61 @@ _(BSO).extend(function ($) {
                 //searchTerms.push(searchCriteria + "=" + searchTerm);
 
                 if (searchTerm !== "") {
-                    _gaq.push(['_trackEvent', 'archives form', 'perform ' + tabName.toLowerCase() + ' search composer', searchCriteria + ': ' + searchTerm]);
+                    dataLayer.push({ 'event': 'GAevent', 'eventCategory': 'archives form', 'eventAction': 'perform ' + tabName.toLowerCase() + ' search composer' + searchCriteria, 'eventLabel': searchTerm });
                 }
             });
         },
 
         trackRepertoireDetailPageClick: function ($target) {
-            _gaq.push(['_trackEvent', 'archives my history', 'repertoire search click', $target.attr('href')]);
+            dataLayer.push({ 'event': 'GAevent', 'eventCategory': 'archives my history', 'eventAction': 'repertoire search click', 'eventLabel': $target.attr('href') });
         },
 
         trackPerformanceDetailPageClick: function ($target) {
-            _gaq.push(['_trackEvent', 'archives my history', 'performance search click', $target.attr('href')]);
+            dataLayer.push({ 'event': 'GAevent', 'eventCategory': 'archives my history', 'eventAction': 'performance search click', 'eventLabel': $target.attr('href') });
+
         },
 
         trackArtistDetailPageClick: function ($target) {
-            _gaq.push(['_trackEvent', 'archives my history', 'artist search click', $target.attr('href')]);
+            dataLayer.push({ 'event': 'GAevent', 'eventCategory': 'archives my history', 'eventAction': 'artist search click', 'eventLabel': $target.attr('href') });
         },
 
         trackDetailPageShareClick: function () {
-            _gaq.push(['_trackEvent', 'archives my history', 'click', 'share results']);
+            dataLayer.push({ 'event': 'GAevent', 'eventCategory': 'archives my history', 'eventAction': 'click', 'eventLabel': 'share results' });
         },
 
         trackExportClick: function () {
-            _gaq.push(['_trackEvent', 'archives results', 'click', 'export xls']);
+            dataLayer.push({ 'event': 'GAevent', 'eventCategory': 'archives results', 'eventAction': 'click', 'eventLabel': 'export xls' });
 
         },
 
         trackPerformanceHistoryClick: function () {
-            _gaq.push(['_trackEvent', 'archives form', 'click', 'search performance history']);
+            dataLayer.push({ 'event': 'GAevent', 'eventCategory': 'archives form', 'eventAction': 'click', 'eventLabel': 'search performance history' });
         },
 
         trackProgramImagesClick: function () {
-            _gaq.push(['_trackEvent', 'archives form', 'click', 'program notes']);
+            dataLayer.push({ 'event': 'GAevent', 'eventCategory': 'archives form', 'eventAction': 'click', 'eventLabel': 'program notes' });
         },
 
         trackSearchHistoryClick: function () {
-            _gaq.push(['_trackEvent', 'archives form', 'click', 'my search history']);
+            dataLayer.push({ 'event': 'GAevent', 'eventCategory': 'archives form', 'eventAction': 'click', 'eventLabel': 'my search history' });
         },
 
         trackClearSearch: function () {
-            _gaq.push(['_trackEvent', 'archives form', 'click', 'clear search']);
+            dataLayer.push({ 'event': 'GAevent', 'eventCategory': 'archives form', 'eventAction': 'click', 'eventLabel': 'clear search' });
         },
 
         trackDetailsIconClick: function () {
-            _gaq.push(['_trackEvent', 'archives results', 'click', 'more detail']);
+            dataLayer.push({ 'event': 'GAevent', 'eventCategory': 'archives results', 'eventAction': 'click', 'eventLabel': 'more detail' });
         },
 
         trackProgramBookClick: function () {
-            _gaq.push(['_trackEvent', 'archives results', 'click', 'pdf']);
+            dataLayer.push({ 'event': 'GAevent', 'eventCategory': 'archives results', 'eventAction': 'click', 'eventLabel': 'pdf' });
         },
 
         trackSearchTabClick: function (currentSearchType) {
             // Google Analytics Code goes here for tracking search TAB clicks
             // "currentSearchType" is either Performance/Artist/Repertoire based on the tab you clicked.
-            _gaq.push(['_trackEvent', 'archives form', 'click', currentSearchType + ' Search']);
+            dataLayer.push({ 'event': 'GAevent', 'eventCategory': 'archives form', 'eventAction': 'click', 'eventLabel': currentSearchType + ' Search' });
         },
 
         // Detail Pages
@@ -116,7 +118,7 @@ _(BSO).extend(function ($) {
             // link title
             var linkTitle = $target.html();
 
-            _gaq.push(['_trackEvent', 'archives detail', 'click composer', linkTitle + ' ' + linkData]);
+            dataLayer.push({ 'event': 'GAevent', 'eventCategory': 'archives detail', 'eventAction': 'click composer', 'eventLabel': linkTitle + ' ' + linkData });
         },
 
         click_detailPageWorkLink: function (evt) {
@@ -128,7 +130,7 @@ _(BSO).extend(function ($) {
             // link title
             var linkTitle = $target.html();
 
-            _gaq.push(['_trackEvent', 'archives detail', 'click work', linkTitle + ' ' + linkData]);
+            dataLayer.push({ 'event': 'GAevent', 'eventCategory': 'archives detail', 'eventAction': 'click work', 'eventLabel': linkTitle + ' ' + linkData });
         },
 
         click_detailPageArtistLink: function (evt) {
@@ -140,9 +142,9 @@ _(BSO).extend(function ($) {
             // link title
             var linkTitle = $target.html();
 
-            _gaq.push(['_trackEvent', 'archives detail', 'click artist', linkTitle + ' ' + linkData]);
+            dataLayer.push({ 'event': 'GAevent', 'eventCategory': 'archives detail', 'eventAction': 'click artist', 'eventLabel': linkTitle + ' ' + linkData });
         },
-        
+
         click_detailPageRoleLink: function (evt) {
             var $target = $(evt.currentTarget);
 
@@ -152,9 +154,9 @@ _(BSO).extend(function ($) {
             // link title
             var linkTitle = $target.html();
 
-            _gaq.push(['_trackEvent', 'archives detail', 'click role', linkTitle + ' ' + linkData]);
+            dataLayer.push({ 'event': 'GAevent', 'eventCategory': 'archives detail', 'eventAction': 'click role', 'eventLabel': linkTitle + ' ' + linkData });
         },
-                
+
         click_detailPageDateLink: function (evt) {
             var $target = $(evt.currentTarget);
 
@@ -164,9 +166,9 @@ _(BSO).extend(function ($) {
             // link title
             var linkTitle = $target.html();
 
-            _gaq.push(['_trackEvent', 'archives detail', 'click date', linkTitle + ' ' + linkData]);
+            dataLayer.push({ 'event': 'GAevent', 'eventCategory': 'archives detail', 'eventAction': 'click date', 'eventLabel': linkTitle + ' ' + linkData });
         },
-        
+
         click_detailPageSeasonLink: function (evt) {
             var $target = $(evt.currentTarget);
 
@@ -176,7 +178,7 @@ _(BSO).extend(function ($) {
             // link title
             var linkTitle = $target.html();
 
-            _gaq.push(['_trackEvent', 'archives detail', 'click season', linkTitle + ' ' + linkData]);
+            dataLayer.push({ 'event': 'GAevent', 'eventCategory': 'archives detail', 'eventAction': 'click season', 'eventLabel': linkTitle + ' ' + linkData });
         },
 
 
@@ -189,7 +191,7 @@ _(BSO).extend(function ($) {
             // link title
             var linkTitle = $target.html();
 
-            _gaq.push(['_trackEvent', 'archives detail', 'click ensemble', linkTitle + ' ' + linkData]);
+            dataLayer.push({ 'event': 'GAevent', 'eventCategory': 'archives detail', 'eventAction': 'click ensemble', 'eventLabel': linkTitle + ' ' + linkData });
         },
 
 
@@ -202,9 +204,10 @@ _(BSO).extend(function ($) {
             // link title
             var linkTitle = $target.html();
 
-            _gaq.push(['_trackEvent', 'archives detail', 'click conductor', linkTitle + ' ' + linkData]);
+            dataLayer.push({ 'event': 'GAevent', 'eventCategory': 'archives detail', 'eventAction': 'click conductor', 'eventLabel': linkTitle + ' ' + linkData });
+
         },
-        
+
         click_detailPageVenueLink: function (evt) {
             var $target = $(evt.currentTarget);
 
@@ -214,7 +217,7 @@ _(BSO).extend(function ($) {
             // link title
             var linkTitle = $target.html();
 
-            _gaq.push(['_trackEvent', 'archives detail', 'click venue', linkTitle + ' ' + linkData]);
+            dataLayer.push({ 'event': 'GAevent', 'eventCategory': 'archives detail', 'eventAction': 'click venue', 'eventLabel': linkTitle + ' ' + linkData });
         },
 
         click_detailPageLocationLink: function (evt) {
@@ -226,7 +229,7 @@ _(BSO).extend(function ($) {
             // link title
             var linkTitle = $target.html();
 
-            _gaq.push(['_trackEvent', 'archives detail', 'click location', linkTitle + ' ' + linkData]);
+            dataLayer.push({ 'event': 'GAevent', 'eventCategory': 'archives detail', 'eventAction': 'click location', 'eventLabel': linkTitle + ' ' + linkData });
         },
 
         click_detailPageEventLink: function (evt) {
@@ -238,7 +241,7 @@ _(BSO).extend(function ($) {
             // link title
             var linkTitle = $target.html();
 
-            _gaq.push(['_trackEvent', 'archives detail', 'click event', linkTitle + ' ' + linkData]);
+            dataLayer.push({ 'event': 'GAevent', 'eventCategory': 'archives detail', 'eventAction': 'click event', 'eventLabel': linkTitle + ' ' + linkData });
         }
     });
 

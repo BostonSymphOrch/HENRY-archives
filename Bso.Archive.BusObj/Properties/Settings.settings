@@ -44,5 +44,8 @@
     <Setting Name="ExludedWorkGroupIds" Type="System.String" Scope="Application">
       <Value Profile="(Default)">9227,5978,3356,3357,3358,8019</Value>
     </Setting>
+    <Setting Name="XMLBatchFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\\MyPath\\batch\</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

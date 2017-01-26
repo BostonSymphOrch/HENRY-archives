@@ -140,6 +140,16 @@ namespace Bso.Archive.BusObj
             internal const string workArtistName5Element = "workArtistName5";
         }
 
+        public partial class WorkDocument
+        {
+            internal const string workDocumentElement = "workDocument";
+            internal const string workDocumentIDElement = "workDocument_id";
+            internal const string workDocumentNameElement = "workDocument_Name";
+            internal const string workDocumentSummaryElement = "workDocument_Summary";
+            internal const string workDocumentNotesElement = "workDocument_Notes";
+            internal const string workDocumentFileLocationElement = "workDocument_FileLocation";
+        }
+
         public partial class Composer
         {
             internal const string composerElement = "workComposer";

@@ -98,11 +98,18 @@
                       MinimumPrefixLength="2" UseContextKey="false" EnableCaching="true" CompletionInterval="200" />
                 </label>
 
-                <label>
+                <label class="leftColumn">
                     <span>Venue</span>
                     <asp:TextBox ID="VenueName" runat="server" />
                     <%--<juice:Autocomplete runat="server" ID="VenueAutoComplete" TargetControlID="VenueName" />--%>
                     <ajaxToolkit:AutoCompleteExtender ID="acVenueName" runat="server" CompletionListHighlightedItemCssClass="itemHighlighted" CompletionListCssClass="autoComplete" TargetControlID="VenueName" ServicePath="~/ArchiveWebService.asmx" ServiceMethod="GetVenues" 
+                      MinimumPrefixLength="2" UseContextKey="false" EnableCaching="true" CompletionInterval="200" />
+                </label>
+
+                <label class="rightColumn">
+                    <span>Media</span>
+                    <asp:TextBox ID="MediaType" runat="server" />
+                    <ajaxToolkit:AutoCompleteExtender ID="acMedia" runat="server" CompletionListHighlightedItemCssClass="itemHighlighted" CompletionListCssClass="autoComplete" TargetControlID="MediaType" ServicePath="~/ArchiveWebService.asmx" ServiceMethod="GetMediaTypes" 
                       MinimumPrefixLength="2" UseContextKey="false" EnableCaching="true" CompletionInterval="200" />
                 </label>
 
@@ -235,6 +242,9 @@
 
         <asp:SearchExpression DataFields="VenueState" SearchType="Contains">
             <asp:ControlParameter ControlID="VenueState" />
+        </asp:SearchExpression>
+        <asp:SearchExpression DataFields="WorkDocumentName" SearchType="Contains">
+            <asp:ControlParameter ControlID="MediaType" />
         </asp:SearchExpression>
     </asp:QueryExtender>
 

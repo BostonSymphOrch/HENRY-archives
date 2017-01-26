@@ -81,6 +81,37 @@ namespace Bso.Archive.BusObj
             work.WorkArtists.Add(artist);
         }
 
+        public static Work GetWorkDocuments(System.Xml.Linq.XElement node, Work work)
+        {
+            IEnumerable<System.Xml.Linq.XElement> workDocumentElements = node.Descendants("workDocument");
+            foreach (System.Xml.Linq.XElement document in workDocumentElements)
+            {
+                WorkDocument doc = WorkDocument.GetWorkDocumentFromNode(document);
+                if (doc == null) continue;
+
+                Work.AddWorkDocument(work, doc);
+            }
+            return work;
+        }
+
+        /// <summary>
+        /// Add WorkArtist object to WorkArtists in Work
+        /// </summary>
+        /// <param name="work"></param>
+        /// <param name="artist"></param>
+        /// <remarks>
+        /// Checks to see if the Work object's collection of WorkArtists contains 
+        /// the WorkArtist object passed. If yes then just return, otherwise Add.
+        /// </remarks>
+        internal static void AddWorkDocument(Work work, WorkDocument doc)
+        {
+            var wDoc = work.WorkDocuments.FirstOrDefault(wa => wa.WorkDocumentID == doc.WorkDocumentID && wa.WorkID == work.WorkID);
+
+            if (wDoc != null) return;
+
+            work.WorkDocuments.Add(doc);
+        }
+
         /// <summary>
         /// Get a Work object from XElement node
         /// </summary>
@@ -121,7 +152,8 @@ namespace Bso.Archive.BusObj
 
             work = GetWorkArtists(node, work);
 
-            
+            work = GetWorkDocuments(node, work);
+
             BsoArchiveEntities.Current.Save();
             
             return work;

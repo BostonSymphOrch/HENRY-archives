@@ -22,7 +22,7 @@ _(BSO).extend(function ($) {
         },
 
         loadAsyncWithIds: function (badString) {
-
+            
             if (badString === "[]") {
                 // No Results
                 BSO.Dispatch.trigger('noSearchResultsFound');

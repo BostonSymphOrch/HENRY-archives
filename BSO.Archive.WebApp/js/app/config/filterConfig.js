@@ -190,6 +190,36 @@
             }, function (someObj) {
                 return this.key + "-_-" + someObj.cid;
             })
+        },
+        {
+            displayName: "Media Type",
+            key: "WorkDocumentName",
+            isArrayOfResults: true,
+            getValue: function (perf) {
+                var arrayOfResults = perf.works.map(_.bind(function (work) {
+                    var results = work.documents.map(_.bind(function (document) {
+                        if (document.get(this.key) != "")
+                            return document.get(this.key);
+                    }, this));
+
+                    return results;
+                }, this));
+
+                var combinedArray = [];
+
+                arrayOfResults.map(_.bind(function (result) {
+                    return result.map(_.bind(function (innerResult) {
+                        combinedArray.push(innerResult);
+                    }, this));
+                }, this));
+
+                return combinedArray;
+            },
+            memoizedGet: _.memoize(function (someObj) {
+                return this.getValue(someObj);
+            }, function (someObj) {
+                return this.key + "-_-" + someObj.cid;
+            })
         }
     ],
     ArtistFilters: [

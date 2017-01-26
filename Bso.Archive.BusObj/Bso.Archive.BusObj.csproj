@@ -35,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net40-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -79,6 +83,7 @@
     <Compile Include="Editable\Venue.cs" />
     <Compile Include="Editable\Work.cs" />
     <Compile Include="Editable\WorkArtist.cs" />
+    <Compile Include="Editable\WorkDocument.cs" />
     <Compile Include="Interface\IBusinessObject.cs" />
     <Compile Include="T4\ModelExtensions1.cs">
       <AutoGen>True</AutoGen>
@@ -119,6 +124,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>BsoArchive.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="packages.config" />
     <None Include="ProjectFiles\ArchiveSampleDatabase.bak" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

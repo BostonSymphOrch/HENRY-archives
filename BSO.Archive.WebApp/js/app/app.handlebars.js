@@ -60,7 +60,7 @@
     Handlebars.registerHelper('ifShouldCreateFilterGroup', function (lvalue, options) {
         var fnTrue = options.fn, fnFalse = options.inverse;
 
-        if (lvalue.getActiveFilters().length > 0 || lvalue.length > 1)
+        if (lvalue.getActiveFilters().length > 0 || lvalue.length > 0)
             return fnTrue(this);
 
         return fnFalse(this);

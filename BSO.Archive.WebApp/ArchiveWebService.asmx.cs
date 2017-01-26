@@ -1,16 +1,17 @@
 ﻿using Bso.Archive.BusObj;
+using Bso.Archive.BusObj.Utility;
 using BSO.Archive.DTO;
+using log4net;
+using Microsoft.Practices.EnterpriseLibrary.Caching;
 using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.Script.Services;
 using System.Web.Services;
-using Bso.Archive.BusObj.Utility;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Practices.EnterpriseLibrary.Caching;
-using System.Data;
-using System.Text;
-using System.Web;
 
 namespace BSO.Archive.WebApp
 {
@@ -20,16 +21,47 @@ namespace BSO.Archive.WebApp
     [WebService(Namespace = "http://tempuri.org/")]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
-    // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
+    // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line.
     [System.Web.Script.Services.ScriptService]
-    public class ArchiveWebService : System.Web.Services.WebService
+    public class ArchiveWebService : WebService
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(ArchiveWebService));
+
+        [WebMethod]
+        public string RunBatchImport(bool update)
+        {
+            try
+            {
+                Log.Info(string.Format("Starting Batch Import - update = {0}", update.ToString()));
+                if (update)
+                {
+                    var updateData = new OPASUpdate();
+                    updateData.UpdateBatchOPASData();
+                }
+                else
+                {
+                    var importData = new ImportOPASData();
+                    importData.Initialize();
+                    importData.ImportBatch();
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Batch Import Error", ex);
+                return ex.Message;
+            }
+
+            Log.Info("Batch Import Complete.");
+
+            return "Success";
+        }
 
         [WebMethod]
         public string RunImport(bool update)
         {
             try
             {
+                Log.Info(string.Format("Starting Import - update = {0}", update.ToString()));
                 if (update)
                 {
                     var updateData = new OPASUpdate();
@@ -40,17 +72,18 @@ namespace BSO.Archive.WebApp
                     var importData = new ImportOPASData();
                     importData.Initialize();
                     importData.Import();
-                    //importData.Finalize();
                 }
             }
             catch (Exception ex)
             {
+                Log.Error("Import Error", ex);
                 return ex.Message;
             }
 
+            Log.Info("Import Complete.");
+
             return "Success";
         }
-
 
         /// <summary>
         /// Given a string of EventDetailIDs returns a serialized list of EventDTOs
@@ -93,9 +126,17 @@ namespace BSO.Archive.WebApp
         [ScriptMethod]
         public string GetArtistDetails(string artistDetailIds)
         {
-            var artistDetail = ArtistDTO.GetArtistDTOByArtistIDs(artistDetailIds);
+            List<ArtistDTO> artistDetail = null;
+            JavaScriptSerializer serializer = null;
+            try
+            {
+                artistDetail = ArtistDTO.GetArtistDTOByArtistIDs(artistDetailIds);
 
-            var serializer = new JavaScriptSerializer();
+                serializer = new JavaScriptSerializer();
+            }
+            catch (Exception e)
+            {
+            }
             return serializer.Serialize(artistDetail);
         }
 
@@ -119,7 +160,6 @@ namespace BSO.Archive.WebApp
             data = data.Replace("<div>", "<table><tr>").Replace("<ul", "<td rowspan='2'").Replace("<li>", String.Empty)
                        .Replace("</li>", String.Empty).Replace("</ul>", "</td>").Replace("</div>", "</tr></table>");
 
-
             // Look for invalid HTML (td inside td renders as td after td)
             data = data.Replace("<td class=\"tableColumn\">\n\t\t\t\t<td rowspan='2'>", "<td class=\"tableColumn\">");
             data = data.Replace("</td>\n\t\t\t</td>", "</td>");
@@ -128,18 +168,17 @@ namespace BSO.Archive.WebApp
             {
                 var output = "<head><style>td{border:1px solid #000;}</style></head>" + data;
                 context.Response.Write(output);
-            }            
+            }
 
             context.Response.End();
         }
-
 
         [WebMethod(EnableSession = true)]
         [ScriptMethod]
         public string[] GetComposers(string prefixText, int count)
         {
             ICacheManager CacheManager = CacheFactory.GetCacheManager();
-            
+
             string key = Constants.Composer.EntityName;
             var composers = CacheManager.GetData(key) as List<ArchiveAutocomplete.AutoCompleteKeyValue>;
 
@@ -154,8 +193,6 @@ namespace BSO.Archive.WebApp
             return items.ToArray();
         }
 
-        
-
         [WebMethod(EnableSession = true)]
         [ScriptMethod]
         public string[] GetWorks(string prefixText, int count)
@@ -164,11 +201,11 @@ namespace BSO.Archive.WebApp
 
             string key = Constants.Work.EntityName;
             var works = CacheManager.GetData(key) as List<ArchiveAutocomplete.AutoCompleteKeyValue>;
-            
+
             if (works == null)
             {
                 works = ArchiveAutocomplete.GetDistinctWorks();
-                
+
                 CacheManager.Add(key, works);
             }
 
@@ -176,7 +213,7 @@ namespace BSO.Archive.WebApp
 
             return items.ToArray();
         }
-        
+
         [WebMethod(EnableSession = true)]
         [ScriptMethod]
         public string[] GetCountries(string prefixText, int count)
@@ -254,6 +291,26 @@ namespace BSO.Archive.WebApp
             }
 
             return venues.Where(w => w.Contains(prefixText)).ToArray();
+        }
+
+        [WebMethod(EnableSession = true)]
+        [ScriptMethod]
+        public string[] GetMediaTypes(string prefixText, int count)
+        {
+            ICacheManager CacheManager = CacheFactory.GetCacheManager();
+
+            String key = Constants.WorkDocument.WorkDocumentName;
+
+            var types = CacheManager.GetData(key) as IQueryable<String>;
+
+            if (types == null)
+            {
+                types = ArchiveAutocomplete.GetDistinctMediaTypes();
+
+                CacheManager.Add(key, types);
+            }
+
+            return types.Where(w => w.Contains(prefixText)).ToArray();
         }
 
         [WebMethod(EnableSession = true)]
@@ -367,7 +424,7 @@ namespace BSO.Archive.WebApp
 
             return seasons.Where(w => w.Contains(prefixText)).ToArray();
         }
-        
+
         [WebMethod(EnableSession = true)]
         [ScriptMethod]
         public string[] GetOrchestras(string prefixText, int count)
@@ -412,11 +469,11 @@ namespace BSO.Archive.WebApp
 
             String key = Constants.ArtistDetail.EnsembleName;
             var ensembles = CacheManager.GetData(key) as List<ArchiveAutocomplete.AutoCompleteKeyValue>;
-            
+
             if (ensembles == null)
             {
                 ensembles = ArchiveAutocomplete.GetDistinctEnsembles();
-                
+
                 CacheManager.Add(key, ensembles);
             }
 
@@ -441,12 +498,11 @@ namespace BSO.Archive.WebApp
                     if (list[i].Value.ToUpper().Contains(prefix.ToUpper()))
                         items.Add(AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(list[i].Key, list[i].Value));
                 }
-                else 
+                else
                 {
-                    if(list[i].Key.ToUpper().Contains(prefix.ToUpper()))
+                    if (list[i].Key.ToUpper().Contains(prefix.ToUpper()))
                         items.Add(AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(list[i].Key, list[i].Key));
                 }
-                    
             }
             return items;
         }

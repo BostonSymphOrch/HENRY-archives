@@ -22,6 +22,18 @@
     <asp:ContentPlaceHolder runat="server" ID="HeadContent" />
 </head>
 <body>
+    <!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-WBCG7F" 
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>    (function (w, d, s, l, i) {
+        w[l] = w[l] || []; w[l].push({
+            'gtm.start':
+    new Date().getTime(), event: 'gtm.js'
+        }); var f = d.getElementsByTagName(s)[0],
+j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+'//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-WBCG7F');</script>
+<!-- End Google Tag Manager -->
     <form runat="server">
         <div id="preloaderFish" class="preloaderFish" style="display: none;">
             <div class="preloaderInner">
@@ -38,7 +50,7 @@
                         <li><a class="active_link" href="Search.aspx">Performance History Search</a></li>
                         <li><a id="DigitalCollectionUrl" runat="server" target="contentDM">Digital Collections</a></li>
                         <li><a href="SearchHistory.aspx">My Search History</a></li>
-                        <li><a href="http://www.bso.org" target="bsoHome">BSO Homepage</a></li>
+                        <li><a href="https://www.bso.org" target="bsoHome">BSO Homepage</a></li>
                         <li><a href="Help.aspx">Help</a></li>
                     </ul>
                 </nav>

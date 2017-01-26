@@ -16,5 +16,6 @@ namespace BSO.Archive.DTO
         public int EnsembleCount { get; set; }
         public string WorkLink { get; set; }
         public List<ArtistDTO> WorkArtists { get; set; }
+        public List<WorkDocumentDTO> WorkDocuments { get; set; }
     }
 }

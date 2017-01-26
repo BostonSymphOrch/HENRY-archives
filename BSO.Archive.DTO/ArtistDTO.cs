@@ -1,21 +1,28 @@
-﻿using Bso.Archive.BusObj;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Bso.Archive.BusObj;
 
 namespace BSO.Archive.DTO
 {
     public class ArtistDTO
     {
         public string ArtistFullName { get; set; }
+
         public string ArtistInstrument { get; set; }
+
         public int ArtistID { get; set; }
+
         public int ConductorCount { get; set; }
+
         public int SoloistCount { get; set; }
+
         public int EnsembleCount { get; set; }
 
         public string ConductorLink { get; set; }
+
         public string SoloistLink { get; set; }
+
         public string OrchestraLink { get; set; }
 
         public WorkDTO work;
@@ -34,7 +41,6 @@ namespace BSO.Archive.DTO
                 int detailId = int.Parse(artistDetailId);
 
                 var artistDTO = GetArtistDTOByArtistDetailID(detailId, lstArtistDTOs);
-
             }
 
             return lstArtistDTOs;
@@ -50,7 +56,6 @@ namespace BSO.Archive.DTO
             var artistDetail = ArtistDetail.GetArtistDetailByID(artistDetailId);
 
             var artist = artistDTOList.FirstOrDefault(a => a.ArtistFullName == artistDetail.EnsembleName && a.work.WorkTitle == artistDetail.WorkTitle);
-
 
             if (artist == null)
             {

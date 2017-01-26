@@ -1,11 +1,11 @@
-﻿using Bso.Archive.BusObj;
-using Bso.Archive.BusObj.Utility;
-using BSO.Archive.WebApp.Classes;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Script.Serialization;
 using System.Web.UI.WebControls;
+using Bso.Archive.BusObj;
+using Bso.Archive.BusObj.Utility;
+using BSO.Archive.WebApp.Classes;
 
 namespace BSO.Archive.WebApp.Controls
 {
@@ -24,7 +24,6 @@ namespace BSO.Archive.WebApp.Controls
                 RunSearch();
             }
         }
-
 
         private void RunSearch()
         {
@@ -55,7 +54,7 @@ namespace BSO.Archive.WebApp.Controls
             return HasEnsemble || HasInstrument || HasStartTime || HasEndTime;
         }
 
-        void ArtistSearchButton_Click(object sender, EventArgs e)
+        private void ArtistSearchButton_Click(object sender, EventArgs e)
         {
             Page.Validate();
             if (!Page.IsValid)
@@ -64,12 +63,12 @@ namespace BSO.Archive.WebApp.Controls
             ResultsListView.DataSourceID = edcArtists.ID;
         }
 
-        void edcArtists_Selecting(object sender, EntityDataSourceSelectingEventArgs e)
+        private void edcArtists_Selecting(object sender, EntityDataSourceSelectingEventArgs e)
         {
             e.Cancel = CheckEmptySearch(ArtistSearchPanel);
         }
 
-        void edcArtists_Selected(object sender, EntityDataSourceSelectedEventArgs e)
+        private void edcArtists_Selected(object sender, EntityDataSourceSelectedEventArgs e)
         {
             var results = e.Results.Cast<ArtistDetail>();
 
@@ -87,6 +86,7 @@ namespace BSO.Archive.WebApp.Controls
             }
 
             var serializer = new JavaScriptSerializer();
+
             hfArtistSearchResultIds.Value = serializer.Serialize(listResults);
             var parameters = SearchHelper.SaveSearch("artist", ArtistSearchPanel);
 
@@ -94,7 +94,6 @@ namespace BSO.Archive.WebApp.Controls
 
             DisplaySearchParameters(parameters);
         }
-
 
         private void PopulateEmailShareDialog()
         {
@@ -110,7 +109,6 @@ namespace BSO.Archive.WebApp.Controls
             }
         }
 
-
         protected void DisplaySearchParameters(string parameters)
         {
             var display = SearchHelper.BuildHistoryString(parameters);
@@ -123,6 +121,5 @@ namespace BSO.Archive.WebApp.Controls
                           group v by v.Instrument1;
             var conductorCount = results.FirstOrDefault(r => r.Key == "Conductor").GroupBy(g => g.EventID).Count();
         }
-
     }
 }

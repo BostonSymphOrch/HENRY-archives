@@ -40,6 +40,7 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("BsoArchive", "FK_EventWork_Work", "Work", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Bso.Archive.BusObj.Work), "EventWork", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Bso.Archive.BusObj.EventWork), true)]
 [assembly: EdmRelationshipAttribute("BsoArchive", "FK_WorkArtist_Work", "Work", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Bso.Archive.BusObj.Work), "WorkArtist", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Bso.Archive.BusObj.WorkArtist), true)]
 [assembly: EdmRelationshipAttribute("BsoArchive", "FK_WorkComposer_Work", "Work", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Bso.Archive.BusObj.Work), "WorkComposer", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Bso.Archive.BusObj.WorkComposer), true)]
+[assembly: EdmRelationshipAttribute("BsoArchive", "FK_WorkDocument_Work", "Work", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Bso.Archive.BusObj.Work), "WorkDocument", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Bso.Archive.BusObj.WorkDocument), true)]
 
 #endregion
 
@@ -490,6 +491,22 @@ namespace Bso.Archive.BusObj
             }
         }
         private ObjectSet<EventDetail> _EventDetails;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<WorkDocument> WorkDocuments
+        {
+            get
+            {
+                if ((_WorkDocuments == null))
+                {
+                    _WorkDocuments = base.CreateObjectSet<WorkDocument>("WorkDocuments");
+                }
+                return _WorkDocuments;
+            }
+        }
+        private ObjectSet<WorkDocument> _WorkDocuments;
 
         #endregion
 
@@ -693,6 +710,14 @@ namespace Bso.Archive.BusObj
         public void AddToEventDetails(EventDetail eventDetail)
         {
             base.AddObject("EventDetails", eventDetail);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the WorkDocuments EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToWorkDocuments(WorkDocument workDocument)
+        {
+            base.AddObject("WorkDocuments", workDocument);
         }
 
         #endregion
@@ -5213,6 +5238,54 @@ namespace Bso.Archive.BusObj
         private global::System.Int32 _EventDetailID;
         partial void OnEventDetailIDChanging(global::System.Int32 value);
         partial void OnEventDetailIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String WorkDocumentName
+        {
+            get
+            {
+                return _WorkDocumentName;
+            }
+            set
+            {
+                OnWorkDocumentNameChanging(value);
+                ReportPropertyChanging("WorkDocumentName");
+                _WorkDocumentName = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("WorkDocumentName");
+                OnWorkDocumentNameChanged();
+            }
+        }
+        private global::System.String _WorkDocumentName;
+        partial void OnWorkDocumentNameChanging(global::System.String value);
+        partial void OnWorkDocumentNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> WorkDocumentID
+        {
+            get
+            {
+                return _WorkDocumentID;
+            }
+            set
+            {
+                OnWorkDocumentIDChanging(value);
+                ReportPropertyChanging("WorkDocumentID");
+                _WorkDocumentID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("WorkDocumentID");
+                OnWorkDocumentIDChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _WorkDocumentID;
+        partial void OnWorkDocumentIDChanging(Nullable<global::System.Int32> value);
+        partial void OnWorkDocumentIDChanged();
 
         #endregion
 
@@ -11081,6 +11154,28 @@ namespace Bso.Archive.BusObj
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("BsoArchive", "FK_WorkDocument_Work", "WorkDocument")]
+        public EntityCollection<WorkDocument> WorkDocuments
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<WorkDocument>("BsoArchive.FK_WorkDocument_Work", "WorkDocument");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<WorkDocument>("BsoArchive.FK_WorkDocument_Work", "WorkDocument", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -11910,6 +12005,229 @@ namespace Bso.Archive.BusObj
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Work>("BsoArchive.FK_WorkComposer_Work", "Work", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="BsoArchive", Name="WorkDocument")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class WorkDocument : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new WorkDocument object.
+        /// </summary>
+        /// <param name="workDocumentID">Initial value of the WorkDocumentID property.</param>
+        /// <param name="workDocumentName">Initial value of the WorkDocumentName property.</param>
+        /// <param name="workDocumentFileLocation">Initial value of the WorkDocumentFileLocation property.</param>
+        public static WorkDocument CreateWorkDocument(global::System.Int32 workDocumentID, global::System.String workDocumentName, global::System.String workDocumentFileLocation)
+        {
+            WorkDocument workDocument = new WorkDocument();
+            workDocument.WorkDocumentID = workDocumentID;
+            workDocument.WorkDocumentName = workDocumentName;
+            workDocument.WorkDocumentFileLocation = workDocumentFileLocation;
+            return workDocument;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 WorkDocumentID
+        {
+            get
+            {
+                return _WorkDocumentID;
+            }
+            set
+            {
+                if (_WorkDocumentID != value)
+                {
+                    OnWorkDocumentIDChanging(value);
+                    ReportPropertyChanging("WorkDocumentID");
+                    _WorkDocumentID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("WorkDocumentID");
+                    OnWorkDocumentIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _WorkDocumentID;
+        partial void OnWorkDocumentIDChanging(global::System.Int32 value);
+        partial void OnWorkDocumentIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String WorkDocumentName
+        {
+            get
+            {
+                return _WorkDocumentName;
+            }
+            set
+            {
+                OnWorkDocumentNameChanging(value);
+                ReportPropertyChanging("WorkDocumentName");
+                _WorkDocumentName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("WorkDocumentName");
+                OnWorkDocumentNameChanged();
+            }
+        }
+        private global::System.String _WorkDocumentName;
+        partial void OnWorkDocumentNameChanging(global::System.String value);
+        partial void OnWorkDocumentNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String WorkDocumentSummary
+        {
+            get
+            {
+                return _WorkDocumentSummary;
+            }
+            set
+            {
+                OnWorkDocumentSummaryChanging(value);
+                ReportPropertyChanging("WorkDocumentSummary");
+                _WorkDocumentSummary = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("WorkDocumentSummary");
+                OnWorkDocumentSummaryChanged();
+            }
+        }
+        private global::System.String _WorkDocumentSummary;
+        partial void OnWorkDocumentSummaryChanging(global::System.String value);
+        partial void OnWorkDocumentSummaryChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String WorkDocumentNotes
+        {
+            get
+            {
+                return _WorkDocumentNotes;
+            }
+            set
+            {
+                OnWorkDocumentNotesChanging(value);
+                ReportPropertyChanging("WorkDocumentNotes");
+                _WorkDocumentNotes = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("WorkDocumentNotes");
+                OnWorkDocumentNotesChanged();
+            }
+        }
+        private global::System.String _WorkDocumentNotes;
+        partial void OnWorkDocumentNotesChanging(global::System.String value);
+        partial void OnWorkDocumentNotesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String WorkDocumentFileLocation
+        {
+            get
+            {
+                return _WorkDocumentFileLocation;
+            }
+            set
+            {
+                OnWorkDocumentFileLocationChanging(value);
+                ReportPropertyChanging("WorkDocumentFileLocation");
+                _WorkDocumentFileLocation = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("WorkDocumentFileLocation");
+                OnWorkDocumentFileLocationChanged();
+            }
+        }
+        private global::System.String _WorkDocumentFileLocation;
+        partial void OnWorkDocumentFileLocationChanging(global::System.String value);
+        partial void OnWorkDocumentFileLocationChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> WorkID
+        {
+            get
+            {
+                return _WorkID;
+            }
+            set
+            {
+                OnWorkIDChanging(value);
+                ReportPropertyChanging("WorkID");
+                _WorkID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("WorkID");
+                OnWorkIDChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _WorkID;
+        partial void OnWorkIDChanging(Nullable<global::System.Int32> value);
+        partial void OnWorkIDChanged();
+
+        #endregion
+
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("BsoArchive", "FK_WorkDocument_Work", "Work")]
+        public Work Work
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Work>("BsoArchive.FK_WorkDocument_Work", "Work").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Work>("BsoArchive.FK_WorkDocument_Work", "Work").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Work> WorkReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Work>("BsoArchive.FK_WorkDocument_Work", "Work");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Work>("BsoArchive.FK_WorkDocument_Work", "Work", value);
                 }
             }
         }

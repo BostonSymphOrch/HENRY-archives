@@ -271,6 +271,22 @@ namespace Bso.Archive.BusObj.Utility
             }
         }
 
+        public static IQueryable<string> GetDistinctMediaTypes()
+        {
+            using (var txn = new System.Transactions.TransactionScope(
+                System.Transactions.TransactionScopeOption.Required,
+                new System.Transactions.TransactionOptions
+                {
+                    IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted
+                }
+            ))
+            {
+                return BsoArchiveEntities.Current.WorkDocuments.
+                    Where(wd => wd.WorkDocumentName != "null" && !String.IsNullOrEmpty(wd.WorkDocumentName)).
+                    Select(wd => wd.WorkDocumentName.Trim()).Distinct();
+            }
+        }
+
         /// <summary>
         /// Get Distinct cities from Event Details
         /// </summary>

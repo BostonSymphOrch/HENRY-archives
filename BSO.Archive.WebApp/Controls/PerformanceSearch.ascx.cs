@@ -1,18 +1,17 @@
-﻿using Bso.Archive.BusObj;
-using Bso.Archive.BusObj.Utility;
-using BSO.Archive.WebApp.Classes;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Script.Serialization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Bso.Archive.BusObj;
+using Bso.Archive.BusObj.Utility;
+using BSO.Archive.WebApp.Classes;
 
 namespace BSO.Archive.WebApp.Controls
 {
     public partial class PerformanceSearch : BaseUserControl
     {
-
         protected void Page_Load(object sender, EventArgs e)
         {
             edcEvents.Selecting += edcEvents_Selecting;
@@ -82,7 +81,7 @@ namespace BSO.Archive.WebApp.Controls
             return false;
         }
 
-        void edcEvents_Selecting(object sender, EntityDataSourceSelectingEventArgs e)
+        private void edcEvents_Selecting(object sender, EntityDataSourceSelectingEventArgs e)
         {
             e.Cancel = CheckEmptySearch(basicPanel) && CheckEmptySearch(advancedPanel);
         }
@@ -96,7 +95,6 @@ namespace BSO.Archive.WebApp.Controls
             var resultCount = groupedResults.Count();
 
             List<List<int>> lstEventDetails = new List<List<int>>();
-            
 
             foreach (var result in groupedResults)
             {
@@ -105,18 +103,15 @@ namespace BSO.Archive.WebApp.Controls
                 {
                     eventDetailIDs.Add(element.EventDetailID);
                 }
-                
                 lstEventDetails.Add(eventDetailIDs);
             }
 
             var serializer = new JavaScriptSerializer();
 
-
             hfPerformanceSearchResultIds.Value = serializer.Serialize(lstEventDetails);
             var searchParameters = SearchHelper.SaveSearch("performance", basicPanel, advancedPanel);
 
             PopulateEmailShareDialog();
-            
 
             DisplaySearchParameters(searchParameters);
 
@@ -151,6 +146,5 @@ namespace BSO.Archive.WebApp.Controls
 
             ResultsListView.DataSourceID = edcEvents.ID;
         }
-
     }
 }

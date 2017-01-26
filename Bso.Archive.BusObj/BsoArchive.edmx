@@ -4,114 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="BsoArchive.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
-        <EntityContainer Name="BsoArchiveStoreContainer">
-          <EntitySet Name="Artist" EntityType="BsoArchive.Store.Artist" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="ArtistDetail" EntityType="BsoArchive.Store.ArtistDetail" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="CommissionType" EntityType="BsoArchive.Store.CommissionType" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Composer" EntityType="BsoArchive.Store.Composer" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Conductor" EntityType="BsoArchive.Store.Conductor" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Event" EntityType="BsoArchive.Store.Event" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="EventArtist" EntityType="BsoArchive.Store.EventArtist" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="EventDetail" EntityType="BsoArchive.Store.EventDetail" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="EventParticipant" EntityType="BsoArchive.Store.EventParticipant" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="EventParticipantType" EntityType="BsoArchive.Store.EventParticipantType" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="EventType" EntityType="BsoArchive.Store.EventType" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="EventTypeGroup" EntityType="BsoArchive.Store.EventTypeGroup" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="EventWork" EntityType="BsoArchive.Store.EventWork" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Instrument" EntityType="BsoArchive.Store.Instrument" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="OPASUpdate" EntityType="BsoArchive.Store.OPASUpdate" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Orchestra" EntityType="BsoArchive.Store.Orchestra" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Participant" EntityType="BsoArchive.Store.Participant" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="PremiereType" EntityType="BsoArchive.Store.PremiereType" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Project" EntityType="BsoArchive.Store.Project" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Search" EntityType="BsoArchive.Store.Search" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Season" EntityType="BsoArchive.Store.Season" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Venue" EntityType="BsoArchive.Store.Venue" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Work" EntityType="BsoArchive.Store.Work" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="WorkArtist" EntityType="BsoArchive.Store.WorkArtist" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="WorkComposer" EntityType="BsoArchive.Store.WorkComposer" store:Type="Tables" Schema="dbo" />
-          <AssociationSet Name="FK_Event_Conductor" Association="BsoArchive.Store.FK_Event_Conductor">
-            <End Role="Conductor" EntitySet="Conductor" />
-            <End Role="Event" EntitySet="Event" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Event_EventType" Association="BsoArchive.Store.FK_Event_EventType">
-            <End Role="EventType" EntitySet="EventType" />
-            <End Role="Event" EntitySet="Event" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Event_EventTypeGroup" Association="BsoArchive.Store.FK_Event_EventTypeGroup">
-            <End Role="EventTypeGroup" EntitySet="EventTypeGroup" />
-            <End Role="Event" EntitySet="Event" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Event_Orchestra" Association="BsoArchive.Store.FK_Event_Orchestra">
-            <End Role="Orchestra" EntitySet="Orchestra" />
-            <End Role="Event" EntitySet="Event" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Event_Project" Association="BsoArchive.Store.FK_Event_Project">
-            <End Role="Project" EntitySet="Project" />
-            <End Role="Event" EntitySet="Event" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Event_Season" Association="BsoArchive.Store.FK_Event_Season">
-            <End Role="Season" EntitySet="Season" />
-            <End Role="Event" EntitySet="Event" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Event_Venue" Association="BsoArchive.Store.FK_Event_Venue">
-            <End Role="Venue" EntitySet="Venue" />
-            <End Role="Event" EntitySet="Event" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EventArtist_Artist" Association="BsoArchive.Store.FK_EventArtist_Artist">
-            <End Role="Artist" EntitySet="Artist" />
-            <End Role="EventArtist" EntitySet="EventArtist" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EventArtist_Event" Association="BsoArchive.Store.FK_EventArtist_Event">
-            <End Role="Event" EntitySet="Event" />
-            <End Role="EventArtist" EntitySet="EventArtist" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EventArtist_Instrument" Association="BsoArchive.Store.FK_EventArtist_Instrument">
-            <End Role="Instrument" EntitySet="Instrument" />
-            <End Role="EventArtist" EntitySet="EventArtist" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EventParticipant_Event" Association="BsoArchive.Store.FK_EventParticipant_Event">
-            <End Role="Event" EntitySet="Event" />
-            <End Role="EventParticipant" EntitySet="EventParticipant" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EventParticipant_Participant" Association="BsoArchive.Store.FK_EventParticipant_Participant">
-            <End Role="Participant" EntitySet="Participant" />
-            <End Role="EventParticipant" EntitySet="EventParticipant" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EventParticipantType_Event" Association="BsoArchive.Store.FK_EventParticipantType_Event">
-            <End Role="Event" EntitySet="Event" />
-            <End Role="EventParticipantType" EntitySet="EventParticipantType" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EventWork_Event" Association="BsoArchive.Store.FK_EventWork_Event">
-            <End Role="Event" EntitySet="Event" />
-            <End Role="EventWork" EntitySet="EventWork" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EventWork_Work" Association="BsoArchive.Store.FK_EventWork_Work">
-            <End Role="Work" EntitySet="Work" />
-            <End Role="EventWork" EntitySet="EventWork" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WorkArtist_Artist" Association="BsoArchive.Store.FK_WorkArtist_Artist">
-            <End Role="Artist" EntitySet="Artist" />
-            <End Role="WorkArtist" EntitySet="WorkArtist" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WorkArtist_Instrument" Association="BsoArchive.Store.FK_WorkArtist_Instrument">
-            <End Role="Instrument" EntitySet="Instrument" />
-            <End Role="WorkArtist" EntitySet="WorkArtist" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WorkArtist_Work" Association="BsoArchive.Store.FK_WorkArtist_Work">
-            <End Role="Work" EntitySet="Work" />
-            <End Role="WorkArtist" EntitySet="WorkArtist" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WorkComposer_Composer" Association="BsoArchive.Store.FK_WorkComposer_Composer">
-            <End Role="Composer" EntitySet="Composer" />
-            <End Role="WorkComposer" EntitySet="WorkComposer" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WorkComposer_Work" Association="BsoArchive.Store.FK_WorkComposer_Work">
-            <End Role="Work" EntitySet="Work" />
-            <End Role="WorkComposer" EntitySet="WorkComposer" />
-          </AssociationSet>
-        </EntityContainer>
+    <Schema Namespace="BsoArchive.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityType Name="Artist">
           <Key>
             <PropertyRef Name="ArtistID" />
@@ -126,7 +19,7 @@
           <Property Name="ArtistStatusID" Type="int" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
-          <Property Name="Stamp" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="Stamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" Nullable="false" />
@@ -136,7 +29,7 @@
             <PropertyRef Name="ArtistDetailID" />
           </Key>
           <Property Name="EnsembleName" Type="nvarchar(max)" />
-          <Property Name="EnsembleType" Type="varchar" Nullable="false" MaxLength="9" />
+          <Property Name="EnsembleType" Type="varchar" MaxLength="9" Nullable="false" />
           <Property Name="EnsembleName2" Type="nvarchar(max)" />
           <Property Name="EventId" Type="int" Nullable="false" />
           <Property Name="ArtistID" Type="int" />
@@ -152,20 +45,20 @@
           <Property Name="EventDate" Type="datetime" Nullable="false" />
           <Property Name="EventStart" Type="nvarchar(max)" Nullable="false" />
           <Property Name="EventEnd" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="ArtistDetailID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ArtistDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="CommissionType">
           <Key>
             <PropertyRef Name="CommissionTypeID" />
           </Key>
-          <Property Name="CommissionTypeID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CommissionTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" Nullable="false" />
           <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
-          <Property Name="Stamp" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="Stamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Composer">
@@ -188,7 +81,7 @@
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" Nullable="false" />
           <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
-          <Property Name="Stamp" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="Stamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Conductor">
@@ -203,7 +96,7 @@
           <Property Name="ConductorNote" Type="nvarchar(max)" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
-          <Property Name="Stamp" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="Stamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" Nullable="false" />
@@ -232,23 +125,23 @@
           <Property Name="VenueID" Type="int" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
-          <Property Name="Stamp" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="Stamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" Nullable="false" />
-          <Property Name="Status" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="EventArtist">
           <Key>
             <PropertyRef Name="EventArtistID" />
           </Key>
-          <Property Name="EventArtistID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EventArtistID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EventID" Type="int" Nullable="false" />
           <Property Name="ArtistID" Type="int" Nullable="false" />
           <Property Name="InstrumentID" Type="int" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
-          <Property Name="Stamp" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="Stamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" Nullable="false" />
@@ -292,19 +185,21 @@
           <Property Name="ComposerFullName2" Type="nvarchar(max)" />
           <Property Name="Instrument1" Type="nvarchar(max)" />
           <Property Name="InstrumentID" Type="int" />
+          <Property Name="WorkDocumentName" Type="nvarchar(max)" />
           <Property Name="EventWorkID" Type="int" />
-          <Property Name="EventDetailID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EventDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WorkDocumentID" Type="int" />
         </EntityType>
         <EntityType Name="EventParticipant">
           <Key>
             <PropertyRef Name="EventParticipantID" />
           </Key>
-          <Property Name="EventParticipantID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EventParticipantID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EventID" Type="int" Nullable="false" />
           <Property Name="ParticipantID" Type="int" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
-          <Property Name="Stamp" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="Stamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" Nullable="false" />
@@ -313,7 +208,7 @@
           <Key>
             <PropertyRef Name="EventParticipantTypeID" />
           </Key>
-          <Property Name="EventParticipantTypeID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EventParticipantTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EventID" Type="int" Nullable="false" />
           <Property Name="ParticipantID" Type="int" Nullable="false" />
           <Property Name="EventParticipantTypeName" Type="nvarchar(max)" Nullable="false" />
@@ -321,7 +216,7 @@
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" Nullable="false" />
           <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
-          <Property Name="Stamp" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="Stamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="EventType">
@@ -334,7 +229,7 @@
           <Property Name="TypePerformance" Type="int" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
-          <Property Name="Stamp" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="Stamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" Nullable="false" />
@@ -348,7 +243,7 @@
           <Property Name="EventTypeGroupName2" Type="nvarchar(max)" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
-          <Property Name="Stamp" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="Stamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" Nullable="false" />
@@ -357,13 +252,13 @@
           <Key>
             <PropertyRef Name="EventWorkID" />
           </Key>
-          <Property Name="EventWorkID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EventWorkID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EventID" Type="int" Nullable="false" />
           <Property Name="WorkID" Type="int" Nullable="false" />
           <Property Name="WorkPremiere" Type="nvarchar(max)" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
-          <Property Name="Stamp" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="Stamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" Nullable="false" />
@@ -379,14 +274,14 @@
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" Nullable="false" />
           <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
-          <Property Name="Stamp" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="Stamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="OPASUpdate">
           <Key>
             <PropertyRef Name="OPASUpdateId" />
           </Key>
-          <Property Name="OPASUpdateId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="OPASUpdateId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TableName" Type="nvarchar(max)" Nullable="false" />
           <Property Name="ColumnName" Type="nvarchar(max)" Nullable="false" />
           <Property Name="TagName" Type="nvarchar(max)" Nullable="false" />
@@ -395,7 +290,7 @@
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" Nullable="false" />
           <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
-          <Property Name="Stamp" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="Stamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Orchestra">
@@ -408,7 +303,7 @@
           <Property Name="OrchestraNote" Type="nvarchar(max)" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
-          <Property Name="Stamp" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="Stamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" Nullable="false" />
@@ -425,7 +320,7 @@
           <Property Name="ParticipantStatusID" Type="int" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
-          <Property Name="Stamp" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="Stamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" Nullable="false" />
@@ -434,14 +329,14 @@
           <Key>
             <PropertyRef Name="PremiereTypeID" />
           </Key>
-          <Property Name="PremiereTypeID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PremiereTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" Nullable="false" />
           <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
-          <Property Name="Stamp" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="Stamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Project">
@@ -454,7 +349,7 @@
           <Property Name="ProjectTypeName" Type="nvarchar(max)" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
-          <Property Name="Stamp" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="Stamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" Nullable="false" />
@@ -463,14 +358,14 @@
           <Key>
             <PropertyRef Name="SearchID" />
           </Key>
-          <Property Name="SearchID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SearchID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SearchType" Type="nvarchar(max)" Nullable="false" />
           <Property Name="SearchParameters" Type="nvarchar(max)" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" Nullable="false" />
           <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
-          <Property Name="Stamp" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="Stamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Season">
@@ -482,7 +377,7 @@
           <Property Name="SeasonCode" Type="nvarchar(max)" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
-          <Property Name="Stamp" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="Stamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" Nullable="false" />
@@ -501,7 +396,7 @@
           <Property Name="VenueStreet" Type="nvarchar(max)" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
-          <Property Name="Stamp" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="Stamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" Nullable="false" />
@@ -554,14 +449,14 @@
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" Nullable="false" />
           <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
-          <Property Name="Stamp" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="Stamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="WorkArtist">
           <Key>
             <PropertyRef Name="WorkArtistID" />
           </Key>
-          <Property Name="WorkArtistID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="WorkArtistID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="WorkID" Type="int" Nullable="false" />
           <Property Name="ArtistID" Type="int" Nullable="false" />
           <Property Name="InstrumentID" Type="int" Nullable="false" />
@@ -570,7 +465,7 @@
           <Property Name="WorkArtistStatusID" Type="int" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
-          <Property Name="Stamp" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="Stamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" Nullable="false" />
@@ -579,258 +474,57 @@
           <Key>
             <PropertyRef Name="WorkComposer" />
           </Key>
-          <Property Name="WorkComposer" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="WorkComposer" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="WorkID" Type="int" Nullable="false" />
           <Property Name="ComposerID" Type="int" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" Nullable="false" />
           <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
-          <Property Name="Stamp" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="Stamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Event_Conductor">
-          <End Role="Conductor" Type="BsoArchive.Store.Conductor" Multiplicity="1" />
-          <End Role="Event" Type="BsoArchive.Store.Event" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Conductor">
-              <PropertyRef Name="ConductorID" />
-            </Principal>
-            <Dependent Role="Event">
-              <PropertyRef Name="ConductorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Event_EventType">
-          <End Role="EventType" Type="BsoArchive.Store.EventType" Multiplicity="1" />
-          <End Role="Event" Type="BsoArchive.Store.Event" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EventType">
-              <PropertyRef Name="TypeID" />
-            </Principal>
-            <Dependent Role="Event">
-              <PropertyRef Name="EventTypeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Event_EventTypeGroup">
-          <End Role="EventTypeGroup" Type="BsoArchive.Store.EventTypeGroup" Multiplicity="1" />
-          <End Role="Event" Type="BsoArchive.Store.Event" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EventTypeGroup">
-              <PropertyRef Name="TypeGroupID" />
-            </Principal>
-            <Dependent Role="Event">
-              <PropertyRef Name="EventGroupID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Event_Orchestra">
-          <End Role="Orchestra" Type="BsoArchive.Store.Orchestra" Multiplicity="1" />
-          <End Role="Event" Type="BsoArchive.Store.Event" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Orchestra">
-              <PropertyRef Name="OrchestraID" />
-            </Principal>
-            <Dependent Role="Event">
-              <PropertyRef Name="OrchestraID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Event_Project">
-          <End Role="Project" Type="BsoArchive.Store.Project" Multiplicity="1" />
-          <End Role="Event" Type="BsoArchive.Store.Event" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Project">
-              <PropertyRef Name="ProjectID" />
-            </Principal>
-            <Dependent Role="Event">
-              <PropertyRef Name="ProjectID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Event_Season">
-          <End Role="Season" Type="BsoArchive.Store.Season" Multiplicity="1" />
-          <End Role="Event" Type="BsoArchive.Store.Event" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Season">
-              <PropertyRef Name="SeasonID" />
-            </Principal>
-            <Dependent Role="Event">
-              <PropertyRef Name="SeasonID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Event_Venue">
-          <End Role="Venue" Type="BsoArchive.Store.Venue" Multiplicity="1" />
-          <End Role="Event" Type="BsoArchive.Store.Event" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Venue">
-              <PropertyRef Name="VenueID" />
-            </Principal>
-            <Dependent Role="Event">
-              <PropertyRef Name="VenueID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EventArtist_Artist">
-          <End Role="Artist" Type="BsoArchive.Store.Artist" Multiplicity="1" />
-          <End Role="EventArtist" Type="BsoArchive.Store.EventArtist" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Artist">
-              <PropertyRef Name="ArtistID" />
-            </Principal>
-            <Dependent Role="EventArtist">
-              <PropertyRef Name="ArtistID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EventArtist_Event">
-          <End Role="Event" Type="BsoArchive.Store.Event" Multiplicity="1" />
-          <End Role="EventArtist" Type="BsoArchive.Store.EventArtist" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Event">
-              <PropertyRef Name="EventID" />
-            </Principal>
-            <Dependent Role="EventArtist">
-              <PropertyRef Name="EventID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EventArtist_Instrument">
-          <End Role="Instrument" Type="BsoArchive.Store.Instrument" Multiplicity="1" />
-          <End Role="EventArtist" Type="BsoArchive.Store.EventArtist" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Instrument">
-              <PropertyRef Name="InstrumentID" />
-            </Principal>
-            <Dependent Role="EventArtist">
-              <PropertyRef Name="InstrumentID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EventParticipant_Event">
-          <End Role="Event" Type="BsoArchive.Store.Event" Multiplicity="1" />
-          <End Role="EventParticipant" Type="BsoArchive.Store.EventParticipant" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Event">
-              <PropertyRef Name="EventID" />
-            </Principal>
-            <Dependent Role="EventParticipant">
-              <PropertyRef Name="EventID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EventParticipant_Participant">
-          <End Role="Participant" Type="BsoArchive.Store.Participant" Multiplicity="1" />
-          <End Role="EventParticipant" Type="BsoArchive.Store.EventParticipant" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Participant">
-              <PropertyRef Name="ParticipantID" />
-            </Principal>
-            <Dependent Role="EventParticipant">
-              <PropertyRef Name="ParticipantID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EventParticipantType_Event">
-          <End Role="Event" Type="BsoArchive.Store.Event" Multiplicity="1" />
-          <End Role="EventParticipantType" Type="BsoArchive.Store.EventParticipantType" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Event">
-              <PropertyRef Name="EventID" />
-            </Principal>
-            <Dependent Role="EventParticipantType">
-              <PropertyRef Name="EventID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EventWork_Event">
-          <End Role="Event" Type="BsoArchive.Store.Event" Multiplicity="1" />
-          <End Role="EventWork" Type="BsoArchive.Store.EventWork" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Event">
-              <PropertyRef Name="EventID" />
-            </Principal>
-            <Dependent Role="EventWork">
-              <PropertyRef Name="EventID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EventWork_Work">
-          <End Role="Work" Type="BsoArchive.Store.Work" Multiplicity="1" />
-          <End Role="EventWork" Type="BsoArchive.Store.EventWork" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Work">
-              <PropertyRef Name="WorkID" />
-            </Principal>
-            <Dependent Role="EventWork">
-              <PropertyRef Name="WorkID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_WorkArtist_Artist">
-          <End Role="Artist" Type="BsoArchive.Store.Artist" Multiplicity="1" />
-          <End Role="WorkArtist" Type="BsoArchive.Store.WorkArtist" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Artist">
-              <PropertyRef Name="ArtistID" />
-            </Principal>
-            <Dependent Role="WorkArtist">
-              <PropertyRef Name="ArtistID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_WorkArtist_Instrument">
-          <End Role="Instrument" Type="BsoArchive.Store.Instrument" Multiplicity="1" />
-          <End Role="WorkArtist" Type="BsoArchive.Store.WorkArtist" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Instrument">
-              <PropertyRef Name="InstrumentID" />
-            </Principal>
-            <Dependent Role="WorkArtist">
-              <PropertyRef Name="InstrumentID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_WorkArtist_Work">
-          <End Role="Work" Type="BsoArchive.Store.Work" Multiplicity="1" />
-          <End Role="WorkArtist" Type="BsoArchive.Store.WorkArtist" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Work">
-              <PropertyRef Name="WorkID" />
-            </Principal>
-            <Dependent Role="WorkArtist">
-              <PropertyRef Name="WorkID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_WorkComposer_Composer">
-          <End Role="Composer" Type="BsoArchive.Store.Composer" Multiplicity="1" />
-          <End Role="WorkComposer" Type="BsoArchive.Store.WorkComposer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Composer">
-              <PropertyRef Name="ComposerID" />
-            </Principal>
-            <Dependent Role="WorkComposer">
-              <PropertyRef Name="ComposerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_WorkComposer_Work">
-          <End Role="Work" Type="BsoArchive.Store.Work" Multiplicity="1" />
-          <End Role="WorkComposer" Type="BsoArchive.Store.WorkComposer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Work">
-              <PropertyRef Name="WorkID" />
-            </Principal>
-            <Dependent Role="WorkComposer">
-              <PropertyRef Name="WorkID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <EntityType Name="WorkDocument">
+          <Key>
+            <PropertyRef Name="WorkDocumentID" />
+          </Key>
+          <Property Name="WorkDocumentID" Type="int" Nullable="false" />
+          <Property Name="WorkDocumentName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="WorkDocumentSummary" Type="nvarchar(max)" />
+          <Property Name="WorkDocumentNotes" Type="nvarchar(max)" />
+          <Property Name="WorkDocumentFileLocation" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="WorkID" Type="int" />
+        </EntityType>
         <Function Name="ImportProcessFinalize" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ImportProcessInitialize" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="BsoArchiveStoreContainer">
+          <EntitySet Name="Artist" EntityType="Self.Artist" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ArtistDetail" EntityType="Self.ArtistDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CommissionType" EntityType="Self.CommissionType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Composer" EntityType="Self.Composer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Conductor" EntityType="Self.Conductor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Event" EntityType="Self.Event" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EventArtist" EntityType="Self.EventArtist" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EventDetail" EntityType="Self.EventDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EventParticipant" EntityType="Self.EventParticipant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EventParticipantType" EntityType="Self.EventParticipantType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EventType" EntityType="Self.EventType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EventTypeGroup" EntityType="Self.EventTypeGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EventWork" EntityType="Self.EventWork" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Instrument" EntityType="Self.Instrument" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OPASUpdate" EntityType="Self.OPASUpdate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orchestra" EntityType="Self.Orchestra" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Participant" EntityType="Self.Participant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PremiereType" EntityType="Self.PremiereType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Search" EntityType="Self.Search" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Season" EntityType="Self.Season" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Venue" EntityType="Self.Venue" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Work" EntityType="Self.Work" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorkArtist" EntityType="Self.WorkArtist" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorkComposer" EntityType="Self.WorkComposer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorkDocument" EntityType="Self.WorkDocument" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -949,6 +643,11 @@
           <FunctionImport Name="FinalizeImport" />
           <EntitySet Name="ArtistDetails" EntityType="BsoArchive.ArtistDetail" />
           <EntitySet Name="EventDetails" EntityType="BsoArchive.EventDetail" />
+          <EntitySet Name="WorkDocuments" EntityType="BsoArchive.WorkDocument" />
+          <AssociationSet Name="FK_WorkDocument_Work" Association="BsoArchive.FK_WorkDocument_Work">
+            <End Role="Work" EntitySet="Works" />
+            <End Role="WorkDocument" EntitySet="WorkDocuments" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Conductor">
           <Key>
@@ -1579,6 +1278,7 @@
           <Property Type="String" Name="WorkAddTitle2" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="WorkAddTitle3" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="WorkAddTitleText" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="WorkDocuments" Relationship="BsoArchive.FK_WorkDocument_Work" FromRole="Work" ToRole="WorkDocument" />
         </EntityType>
         <Association Name="FK_Work_Composer">
           <End Type="BsoArchive.Composer" Multiplicity="1" Role="Composer" />
@@ -1720,7 +1420,33 @@
           <Property Type="Int32" Name="InstrumentID" />
           <Property Type="Int32" Name="EventWorkID" />
           <Property Type="Int32" Name="EventDetailID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WorkDocumentName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WorkDocumentID" Type="Int32" />
         </EntityType>
+        <EntityType Name="WorkDocument">
+          <Key>
+            <PropertyRef Name="WorkDocumentID" />
+          </Key>
+          <Property Name="WorkDocumentID" Type="Int32" Nullable="false" />
+          <Property Name="WorkDocumentName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WorkDocumentSummary" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WorkDocumentNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WorkDocumentFileLocation" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WorkID" Type="Int32" />
+          <NavigationProperty Name="Work" Relationship="BsoArchive.FK_WorkDocument_Work" FromRole="WorkDocument" ToRole="Work" />
+        </EntityType>
+        <Association Name="FK_WorkDocument_Work">
+          <End Type="BsoArchive.Work" Role="Work" Multiplicity="0..1" />
+          <End Type="BsoArchive.WorkDocument" Role="WorkDocument" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Work">
+              <PropertyRef Name="WorkID" />
+            </Principal>
+            <Dependent Role="WorkDocument">
+              <PropertyRef Name="WorkID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2193,6 +1919,8 @@
           <EntitySetMapping Name="EventDetails">
             <EntityTypeMapping TypeName="BsoArchive.EventDetail">
               <MappingFragment StoreEntitySet="EventDetail">
+                <ScalarProperty Name="WorkDocumentID" ColumnName="WorkDocumentID" />
+                <ScalarProperty Name="WorkDocumentName" ColumnName="WorkDocumentName" />
                 <ScalarProperty Name="EventDetailID" ColumnName="EventDetailID" />
                 <ScalarProperty Name="EventWorkID" ColumnName="EventWorkID" />
                 <ScalarProperty Name="InstrumentID" ColumnName="InstrumentID" />
@@ -2233,6 +1961,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="WorkDocuments">
+            <EntityTypeMapping TypeName="BsoArchive.WorkDocument">
+              <MappingFragment StoreEntitySet="WorkDocument">
+                <ScalarProperty Name="WorkID" ColumnName="WorkID" />
+                <ScalarProperty Name="WorkDocumentFileLocation" ColumnName="WorkDocumentFileLocation" />
+                <ScalarProperty Name="WorkDocumentNotes" ColumnName="WorkDocumentNotes" />
+                <ScalarProperty Name="WorkDocumentSummary" ColumnName="WorkDocumentSummary" />
+                <ScalarProperty Name="WorkDocumentName" ColumnName="WorkDocumentName" />
+                <ScalarProperty Name="WorkDocumentID" ColumnName="WorkDocumentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -2249,6 +1989,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
@@ -2300,6 +2041,8 @@
         <AssociationConnector Association="BsoArchive.FK_WorkComposer_Work" />
         <EntityTypeShape EntityType="BsoArchive.ArtistDetail" Width="1.5" PointX="0.13181892229794473" PointY="31.379837274262606" />
         <EntityTypeShape EntityType="BsoArchive.EventDetail" Width="1.5" PointX="8.5037445148936222" PointY="21.301125163818302" />
+        <EntityTypeShape EntityType="BsoArchive.WorkDocument" Width="1.5" PointX="0.75" PointY="0.75" />
+        <AssociationConnector Association="BsoArchive.FK_WorkDocument_Work" />
         </Diagram>
     </Diagrams>
   </Designer>

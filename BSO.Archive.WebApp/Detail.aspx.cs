@@ -116,6 +116,7 @@ namespace BSO.Archive.WebApp
             var composerNameControl = (HyperLink)e.Item.FindControl("ComposerFullName");
             var artistNameControl = (HyperLink)e.Item.FindControl("ArtistFullName");
             var artistRoleControl = (HyperLink)e.Item.FindControl("Role");
+            var workMediaLinks = (Repeater)e.Item.FindControl("workMediaLinks");
 
             var work = eventWork.Work;
 
@@ -158,6 +159,12 @@ namespace BSO.Archive.WebApp
             }
             if (work != null)
             {
+                if (work.WorkDocuments != null && work.WorkDocuments.Count > 0)
+                {
+                    workMediaLinks.DataSource = work.WorkDocuments;
+                    workMediaLinks.ItemDataBound += WorkMediaLinks_ItemDataBound;
+                    workMediaLinks.DataBind();
+                }
                 workTitleControl.Text = work.WorkTitle;
                 workTitleControl.NavigateUrl = string.Format(workTitleControl.NavigateUrl, work.WorkTitle, workComposer.FullName);
 
@@ -192,6 +199,17 @@ namespace BSO.Archive.WebApp
             {
                 composerNameControl.Text = workComposer.ComposerFullName;
                 composerNameControl.NavigateUrl = string.Format(composerNameControl.NavigateUrl, workComposer.FullName);
+            }
+        }
+
+        private void WorkMediaLinks_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.DataItem != null)
+            {
+                var MediaLink = (HyperLink)e.Item.FindControl("MediaLink");
+                var workDocument = (WorkDocument)e.Item.DataItem;
+
+                MediaLink.NavigateUrl = workDocument.WorkDocumentFileLocation;
             }
         }
     }
