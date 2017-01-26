@@ -116,11 +116,11 @@ the original program book and other general settings.
 ## Adding Work Document
 The OPAS export includes fields for “Work Document” which
 represent the recording of a concert. These fields are found in
-the <WorkItem/> section of a record for a concert. A full
-concert record is enclosed with <eventItem>/> tags, so the
-<WorkItem/> tags are nested within the <eventItem/> tags.
+the \<WorkItem/> section of a record for a concert. A full
+concert record is enclosed with \<eventItem /> tags, so the
+\<WorkItem/> tags are nested within the \<eventItem /> tags.
 The two most relevant fields (into which we are currently
-putting data) are <workDocument_Name/> and <workDocument_FileLocation/>.
+putting data) are \<workDocument_Name/> and \<workDocument_FileLocation/>.
 The batch import now reads these fields and imports them in to the HENRY database. A table
 was added named WorkDocument to store the corresponding information.
 The data stored was:
@@ -129,14 +129,15 @@ The data stored was:
 - Work document notes
 - Work document summary
 - Work document file location
-If the data in <workDocument_Name/> contains the text “Audio” AND there is data in
-<workDocument_FileLocation/> field, HENRY will display an audio icon on the search results
+
+If the data in \<workDocument_Name/> contains the text "Audio" AND there is data in
+\<workDocument_FileLocation/> field, HENRY will display an audio icon on the search results
 and work details pages. Clicking on the icon will open a new tab to access the audio where it is
 hosted at collections.bso.org website.
 
 
 ## System Requirements
-The Archive application runs using .NET Framework 4. It is hosted using Internet
+The Archive application runs using .NET Framework 4.5.2. It is hosted using Internet
 Information Services (IIS) 7.5. The data is stored using Microsoft SQL Server 2008 R2.
 These are the suggested minimal hardware specifications for a consolidated server:
 “Consolidated” meaning the server is responsible for both web and back-end SQL duties in a
@@ -153,8 +154,7 @@ simple deployment.
 ## Contact
 * Homepage: http://archives.bso.org/
 * e-mail: archives@bso.org
-* Twitter: [@twitterhandle](https://twitter.com/twitterhandle "twitterhandle on twitter")
-* other communication/social media
+* Twitter: [@twitterhandle](https://twitter.com/bostonsymphony "bostonsymphony on twitter")
 
 # Licensing and Disclaimer
 HENRY is released under GNU General Public License, version 2.
